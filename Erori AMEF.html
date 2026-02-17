@@ -1,0 +1,3750 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Case de Marcat - Căutare Erori</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background-image: url('Wallpaper 1 FISCAL ONLINE.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(44, 62, 80, 0.7);
+            z-index: 1;
+        }
+        
+        header > * {
+            position: relative;
+            z-index: 2;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .search-section {
+            padding: 40px;
+            background-color: #ecf0f1;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .search-input {
+            flex: 1;
+            min-width: 300px;
+            padding: 15px 20px;
+            font-size: 1.1rem;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: #2c3e50;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .search-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        
+        .search-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .model-filter {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        
+        .model-btn {
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .model-btn:hover {
+            background-color: #e9ecef;
+        }
+        
+        .model-btn.active {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+        
+        .results-section {
+            padding: 40px;
+            min-height: 400px;
+        }
+        
+        .results-header {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .results-count {
+            font-size: 1rem;
+            color: #7f8c8d;
+            font-weight: normal;
+        }
+        
+        .error-item {
+            background-color: #f8f9fa;
+            border-left: 5px solid #3498db;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .error-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .error-code {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .error-model {
+            display: inline-block;
+            background-color: #34495e;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+        
+        .error-display {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .error-description {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .solution-section {
+            background-color: #e8f4fc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .solution-title {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .solution-steps {
+            padding-left: 20px;
+        }
+        
+        .solution-steps li {
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #7f8c8d;
+            font-size: 1.3rem;
+        }
+        
+        .no-results-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #bdc3c7;
+        }
+        
+        .examples {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: #7f8c8d;
+        }
+        
+        .example-item {
+            display: inline-block;
+            background-color: #e9ecef;
+            padding: 5px 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .example-item:hover {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            margin-top: 40px;
+        }
+        
+        .history-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #ddd;
+        }
+        
+        .history-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .history-items {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .history-item {
+            background-color: #f8f9fa;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+        }
+        
+        .history-item:hover {
+            background-color: #e9ecef;
+        }
+        
+        @media (max-width: 768px) {
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                min-width: 100%;
+            }
+            
+            .search-btn {
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .error-code {
+                font-size: 1.5rem;
+            }
+            
+            .error-display {
+                font-size: 1.2rem;
+            }
+            
+            header {
+                padding: 30px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 25px 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Fiscal Online Oradea</h1>
+            <div class="subtitle">Căutare rapidă a erorilor și rezolvări conform manualelor de service</div>
+        </header>
+        
+        <section class="search-section">
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="Introduceți codul erorii sau cuvinte cheie (ex: -100001, 91, MF PLINA, Lipsă hârtie)">
+                <button class="search-btn" id="searchBtn">Caută Eroare</button>
+            </div>
+            
+            <div class="examples">
+                <strong>Exemple de căutare:</strong>
+                <div class="example-item" data-search="-100001">-100001 - Eroare generală AMEF</div>
+                <div class="example-item" data-search="-100114">-100114 - MF PLINA</div>
+                <div class="example-item" data-search="-100403">-100403 - Lipsa hartie</div>
+                <div class="example-item" data-search="-100500">-100500 - System error</div>
+                <div class="example-item" data-search="-111013">-111013 - Depășire registri zilnici</div>
+                <div class="example-item" data-search="-111024">-111024 - Au trecut 24 ore</div>
+                <div class="example-item" data-search="91">91 - NECESAR RAP.ZILN</div>
+                <div class="example-item" data-search="30">30 - MF PLINA</div>
+                <div class="example-item" data-search="LIPSA HARTIE">LIPSA HARTIE - Tremol</div>
+                <div class="example-item" data-search="RAM RESET">RAM RESET - Tremol</div>
+                <div class="example-item" data-search="Er 1">Er 1 - Incotex</div>
+                <div class="example-item" data-search="Er MF 1">Er MF 1 - Incotex</div>
+                <div class="example-item" data-search="2">2 - Zit (PREA MULTE SIMBOLURI)</div>
+            </div>
+            
+            <div class="model-filter">
+                <strong>Filtrare după model:</strong>
+                <button class="model-btn active" data-model="all">Toate modelele</button>
+                <button class="model-btn" data-model="Daisy">Daisy</button>
+                <button class="model-btn" data-model="Datecs">Datecs</button>
+                <button class="model-btn" data-model="Tremol">Tremol</button>
+                <button class="model-btn" data-model="Incotex">Incotex</button>
+                <button class="model-btn" data-model="Zit">Zit</button>
+            </div>
+        </section>
+        
+        <section class="results-section">
+            <div class="results-header">
+                <span>Rezultate căutare</span>
+                <span class="results-count" id="resultsCount">0 erori găsite</span>
+            </div>
+            
+            <div id="resultsContainer">
+                <div class="no-results">
+                    <div class="no-results-icon">🔍</div>
+                    <p>Introduceți un cod de eroare sau cuvinte cheie în câmpul de căutare.</p>
+                    <p>Folosiți butoanele de mai sus pentru a testa căutarea cu exemple predefinite.</p>
+                </div>
+            </div>
+            
+            <div class="history-section" id="historySection" style="display: none;">
+                <div class="history-title">Căutări recente:</div>
+                <div class="history-items" id="historyItems"></div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Program dezvoltat pentru uz intern Fiscal Online Oradea</p>
+            <p>© 2026 - Baza de date creată din manualele de service</p>
+            <p>Pentru suport tehnic: patrick@fiscalonline.ro</p>
+        </footer>
+    </div>
+
+    <script>
+        // Baza de date cu erori
+        const errorsDatabase = [
+            // Erori Daisy (Compact S) din manualul primit - Paginile 34-36
+            {
+                code: "3",
+                model: "Daisy",
+                displayText: "MAXIM VANZ BON",
+                description: "Nu se mai pot face vânzări pe acest bon.",
+                solution: [
+                    "Apasă tasta C pentru a închide bonul",
+                    "Începe un bon nou pentru vânzări suplimentare"
+                ]
+            },
+            {
+                code: "4",
+                model: "Daisy",
+                displayText: "NR.MAX.PLATI",
+                description: "Nu mai poți face plăți pe acest bon.",
+                solution: [
+                    "Apasă tasta C pentru a închide bonul",
+                    "Începe un bon nou pentru plăți suplimentare"
+                ]
+            },
+            {
+                code: "5",
+                model: "Daisy",
+                displayText: "VALOARE ZERO",
+                description: "Încercare de efectuare tranzacție cu sumă zero.",
+                solution: [
+                    "Apasă tasta C pentru a închide bonul",
+                    "Verifică prețul introdus",
+                    "Asigură-te că suma nu este zero înainte de a finaliza tranzacția"
+                ]
+            },
+            {
+                code: "6",
+                model: "Daisy",
+                displayText: "INCEPE PLATA",
+                description: "Încercare de VANZARE, după ce plata a fost inițiată.",
+                solution: [
+                    "Apasă tasta C pentru a închide bonul",
+                    "Finalizează plata curentă sau anulează bonul"
+                ]
+            },
+            {
+                code: "7",
+                model: "Daisy",
+                displayText: "OPER.INTERZISA",
+                description: "Este interzisă această operație.",
+                solution: [
+                    "Apasă tasta C pentru a închide bonul",
+                    "Verifică dacă operația este permisă în setări"
+                ]
+            },
+            {
+                code: "11",
+                model: "Daisy",
+                displayText: "MULTE PUNCTE",
+                description: "Depașit numarul de cifre după punctul zecimal.",
+                solution: [
+                    "Apasă tasta C și verifică parametrii sistemului",
+                    "Verifică formatul numerelor introduse"
+                ]
+            },
+            {
+                code: "14",
+                model: "Daisy",
+                displayText: "SIMBOL GRESIT",
+                description: "Simbol incorect pentru codul de bare, care trebuie să conțină numai numere.",
+                solution: [
+                    "Apasă tasta C și introduce numărul corect de simboluri",
+                    "Verifică că codul de bare conține doar cifre"
+                ]
+            },
+            {
+                code: "15",
+                model: "Daisy",
+                displayText: "MULTE PUNCTE",
+                description: "Ați introdus mai multe simboluri decât cele permise.",
+                solution: [
+                    "Apasă tasta C și verifică parametrii sistemului",
+                    "Reduce numărul de simboluri introduse"
+                ]
+            },
+            {
+                code: "16",
+                model: "Daisy",
+                displayText: "MULTE SIMBOLURI",
+                description: "Ați introdus mai multe simboluri decât cele permise.",
+                solution: [
+                    "Apasă tasta C și introduce numărul corect de simboluri",
+                    "Verifică limita de caractere pentru câmpul respectiv"
+                ]
+            },
+            {
+                code: "19",
+                model: "Daisy",
+                displayText: "BON DESCHIS",
+                description: "Aveți un bon deschis.",
+                solution: [
+                    "Apasă tasta C și continuă lucrul",
+                    "Finalizează sau anulează bonul deschis"
+                ]
+            },
+            {
+                code: "20",
+                model: "Daisy",
+                displayText: "TASTA INCORECTA",
+                description: "În acest caz particular, tasta apăsată nu are funcție.",
+                solution: [
+                    "Apasă tasta C și continuă lucrul",
+                    "Folosește tastele corespunzătoare funcției dorite"
+                ]
+            },
+            {
+                code: "21",
+                model: "Daisy",
+                displayText: "VAL.INCORECTA",
+                description: "Valoarea este în afara limitelor permise.",
+                solution: [
+                    "Apasă tasta C și introdu valoarea în limita admisă",
+                    "Verifică intervalul de valori acceptat"
+                ]
+            },
+            {
+                code: "22",
+                model: "Daisy",
+                displayText: "OPER.INTERZISA",
+                description: "Operație interzisă - verifică parametrul sistem 8.",
+                solution: [
+                    "Apasă tasta C și verifică parametrul 8",
+                    "Verifică permisiunile operației în setări"
+                ]
+            },
+            {
+                code: "23",
+                model: "Daisy",
+                displayText: "ANULARE INTERZ.",
+                description: "Încercare de anulare 'Void' după un discount / adaos făcut pe subtotal.",
+                solution: [
+                    "Apasă tasta C și închideți bonul",
+                    "Anularea nu este permisă după aplicarea reducerii/adaosului"
+                ]
+            },
+            {
+                code: "24",
+                model: "Daisy",
+                displayText: "OPERATIE GRESITA",
+                description: "Încercare de anulare Void pentru o tranzactie inexistentă.",
+                solution: [
+                    "Apasă tasta C și închide bonul",
+                    "Verifică că tranzacția există înainte de anulare"
+                ]
+            },
+            {
+                code: "25",
+                model: "Daisy",
+                displayText: "OPERATIE GRESITA",
+                description: "Încercare de închidere bon fără a avea o VÂNZARE.",
+                solution: [
+                    "Apasă tasta C și faceți VÂNZARE înainte de închidere bon",
+                    "Adaugă cel puțin un articol înainte de închidere"
+                ]
+            },
+            {
+                code: "26",
+                model: "Daisy",
+                displayText: "NU E STOC",
+                description: "Încercare de vânzare articole (PLU) fără a avea cantitatea vândută pe stoc.",
+                solution: [
+                    "Apasă tasta C și verifică stocul pentru acest articol PLU",
+                    "Actualizează stocul sau dezactivează controlul stocului"
+                ]
+            },
+            {
+                code: "27",
+                model: "Daisy",
+                displayText: "EROARE BALANTA",
+                description: "Comunicare incorectă cu cântarul electronic.",
+                solution: [
+                    "Apasă tasta C și introdu valoarea corectă",
+                    "Verifică conexiunea cu cântarul"
+                ]
+            },
+            {
+                code: "29",
+                model: "Daisy",
+                displayText: "FARA NUME",
+                description: "Numele produsului nu este programat.",
+                solution: [
+                    "Programați numele articolului PLU",
+                    "Accesați modul PROGR și adăugați numele articolului"
+                ]
+            },
+            {
+                code: "30",
+                model: "Daisy",
+                displayText: "MF PLINA",
+                description: "Memoria fiscală este plină.",
+                solution: [
+                    "Contactează tehnicianul de service imediat",
+                    "Nu continua operarea casei de marcat",
+                    "Memoria fiscală trebuie înlocuită de către un tehnician autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "38",
+                model: "Daisy",
+                displayText: "CIF INCORECT!",
+                description: "Codul CIF este incorrect.",
+                solution: [
+                    "Apasă tasta C și introdu valoarea corectă",
+                    "Verifică corectitudinea codului CIF introdus"
+                ]
+            },
+            {
+                code: "39",
+                model: "Daisy",
+                displayText: "EROARE",
+                description: "Lipsă unitate de măsură.",
+                solution: [
+                    "Programați unitatea de măsură",
+                    "Accesați modul PROGR și setează unitatea de măsură"
+                ]
+            },
+            {
+                code: "41",
+                model: "Daisy",
+                displayText: "CODBARE INCORECT",
+                description: "Cod de bare incorect (sumă de control greșită).",
+                solution: [
+                    "Apasă tasta C și introdu cod de bare corect",
+                    "Verifică validitatea codului de bare"
+                ]
+            },
+            {
+                code: "42",
+                model: "Daisy",
+                displayText: "CODBARE ZERO",
+                description: "Încercare de vânzare cu cod de bare nul.",
+                solution: [
+                    "Apasă tasta C și introdu cod bare",
+                    "Introdu un cod de bare valid, diferit de zero"
+                ]
+            },
+            {
+                code: "43",
+                model: "Daisy",
+                displayText: "INTERZIS CODBARE",
+                description: "Încercare de programare cu un cod de bare pentru greutate.",
+                solution: [
+                    "Apasă tasta C și continuă lucrul",
+                    "Folosește alt tip de cod de bare"
+                ]
+            },
+            {
+                code: "44",
+                model: "Daisy",
+                displayText: "CODBARE NEPROG.",
+                description: "Încercare de VANZARE cu un cod de bare neprogramat.",
+                solution: [
+                    "Apasă tasta C și programează cod bare",
+                    "Accesați modul PROGR și adăugați codul de bare pentru articol"
+                ]
+            },
+            {
+                code: "45",
+                model: "Daisy",
+                displayText: "CODBARE EXISTENT",
+                description: "Încercare de programare a unui cod de bare existent.",
+                solution: [
+                    "Apasă tasta C și program another barcode",
+                    "Folosește un cod de bare unic pentru fiecare articol"
+                ]
+            },
+            {
+                code: "61",
+                model: "Daisy",
+                displayText: "EROARE CARD",
+                description: "SD Card defect - casa de marcat blocată.",
+                solution: [
+                    "Contactează technician de service",
+                    "Nu încerca reparații proprii",
+                    "Cardul SD trebuie înlocuit"
+                ],
+                urgent: true
+            },
+            {
+                code: "70",
+                model: "Daisy",
+                displayText: "FM NU EXISTA!!!",
+                description: "Memoria fiscală nu este prezentă!",
+                solution: [
+                    "Nu se poate continua lucrul",
+                    "Contactează tehnicianul de service imediat",
+                    "Verifică conexiunea memoriei fiscale"
+                ],
+                urgent: true
+            },
+            {
+                code: "71",
+                model: "Daisy",
+                displayText: "INLOCUIRE FM!!!",
+                description: "Date incorecte in memoria fiscală!",
+                solution: [
+                    "Nu se poate continua lucrul",
+                    "Contactează tehnicianul de service imediat",
+                    "Memoria fiscală necesită intervenție"
+                ],
+                urgent: true
+            },
+            {
+                code: "72",
+                model: "Daisy",
+                displayText: "EROARE INREG.FM!!!",
+                description: "Eroare la scrierea datelor in memoria fiscală!",
+                solution: [
+                    "Nu se poate continua lucrul",
+                    "Contactează tehnicianul de service imediat",
+                    "Memoria fiscală poate fi defectă"
+                ],
+                urgent: true
+            },
+            {
+                code: "81",
+                model: "Daisy",
+                displayText: "DEPAS.RAP.ZILN",
+                description: "Depășit limita pentru raportul fiscal zilnic.",
+                solution: [
+                    "Apasă tasta C și rulează raportul fiscal zilnic cu reset",
+                    "Accesează modul RAPORT Z și generează raportul"
+                ]
+            },
+            {
+                code: "82",
+                model: "Daisy",
+                displayText: "DEPASIT 24h",
+                description: "Au trecut mai mult de 24 ore fără să fie făcut raport fiscal zilnic.",
+                solution: [
+                    "Efectuează imediat raportul fiscal zilnic",
+                    "Accesează modul RAPORT Z și generează raportul"
+                ]
+            },
+            {
+                code: "83",
+                model: "Daisy",
+                displayText: "DEPAS.RAP.OPER.",
+                description: "Raportul pe operatori este plin.",
+                solution: [
+                    "Apasă tasta C și rulează raportul pe operatori cu reset",
+                    "Accesează modul RAPORT Z și generează raportul operatori"
+                ]
+            },
+            {
+                code: "84",
+                model: "Daisy",
+                displayText: "DEPAS.RAP.ART.",
+                description: "Raportul pe articole (PLU) plin.",
+                solution: [
+                    "Apasă tasta C și rulează raportul pe articole (PLU) cu resetare",
+                    "Accesează modul RAPORT Z și generează raportul articole"
+                ]
+            },
+            {
+                code: "91",
+                model: "Daisy",
+                displayText: "NECESAR RAP.ZILN",
+                description: "Raportul fiscal zilnic nu a fost făcut.",
+                solution: [
+                    "Apasă tasta C și rulează raportul fiscal zilnic cu reset",
+                    "Introdu parola pentru modul RAPORT Z și confirmă cu tasta CLK",
+                    "Apasă tasta TL pentru a imprima un Raport zilnic cu ștergere"
+                ]
+            },
+            {
+                code: "92",
+                model: "Daisy",
+                displayText: "NECESAR RAP.OPER",
+                description: "Raportul pe operatori nu a fost resetat.",
+                solution: [
+                    "Apasă tasta C și rulează raportul pe operatori cu reset",
+                    "Accesează modul RAPORT Z și generează raportul operatori"
+                ]
+            },
+            {
+                code: "93",
+                model: "Daisy",
+                displayText: "NECESAR RAP.ART.",
+                description: "Raportul pe articole (PLU) nu a fost resetat.",
+                solution: [
+                    "Apasă tasta C și rulează raportul pe articole (PLU) cu reset",
+                    "Accesează modul RAPORT Z și generează raportul articole"
+                ]
+            },
+            {
+                code: "97",
+                model: "Daisy",
+                displayText: "MODIF.INTERZISA",
+                description: "Acest câmp nu poate fi modificat.",
+                solution: [
+                    "Apasă tasta C și rulează raportul fiscal zilnic cu reset",
+                    "Unele câmpuri sunt protejate și nu pot fi modificate"
+                ]
+            },
+            {
+                code: "98",
+                model: "Daisy",
+                displayText: "LIPSĂ CERTIFICAT DIGITAL",
+                description: "Nu există Certificat Digital instalat in AMEF.",
+                solution: [
+                    "Nu se poate continua lucrul",
+                    "Contactează tehnicianul de service imediat",
+                    "Certificatul digital trebuie instalat de către personal autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "108",
+                model: "Daisy",
+                displayText: "PAROLA GRESITA",
+                description: "Încercare de introducere a unei parole greșite.",
+                solution: [
+                    "Apasă tasta C și introdu parola corectă",
+                    "Verifică parola în manualul de utilizare"
+                ]
+            },
+            {
+                code: "123",
+                model: "Daisy",
+                displayText: "SD CARD DEFECT",
+                description: "Micro SD-cardul intern al Jurnalului Electronic este defect.",
+                solution: [
+                    "Nu se poate continua lucrul",
+                    "Contactează tehnicianul de service imediat",
+                    "Cardul micro SD trebuie înlocuit"
+                ],
+                urgent: true
+            },
+            {
+                code: "124",
+                model: "Daisy",
+                displayText: "SD CARD SCHIMBAT",
+                description: "Micro SD-cardul intern al Jurnalului Electronic a fost schimbat.",
+                solution: [
+                    "Nu se poate continua lucrul",
+                    "Contactează tehnicianul de service imediat",
+                    "Cardul SD original trebuie reinstalat"
+                ],
+                urgent: true
+            },
+            {
+                code: "125",
+                model: "Daisy",
+                displayText: "SD CARD EXTERN NEACCEPTAT",
+                description: "USB-ul extern folosit pentru salvarea informațiilor din casa de marcat nu este acceptat.",
+                solution: [
+                    "Folosiți un alt USB stick",
+                    "Verificați compatibilitatea dispozitivului USB",
+                    "Formatați USB-ul în format FAT32"
+                ]
+            },
+            {
+                code: "126",
+                model: "Daisy",
+                displayText: "SD CARD INTERN PLIN",
+                description: "Micro SD-cardul intern al JE este plin. Cardul trebuie inlocuit.",
+                solution: [
+                    "Nu se poate continua lucrul",
+                    "Contactează tehnicianul de service imediat",
+                    "Cardul micro SD trebuie înlocuit cu unul de capacitate mai mare"
+                ],
+                urgent: true
+            },
+
+            // Erori Datecs din tabelul ErrorCodes - 2020.xls
+            // COM Server Error Codes
+            {
+                code: "0",
+                model: "Datecs",
+                displayText: "Operation successful",
+                description: "Operațiune finalizată cu succes.",
+                solution: [
+                    "Nu este necesară nicio acțiune - operațiunea s-a desfășurat corect"
+                ]
+            },
+            {
+                code: "-1",
+                model: "Datecs",
+                displayText: "General error / Unknown error",
+                description: "Eroare generală sau necunoscută.",
+                solution: [
+                    "Reporniți aparatul",
+                    "Verificați conexiunile",
+                    "Contactați service-ul dacă problema persistă"
+                ]
+            },
+            {
+                code: "-2",
+                model: "Datecs",
+                displayText: "Create error",
+                description: "Eroare la creare.",
+                solution: [
+                    "Verificați permisiunile de creare",
+                    "Verificați spațiul disponibil",
+                    "Reporniți aplicația"
+                ]
+            },
+            {
+                code: "-3",
+                model: "Datecs",
+                displayText: "Open error",
+                description: "Eroare la deschidere.",
+                solution: [
+                    "Verificați dacă resursa există",
+                    "Verificați permisiunile de acces",
+                    "Închideți alte aplicații care ar putea folosi resursa"
+                ]
+            },
+            {
+                code: "-4",
+                model: "Datecs",
+                displayText: "Close error",
+                description: "Eroare la închidere.",
+                solution: [
+                    "Verificați starea conexiunii",
+                    "Încercați să reporniți aplicația"
+                ]
+            },
+            {
+                code: "-5",
+                model: "Datecs",
+                displayText: "Device or resource busy",
+                description: "Dispozitiv sau resursă ocupată.",
+                solution: [
+                    "Așteptați eliberarea resursei",
+                    "Închideți alte aplicații care folosesc dispozitivul",
+                    "Reporniți aparatul"
+                ]
+            },
+            {
+                code: "-6",
+                model: "Datecs",
+                displayText: "Timeout expired",
+                description: "Timpul de așteptare a expirat.",
+                solution: [
+                    "Verificați conexiunea",
+                    "Creșteți timpul de timeout în setări",
+                    "Încercați din nou"
+                ]
+            },
+            {
+                code: "-7",
+                model: "Datecs",
+                displayText: "The operation is not supported",
+                description: "Operațiunea nu este suportată.",
+                solution: [
+                    "Verificați compatibilitatea versiunii",
+                    "Consultați documentația tehnică",
+                    "Actualizați firmware-ul"
+                ]
+            },
+            {
+                code: "-8",
+                model: "Datecs",
+                displayText: "Memory allocation error",
+                description: "Eroare de alocare a memoriei.",
+                solution: [
+                    "Reporniți aparatul",
+                    "Verificați memoria disponibilă",
+                    "Reduceți volumul de date procesat"
+                ]
+            },
+            {
+                code: "-9",
+                model: "Datecs",
+                displayText: "Invalid parameter",
+                description: "Parametru invalid.",
+                solution: [
+                    "Verificați parametrii introduși",
+                    "Consultați manualul pentru valori corecte",
+                    "Corectați datele de intrare"
+                ]
+            },
+            {
+                code: "-10",
+                model: "Datecs",
+                displayText: "Input/Output error",
+                description: "Eroare de intrare/ieșire.",
+                solution: [
+                    "Verificați conexiunile hardware",
+                    "Reporniți dispozitivul",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-11",
+                model: "Datecs",
+                displayText: "CRC error",
+                description: "Eroare de sumă de control.",
+                solution: [
+                    "Verificați integritatea datelor",
+                    "Retransmiteți datele",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-12",
+                model: "Datecs",
+                displayText: "Flash memory error",
+                description: "Eroare de memorie flash.",
+                solution: [
+                    "Reporniți aparatul",
+                    "Contactați service-ul pentru verificare",
+                    "Este posibil să necesite înlocuire"
+                ],
+                urgent: true
+            },
+            {
+                code: "-13",
+                model: "Datecs",
+                displayText: "EEPROM error",
+                description: "Eroare de memorie EEPROM.",
+                solution: [
+                    "Reporniți aparatul",
+                    "Contactați service-ul pentru verificare",
+                    "Este posibil să necesite reconfigurare"
+                ],
+                urgent: true
+            },
+            {
+                code: "-14",
+                model: "Datecs",
+                displayText: "Device error",
+                description: "Eroare de dispozitiv.",
+                solution: [
+                    "Verificați starea hardware",
+                    "Reporniți aparatul",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-15",
+                model: "Datecs",
+                displayText: "The operation is not implemented",
+                description: "Operațiunea nu este implementată.",
+                solution: [
+                    "Verificați versiunea de firmware",
+                    "Consultați documentația",
+                    "Contactați producătorul"
+                ]
+            },
+            {
+                code: "-16",
+                model: "Datecs",
+                displayText: "The device or resource does not exists",
+                description: "Dispozitivul sau resursa nu există.",
+                solution: [
+                    "Verificați conexiunile",
+                    "Verificați configurația",
+                    "Asigurați-vă că dispozitivul este conectat"
+                ]
+            },
+            {
+                code: "-17",
+                model: "Datecs",
+                displayText: "Invalid command",
+                description: "Comandă invalidă.",
+                solution: [
+                    "Verificați sintaxa comenzii",
+                    "Consultați manualul de comandă",
+                    "Corectați comanda"
+                ]
+            },
+            {
+                code: "-18",
+                model: "Datecs",
+                displayText: "Not exist object",
+                description: "Obiect inexistent.",
+                solution: [
+                    "Verificați existența obiectului",
+                    "Creați obiectul înainte de utilizare"
+                ]
+            },
+            {
+                code: "-19",
+                model: "Datecs",
+                displayText: "No more items or operations",
+                description: "Nu mai există elemente sau operațiuni.",
+                solution: [
+                    "Finalizați operațiunea curentă",
+                    "Verificați limita maximă atinsă"
+                ]
+            },
+            {
+                code: "-20",
+                model: "Datecs",
+                displayText: "Command failed",
+                description: "Comanda a eșuat.",
+                solution: [
+                    "Verificați parametrii",
+                    "Încercați din nou",
+                    "Verificați starea dispozitivului"
+                ]
+            },
+            {
+                code: "-21",
+                model: "Datecs",
+                displayText: "Invalid command",
+                description: "Comandă invalidă.",
+                solution: [
+                    "Verificați sintaxa",
+                    "Consultați documentația",
+                    "Corectați comanda"
+                ]
+            },
+            {
+                code: "-22",
+                model: "Datecs",
+                displayText: "No registered",
+                description: "Neînregistrat.",
+                solution: [
+                    "Efectuați înregistrarea necesară",
+                    "Verificați statusul înregistrării"
+                ]
+            },
+            {
+                code: "-23",
+                model: "Datecs",
+                displayText: "Error which was obtained in GetStatus method",
+                description: "Eroare obținută în metoda GetStatus. Unii biți din statusul dispozitivului fiscal sunt activați.",
+                solution: [
+                    "Verificați starea detaliată a dispozitivului",
+                    "Consultați lista de erori pentru biții specifici",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-10500",
+                model: "Datecs",
+                displayText: "Missing input parameter",
+                description: "Parametru de intrare lipsă.",
+                solution: [
+                    "Completați toți parametrii obligatorii",
+                    "Verificați cerințele comenzii"
+                ]
+            },
+            {
+                code: "-10502",
+                model: "Datecs",
+                displayText: "Check for exceeding the upper limit of the parameter (length)",
+                description: "Depășire limită superioară a parametrului (lungime).",
+                solution: [
+                    "Reduceți lungimea parametrului",
+                    "Verificați limita maximă permisă"
+                ]
+            },
+            {
+                code: "-10503",
+                model: "Datecs",
+                displayText: "Check for exceeding the lower limit of the parameter (length)",
+                description: "Depășire limită inferioară a parametrului (lungime).",
+                solution: [
+                    "Măriți lungimea parametrului",
+                    "Verificați limita minimă permisă"
+                ]
+            },
+            {
+                code: "-10504",
+                model: "Datecs",
+                displayText: "Check for availability in the enumerated list of values",
+                description: "Verificare disponibilitate în lista de valori.",
+                solution: [
+                    "Utilizați o valoare din lista permisă",
+                    "Consultați lista de valori acceptate"
+                ]
+            },
+            {
+                code: "-10505",
+                model: "Datecs",
+                displayText: "Check whether the parameter is real number",
+                description: "Verificare dacă parametrul este număr real.",
+                solution: [
+                    "Introduceți un număr real valid",
+                    "Verificați formatul numeric"
+                ]
+            },
+            {
+                code: "-10506",
+                model: "Datecs",
+                displayText: "Check for exceeding the upper limit of the parameter (Currency value)",
+                description: "Depășire limită superioară a parametrului (valoare monetară).",
+                solution: [
+                    "Reduceți valoarea",
+                    "Verificați limita maximă pentru sume"
+                ]
+            },
+            {
+                code: "-10507",
+                model: "Datecs",
+                displayText: "Check for exceeding the lower limit of the parameter (Currency value)",
+                description: "Depășire limită inferioară a parametrului (valoare monetară).",
+                solution: [
+                    "Măriți valoarea",
+                    "Verificați limita minimă pentru sume"
+                ]
+            },
+            {
+                code: "-10508",
+                model: "Datecs",
+                displayText: "Check for exceeding the upper limit of the parameter (QTY value)",
+                description: "Depășire limită superioară a parametrului (cantitate).",
+                solution: [
+                    "Reduceți cantitatea",
+                    "Verificați limita maximă de cantitate"
+                ]
+            },
+            {
+                code: "-10509",
+                model: "Datecs",
+                displayText: "Check for exceeding the lower limit of the parameter (QTY value)",
+                description: "Depășire limită inferioară a parametrului (cantitate).",
+                solution: [
+                    "Măriți cantitatea",
+                    "Verificați limita minimă de cantitate"
+                ]
+            },
+            {
+                code: "-10510",
+                model: "Datecs",
+                displayText: "Check whether the parameter is an integer value",
+                description: "Verificare dacă parametrul este număr întreg.",
+                solution: [
+                    "Introduceți un număr întreg",
+                    "Eliminați zecimalele"
+                ]
+            },
+            {
+                code: "-10511",
+                model: "Datecs",
+                displayText: "Check for exceeding the upper limit of the parameter (INT value)",
+                description: "Depășire limită superioară a parametrului (valoare întreagă).",
+                solution: [
+                    "Reduceți valoarea",
+                    "Verificați limita maximă pentru numere întregi"
+                ]
+            },
+            {
+                code: "-10512",
+                model: "Datecs",
+                displayText: "Check for exceeding the lower limit of the parameter (INT value)",
+                description: "Depășire limită inferioară a parametrului (valoare întreagă).",
+                solution: [
+                    "Măriți valoarea",
+                    "Verificați limita minimă pentru numere întregi"
+                ]
+            },
+            {
+                code: "-10525",
+                model: "Datecs",
+                displayText: "Timeout error",
+                description: "Eroare de timeout.",
+                solution: [
+                    "Verificați conexiunea",
+                    "Încercați din nou",
+                    "Creșteți timpul de așteptare"
+                ]
+            },
+            {
+                code: "-10526",
+                model: "Datecs",
+                displayText: "Command not found (By name)",
+                description: "Comandă negăsită (după nume).",
+                solution: [
+                    "Verificați numele comenzii",
+                    "Consultați lista de comenzi disponibile"
+                ]
+            },
+            {
+                code: "-10527",
+                model: "Datecs",
+                displayText: "Command not found (By values)",
+                description: "Comandă negăsită (după valori).",
+                solution: [
+                    "Verificați valorile parametrilor",
+                    "Consultați documentația"
+                ]
+            },
+            {
+                code: "-10528",
+                model: "Datecs",
+                displayText: "Successfully canceled PinPad transaction (automatically - from settings)",
+                description: "Tranzacție PinPad anulată cu succes (automat - din setări).",
+                solution: [
+                    "Nu este necesară acțiune - anulare automată",
+                    "Verificați setările PinPad"
+                ]
+            },
+            {
+                code: "-10529",
+                model: "Datecs",
+                displayText: "The CSV file is not in format",
+                description: "Fișierul CSV nu este în formatul corect.",
+                solution: [
+                    "Verificați formatul fișierului CSV",
+                    "Asigurați-vă că delimitatorul este corect"
+                ]
+            },
+            {
+                code: "-10530",
+                model: "Datecs",
+                displayText: "This is a header row",
+                description: "Acesta este un rând de antet.",
+                solution: [
+                    "Ignorați rândul de antet",
+                    "Procesați doar rândurile cu date"
+                ]
+            },
+            
+            // Fiscal Device Error Codes
+            {
+                code: "-100001",
+                model: "Datecs",
+                displayText: "General error in fiscal device: In - out error (cannot read or write)",
+                description: "Eroare generala AMEF: eroare in - out (nu poate citi sau scrie)",
+                solution: [
+                    "Verifică conexiunile cablurilor",
+                    "Restartează aparatul",
+                    "Contactează service dacă problema persistă"
+                ]
+            },
+            {
+                code: "-100002",
+                model: "Datecs",
+                displayText: "General error in fiscal device: Wrong checksum",
+                description: "Eroare generala AMEF: Suma de control gresita",
+                solution: [
+                    "Verificați integritatea datelor",
+                    "Reporniți aparatul",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-100003",
+                model: "Datecs",
+                displayText: "General error in fiscal device: No more data",
+                description: "Eroare generala AMEF: Lipsa informatii",
+                solution: [
+                    "Verificați disponibilitatea datelor",
+                    "Asigurați-vă că există informații de citit"
+                ]
+            },
+            {
+                code: "-100004",
+                model: "Datecs",
+                displayText: "General error in fiscal device: The element is not found",
+                description: "Eroare generala AMEF: Element inexistent",
+                solution: [
+                    "Verificați existența elementului",
+                    "Creați elementul înainte de utilizare"
+                ]
+            },
+            {
+                code: "-100005",
+                model: "Datecs",
+                displayText: "General error in fiscal device: There are no records found",
+                description: "Eroare generala AMEF: Nu sunt inregistrari",
+                solution: [
+                    "Verificați perioada selectată",
+                    "Asigurați-vă că există înregistrări"
+                ]
+            },
+            {
+                code: "-100006",
+                model: "Datecs",
+                displayText: "General error in fiscal device: The operation is aborted",
+                description: "Eroare generala AMEF: Operatie abandonata",
+                solution: [
+                    "Încercați din nou operația",
+                    "Verificați starea dispozitivului"
+                ]
+            },
+            {
+                code: "-100007",
+                model: "Datecs",
+                displayText: "Wrong mode (standart training...) is selected",
+                description: "Selectare Mod Gresit (standard training)",
+                solution: [
+                    "Selectați modul corect de operare",
+                    "Verificați setările"
+                ]
+            },
+            {
+                code: "-100008",
+                model: "Datecs",
+                displayText: "General error in fiscal device: Device is not ready",
+                description: "Eroare generala AMEF: Echipamentul nu este pregatit",
+                solution: [
+                    "Așteptați inițializarea dispozitivului",
+                    "Reporniți aparatul",
+                    "Verificați conexiunile"
+                ]
+            },
+            {
+                code: "-100009",
+                model: "Datecs",
+                displayText: "General error in fiscal device: Nothing to print",
+                description: "Eroare generala AMEF: Nu exista nimic de printat",
+                solution: [
+                    "Adăugați produse în bon",
+                    "Verificați dacă există date de imprimat"
+                ]
+            },
+            
+            // Fiscal Memory Errors
+            {
+                code: "-100100",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Fiscal memory is busy",
+                description: "Eroare memorie fiscala: Memorie fiscala ocupata",
+                solution: [
+                    "Așteptați finalizarea operației curente",
+                    "Reporniți aparatul",
+                    "Contactați service-ul dacă persistă"
+                ]
+            },
+            {
+                code: "-100101",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Fiscal memory failure. Could not read or write",
+                description: "Eroare memorie fiscala: Esuare Memorie Fiscala. nu poate citi sau scrie",
+                solution: [
+                    "Nu continuați operarea",
+                    "Contactați service-ul autorizat",
+                    "Memoria fiscală poate fi defectă"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100102",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Forbidden write in fiscal memory",
+                description: "Eroare memorie fiscala: Scriere interzisa in MF",
+                solution: [
+                    "Operația nu este permisă în acest moment",
+                    "Verificați starea memoriei fiscale",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-100103",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Wrong address in fiscal memory",
+                description: "Eroare memorie fiscala: Adresa gresita in MF",
+                solution: [
+                    "Reporniți aparatul",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100104",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Wrong size in fiscal memory",
+                description: "Eroare memorie fiscala: Marime gresita in MF",
+                solution: [
+                    "Verificați configurația",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100105",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Fiscal memory is not connected",
+                description: "Eroare memorie fiscala: MF nu e conectata",
+                solution: [
+                    "Verificați conexiunea memoriei fiscale",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100106",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Wrong checksum in fiscal memory (invalid data)",
+                description: "Eroare memorie fiscala: Suma de control gresita in MF (invalid data)",
+                solution: [
+                    "Datele din MF sunt corupte",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100107",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Empty block in fiscal memory",
+                description: "Eroare memorie fiscala: Bloc de memorie gol in MF",
+                solution: [
+                    "Verificați integritatea MF",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-100108",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Maximum number of block in fiscal memory",
+                description: "Eroare memorie fiscala: Numar maxim de blocuri in MF",
+                solution: [
+                    "Memoria fiscală este aproape plină",
+                    "Contactați service-ul pentru evaluare"
+                ]
+            },
+            {
+                code: "-100109",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Wrong range in fiscal memory",
+                description: "Eroare memorie fiscala: Zona de memorie gresita in MF",
+                solution: [
+                    "Contactați service-ul autorizat",
+                    "Este posibilă o eroare hardware"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100110",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Empty range in fiscal memory",
+                description: "Eroare memorie fiscala: zona de memorie goala in MF",
+                solution: [
+                    "Verificați datele din MF",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-100111",
+                model: "Datecs",
+                displayText: "Fiscal memory error: New module in fiscal memory",
+                description: "Eroare memorie fiscala: Modul nou MF",
+                solution: [
+                    "Memoria fiscală a fost înlocuită",
+                    "Contactați service-ul pentru configurare"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100112",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Fiscal memory is not empty",
+                description: "Eroare memorie fiscala: MF nu e goala",
+                solution: [
+                    "Memoria fiscală conține deja date",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-100113",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Fiscal memory is not equal",
+                description: "Eroare memorie fiscala: MF nu e egala",
+                solution: [
+                    "Incompatibilitate memorie fiscală",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100114",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Fiscal memory is full",
+                description: "Eroare memorie fiscala: MF plina",
+                solution: [
+                    "Nu se mai pot face înregistrări fiscale",
+                    "Contactați service-ul pentru înlocuire MF"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100115",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Fiscal memory needs update",
+                description: "Eroare memorie fiscala: MF necesita update",
+                solution: [
+                    "Contactați service-ul pentru actualizare",
+                    "Este necesară intervenția tehnicianului"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100116",
+                model: "Datecs",
+                displayText: "Fiscal memory error: Fiscal memory is blocked",
+                description: "Eroare memorie fiscala: MF blocata",
+                solution: [
+                    "Memoria fiscală este blocată",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            
+            // Printer Driver Errors
+            {
+                code: "-100400",
+                model: "Datecs",
+                displayText: "Line thermal printer mechanism error: Power supply error (3,3 V)",
+                description: "Eroare imprimanta termica: Eroare alimentare (3,3 V)",
+                solution: [
+                    "Verificați sursa de alimentare",
+                    "Reporniți aparatul",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100401",
+                model: "Datecs",
+                displayText: "Line thermal printer mechanism error: Power supply error (24V or 8V)",
+                description: "Eroare imprimanta termica: Eroare alimentare (24V sau 8V)",
+                solution: [
+                    "Verificați sursa de alimentare",
+                    "Reporniți aparatul",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100402",
+                model: "Datecs",
+                displayText: "Line thermal printer mechanism error: Head overheating",
+                description: "Eroare imprimanta termica: Cap imprimare supraincalzit",
+                solution: [
+                    "Opriți aparatul și lăsați-l să se răcească",
+                    "Reduceți volumul de tipărire",
+                    "Verificați ventilarea"
+                ]
+            },
+            {
+                code: "-100403",
+                model: "Datecs",
+                displayText: "Line thermal printer mechanism error: Paper end",
+                description: "Eroare imprimanta termica: Lipsa hartie",
+                solution: [
+                    "Încărcați hârtie termică nouă",
+                    "Verificați dacă hârtia este introdusă corect",
+                    "Curățați senzorii de hârtie"
+                ]
+            },
+            {
+                code: "-100404",
+                model: "Datecs",
+                displayText: "Line thermal printer mechanism error: Cover is open",
+                description: "Eroare imprimanta termica: Capac deschis",
+                solution: [
+                    "Închideți capacul imprimantei",
+                    "Verificați dacă capacul este fixat corect"
+                ]
+            },
+            {
+                code: "-100405",
+                model: "Datecs",
+                displayText: "Line thermal printer mechanism error: Near paper end",
+                description: "Eroare imprimanta termica: Atentie! Se termina hartia",
+                solution: [
+                    "Pregătiți o rolă nouă de hârtie",
+                    "Înlocuiți hârtia când se termină"
+                ]
+            },
+            {
+                code: "-100407",
+                model: "Datecs",
+                displayText: "Line thermal printer mechanism error: Cutter error",
+                description: "Eroare imprimanta termica: Eroare Cutter",
+                solution: [
+                    "Verificați dacă cutter-ul nu este blocat",
+                    "Curățați zona cutter-ului",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-100414",
+                model: "Datecs",
+                displayText: "Printer on time is overrun",
+                description: "Tiparire desincronizata",
+                solution: [
+                    "Reporniți imprimanta",
+                    "Verificați sincronizarea",
+                    "Contactați service-ul"
+                ]
+            },
+            
+            // System Errors
+            {
+                code: "-100500",
+                model: "Datecs",
+                displayText: "System error: Memory structure error",
+                description: "Eroare sistem: Eroare structura memorie",
+                solution: [
+                    "Reporniți aparatul",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100501",
+                model: "Datecs",
+                displayText: "System error: Error in RAM",
+                description: "Eroare sistem: Eroare RAM",
+                solution: [
+                    "Reporniți aparatul",
+                    "Contactați service-ul - posibilă defecțiune hardware"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100502",
+                model: "Datecs",
+                displayText: "System error: Flash memory error",
+                description: "Eroare sistem: Eroare memorie flash",
+                solution: [
+                    "Reporniți aparatul",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100503",
+                model: "Datecs",
+                displayText: "System error: SD card error",
+                description: "Eroare sistem: Eroare card SD",
+                solution: [
+                    "Verificați cardul SD",
+                    "Înlocuiți cardul SD dacă este necesar",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100504",
+                model: "Datecs",
+                displayText: "System error: Invalid message file",
+                description: "Eroare sistem: Fisier mesaje invalid",
+                solution: [
+                    "Reporniți aparatul",
+                    "Contactați service-ul pentru reinstalare"
+                ]
+            },
+            {
+                code: "-100505",
+                model: "Datecs",
+                displayText: "System error: Fiscal memory error (could not write or read)",
+                description: "Eroare sistem: Eroare memorie fiscala (nu poate scrie sau citi)",
+                solution: [
+                    "Nu continuați operarea",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100506",
+                model: "Datecs",
+                displayText: "System error: No RAM battery",
+                description: "Eroare sistem: Lipsa baterie RAM",
+                solution: [
+                    "Contactați service-ul pentru înlocuire baterie",
+                    "Datele pot fi pierdute la oprire"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100507",
+                model: "Datecs",
+                displayText: "System error: SAM module error",
+                description: "Eroare sistem: eroare modul SAM",
+                solution: [
+                    "Verificați modulul SAM",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "-100508",
+                model: "Datecs",
+                displayText: "System error: Real time clock error",
+                description: "Eroare sistem: eroare ceas timp real",
+                solution: [
+                    "Setați data și ora corectă",
+                    "Înlocuiți bateria",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-100509",
+                model: "Datecs",
+                displayText: "System error: Memory error",
+                description: "Eroare sistem: eroare de memorie",
+                solution: [
+                    "Reporniți aparatul",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-100510",
+                model: "Datecs",
+                displayText: "System error: The size of SD card is wrong",
+                description: "Eroare sistem: Marimea SD Card-ului este gresita",
+                solution: [
+                    "Folosiți un card SD cu dimensiunea corectă",
+                    "Verificați specificațiile tehnice"
+                ]
+            },
+            
+            // Common Logical Errors
+            {
+                code: "-101000",
+                model: "Datecs",
+                displayText: "Common logical error: No heap memory",
+                description: "Eroare logica: memorie insuficienta",
+                solution: [
+                    "Reporniți aparatul",
+                    "Reduceți volumul de date procesat"
+                ]
+            },
+            {
+                code: "-101001",
+                model: "Datecs",
+                displayText: "Common logical error: File manipulate error",
+                description: "Eroare logica: fisier eronat",
+                solution: [
+                    "Verificați integritatea fișierului",
+                    "Reporniți aparatul"
+                ]
+            },
+            {
+                code: "-101003",
+                model: "Datecs",
+                displayText: "Common logical error: Operation is rejected",
+                description: "Eroare logica: operatie respinsa",
+                solution: [
+                    "Verificați parametrii operației",
+                    "Încercați din nou"
+                ]
+            },
+            {
+                code: "-101004",
+                model: "Datecs",
+                displayText: "Common logical error: Bad input. Some of the data or parameters are incorrect",
+                description: "Eroare logica: Introducere gresita. Parametri incorecti",
+                solution: [
+                    "Verificați datele introduse",
+                    "Corectați parametrii"
+                ]
+            },
+            {
+                code: "-101005",
+                model: "Datecs",
+                displayText: "Common logical error: In Application Programming error",
+                description: "Eroare logica: programare aplicatie gresita",
+                solution: [
+                    "Verificați setările aplicației",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-101006",
+                model: "Datecs",
+                displayText: "Common logical error: The execution of the operation is not possible",
+                description: "Eroare logica: operatiunea nu poate fi executata",
+                solution: [
+                    "Verificați starea dispozitivului",
+                    "Încercați o altă operație"
+                ]
+            },
+            {
+                code: "-101007",
+                model: "Datecs",
+                displayText: "Common logical error: Timeout. The time for waiting execution is out",
+                description: "Eroare logica: Timp de executie depasit",
+                solution: [
+                    "Încercați din nou",
+                    "Verificați conexiunea"
+                ]
+            },
+            {
+                code: "-101008",
+                model: "Datecs",
+                displayText: "Common logical error: Invalid time",
+                description: "Eroare logica: data invalida",
+                solution: [
+                    "Setați data și ora corectă",
+                    "Verificați formatul datei"
+                ]
+            },
+            {
+                code: "-101009",
+                model: "Datecs",
+                displayText: "Common logical error: The operation is cancelled",
+                description: "Eroare logica: Operatiune abandonata",
+                solution: [
+                    "Operația a fost anulată de utilizator",
+                    "Reîncepeți operația dacă este necesar"
+                ]
+            },
+            {
+                code: "-101010",
+                model: "Datecs",
+                displayText: "Common logical error: Invalid format",
+                description: "Eroare logica: format invalid",
+                solution: [
+                    "Verificați formatul datelor",
+                    "Utilizați formatul corect"
+                ]
+            },
+            {
+                code: "-101011",
+                model: "Datecs",
+                displayText: "Common logical error: Invalid data",
+                description: "Eroare logica: informatie invalida",
+                solution: [
+                    "Verificați datele introduse",
+                    "Corectați informațiile"
+                ]
+            },
+            {
+                code: "-101012",
+                model: "Datecs",
+                displayText: "Common logical error: Data parsing error",
+                description: "Eroare logica: eroare analiza informatie",
+                solution: [
+                    "Verificați structura datelor",
+                    "Reporniți aplicația"
+                ]
+            },
+            {
+                code: "-101013",
+                model: "Datecs",
+                displayText: "Common logical error: Hardware configuration error",
+                description: "Eroare logica: eroare configurare hw",
+                solution: [
+                    "Verificați configurația hardware",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-101014",
+                model: "Datecs",
+                displayText: "ERR_ACCESS_DENIED",
+                description: "Acces interzis",
+                solution: [
+                    "Verificați permisiunile",
+                    "Autentificați-vă cu drepturi corespunzătoare"
+                ]
+            },
+            {
+                code: "-101015",
+                model: "Datecs",
+                displayText: "Wrong data length",
+                description: "Lungime gresita a datelor",
+                solution: [
+                    "Verificați lungimea datelor",
+                    "Corectați datele introduse"
+                ]
+            },
+            {
+                code: "-101016",
+                model: "Datecs",
+                displayText: "Error during verification of Z reports",
+                description: "Eroare in timpul verificarilor rapoartelor Z",
+                solution: [
+                    "Verificați rapoartele Z",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-101017",
+                model: "Datecs",
+                displayText: "Common logical error: No permission",
+                description: "Eroare logica: Fara Permisiune",
+                solution: [
+                    "Verificați drepturile utilizatorului",
+                    "Autentificați-vă cu un utilizator autorizat"
+                ]
+            },
+            
+            // General Errors
+            {
+                code: "-102000",
+                model: "Datecs",
+                displayText: "Battery error: Low battery",
+                description: "eroare acumulator: Nivel scazut acumulator",
+                solution: [
+                    "Conectați aparatul la rețea",
+                    "Înlocuiți bateria"
+                ]
+            },
+            {
+                code: "-102001",
+                model: "Datecs",
+                displayText: "Battery error: Low battery warning",
+                description: "eroare acumulator: Atentie, nivel scazut acumulator",
+                solution: [
+                    "Pregătiți înlocuirea bateriei",
+                    "Conectați la rețea pentru încărcare"
+                ]
+            },
+            {
+                code: "-102002",
+                model: "Datecs",
+                displayText: "Operator error: Wrong operator password",
+                description: "eroare operator: parola operator gresita",
+                solution: [
+                    "Introduceți parola corectă",
+                    "Contactați administratorul"
+                ]
+            },
+            {
+                code: "-102003",
+                model: "Datecs",
+                displayText: "ECR error: ID number is empty",
+                description: "Eroare AMEF: Numar ID necompletat",
+                solution: [
+                    "Completați numărul de identificare",
+                    "Programați ID-ul corect"
+                ]
+            },
+            {
+                code: "-102004",
+                model: "Datecs",
+                displayText: "Bluetooth error: Bluetooth is not found",
+                description: "Eroare Bluetooth: Nu exista Bluetooth",
+                solution: [
+                    "Verificați dacă Bluetooth este disponibil",
+                    "Activați Bluetooth-ul"
+                ]
+            },
+            {
+                code: "-102005",
+                model: "Datecs",
+                displayText: "Display error: Display is not connected",
+                description: "Eroare ecran: Afisaj client deconectat",
+                solution: [
+                    "Verificați conexiunea afișajului",
+                    "Reporniți aparatul"
+                ]
+            },
+            {
+                code: "-102006",
+                model: "Datecs",
+                displayText: "Printer error: Printer is not connected",
+                description: "Eroare printer: Printer deconectat",
+                solution: [
+                    "Verificați conexiunea imprimantei",
+                    "Reporniți imprimanta"
+                ]
+            },
+            {
+                code: "-102007",
+                model: "Datecs",
+                displayText: "SD card error: SD card not present",
+                description: "Eroare card SD: Nu exista card SD",
+                solution: [
+                    "Introduceți un card SD",
+                    "Verificați dacă cardul este inserat corect"
+                ]
+            },
+            {
+                code: "-102008",
+                model: "Datecs",
+                displayText: "SD card error: SD2 card not present",
+                description: "Eroare card SD: Nu exista card SD2",
+                solution: [
+                    "Verificați al doilea card SD",
+                    "Introduceți cardul necesar"
+                ]
+            },
+            {
+                code: "-102009",
+                model: "Datecs",
+                displayText: "ECR error: VAT rates is not set",
+                description: "Eroare AMEF: Cota TVA ne-setata",
+                solution: [
+                    "Programați cotele de TVA",
+                    "Verificați setările fiscale"
+                ]
+            },
+            {
+                code: "-102010",
+                model: "Datecs",
+                displayText: "ECR error: Header lines are empty",
+                description: "Eroare AMEF: Linii antet goale",
+                solution: [
+                    "Programați antetul bonului",
+                    "Completați informațiile firmei"
+                ]
+            },
+            
+            // PLU Database Errors
+            {
+                code: "-103000",
+                model: "Datecs",
+                displayText: "PLU database error: PLU database is not found",
+                description: "Eroare baza PLU: Baza de date PLU inexistenta",
+                solution: [
+                    "Creați baza de date PLU",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-103001",
+                model: "Datecs",
+                displayText: "PLU database error: PLU code already exists",
+                description: "Eroare baza PLU: codul PLU existent",
+                solution: [
+                    "Utilizați un alt cod PLU",
+                    "Verificați codurile existente"
+                ]
+            },
+            {
+                code: "-103002",
+                model: "Datecs",
+                displayText: "PLU database error: Barcode already exists",
+                description: "Eroare baza PLU: Cod bare existent",
+                solution: [
+                    "Utilizați un alt cod de bare",
+                    "Codul de bare trebuie să fie unic"
+                ]
+            },
+            {
+                code: "-103003",
+                model: "Datecs",
+                displayText: "PLU database error: PLU database is full",
+                description: "Eroare baza PLU: Baza date PLU plina",
+                solution: [
+                    "Ștergeți PLU-uri nefolosite",
+                    "Contactați service-ul pentru extindere"
+                ]
+            },
+            {
+                code: "-103004",
+                model: "Datecs",
+                displayText: "PLU database error: PLU has turnover",
+                description: "Eroare baza PLU: PLU are rulaj",
+                solution: [
+                    "Nu se poate șterge PLU-ul cu rulaj",
+                    "Efectuați raportul Z înainte de modificare"
+                ]
+            },
+            {
+                code: "-103005",
+                model: "Datecs",
+                displayText: "PLU database error: In the PLU base has an article with same name",
+                description: "Eroare baza PLU: Nume PLU existent",
+                solution: [
+                    "Utilizați un alt nume",
+                    "Numele trebuie să fie unic"
+                ]
+            },
+            {
+                code: "-103006",
+                model: "Datecs",
+                displayText: "PLU database error: PLU name is not unique",
+                description: "Eroare baza PLU: Nume PLU duplicat",
+                solution: [
+                    "Schimbați numele PLU-ului",
+                    "Folosiți un nume unic"
+                ]
+            },
+            {
+                code: "-103007",
+                model: "Datecs",
+                displayText: "PLU database error: Database format is not compatible",
+                description: "Eroare baza PLU: Formatul bazei de date nu e compatibil",
+                solution: [
+                    "Actualizați formatul bazei de date",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-103008",
+                model: "Datecs",
+                displayText: "Can't open the PLU database file",
+                description: "Baza date PLU nu poate fi deschisa",
+                solution: [
+                    "Verificați integritatea bazei de date",
+                    "Reporniți aparatul",
+                    "Contactați service-ul"
+                ]
+            },
+            
+            // Service Operations Errors
+            {
+                code: "-104000",
+                model: "Datecs",
+                displayText: "Service operation error: Z report is needed for this operation",
+                description: "Eroare operare service: Rulati Raport Z inaintea acestei operatiuni",
+                solution: [
+                    "Efectuați Raportul Z",
+                    "Reluați operația după raport"
+                ]
+            },
+            {
+                code: "-104001",
+                model: "Datecs",
+                displayText: "Service operation error: Service jumper is needed for this operation",
+                description: "Eroare operare service: Service jumper este necesar pentru aceasta operatiune",
+                solution: [
+                    "Contactați service-ul autorizat",
+                    "Este necesară intervenția fizică"
+                ],
+                urgent: true
+            },
+            {
+                code: "-104002",
+                model: "Datecs",
+                displayText: "Service operation error: Service password is needed for this operation",
+                description: "Eroare operare service: Parola Service este necesara pentru aceasta operatiune",
+                solution: [
+                    "Introduceți parola de service",
+                    "Contactați service-ul pentru parolă"
+                ]
+            },
+            {
+                code: "-104003",
+                model: "Datecs",
+                displayText: "Service operation error: The operation is forbidden",
+                description: "Eroare operare service: Operatiune interzisa",
+                solution: [
+                    "Operația nu este permisă",
+                    "Verificați drepturile"
+                ]
+            },
+            {
+                code: "-104004",
+                model: "Datecs",
+                displayText: "Service operation error: Service intervention is needed",
+                description: "Eroare operare service: Interventie Service",
+                solution: [
+                    "Contactați service-ul autorizat",
+                    "Este necesară intervenția tehnicianului"
+                ],
+                urgent: true
+            },
+            {
+                code: "-104005",
+                model: "Datecs",
+                displayText: "Service operation error: All clearing report is needed",
+                description: "Eroare operare service: Rulati toate rapoartele de golire inaintea acestei operatiuni",
+                solution: [
+                    "Efectuați toate rapoartele de golire",
+                    "Reluați operația"
+                ]
+            },
+            {
+                code: "-104006",
+                model: "Datecs",
+                displayText: "Service operation error: Z report closed",
+                description: "Eroare operare service: Raport inchis",
+                solution: [
+                    "Verificați starea raportului Z",
+                    "Efectuați un nou raport dacă este necesar"
+                ]
+            },
+            {
+                code: "-104007",
+                model: "Datecs",
+                displayText: "Service operation error: Montly report needed",
+                description: "Eroare operare service: Introduceti luna de raportare",
+                solution: [
+                    "Selectați luna pentru raport",
+                    "Completați parametrul lunii"
+                ]
+            },
+            {
+                code: "-104008",
+                model: "Datecs",
+                displayText: "Service operation error: Year report needed",
+                description: "Eroare operare service:Introduceti anul de raportare",
+                solution: [
+                    "Selectați anul pentru raport",
+                    "Completați anul corect"
+                ]
+            },
+            {
+                code: "-104009",
+                model: "Datecs",
+                displayText: "Service operation error: Backup needed",
+                description: "Eroare operare service: Efectuati Backup",
+                solution: [
+                    "Faceți backup înainte de operație",
+                    "Salvați datele existente"
+                ]
+            },
+            
+            // Registration Mode Errors (111000 - 111499)
+            {
+                code: "-111006",
+                model: "Datecs",
+                displayText: "Registration mode error: Overflow in multiplication of quantity and price",
+                description: "Eroare in mod Inregistrare: Depasire in produsul dintre cantitate si pret",
+                solution: [
+                    "Reduceți cantitatea sau prețul",
+                    "Verificați limitele maxime"
+                ]
+            },
+            {
+                code: "-111013",
+                model: "Datecs",
+                displayText: "Registration mode error: ECR daily registers overflow",
+                description: "Eroare in mod Inregistrare: Depasire registri zilnici AMEF",
+                solution: [
+                    "Efectuați Raportul Z",
+                    "Registrele zilnice sunt pline"
+                ]
+            },
+            {
+                code: "-111014",
+                model: "Datecs",
+                displayText: "Registration mode error: Bill total register overflow",
+                description: "Eroare in mod Inregistrare: Depasire registrii total",
+                solution: [
+                    "Închideți bonul curent",
+                    "Începeți un bon nou"
+                ]
+            },
+            {
+                code: "-111015",
+                model: "Datecs",
+                displayText: "Registration mode error: Receipt is opened",
+                description: "Eroare in mod Inregistrare: Bon deschis",
+                solution: [
+                    "Finalizați bonul curent",
+                    "Închideți bonul înainte de operație"
+                ]
+            },
+            {
+                code: "-111016",
+                model: "Datecs",
+                displayText: "Registration mode error: Receipt is closed",
+                description: "Eroare in mod Inregistrare: Bon inchis",
+                solution: [
+                    "Deschideți un bon nou",
+                    "Operația necesită un bon deschis"
+                ]
+            },
+            {
+                code: "-111019",
+                model: "Datecs",
+                displayText: "Registration mode error: Maximum number of sales in receipt",
+                description: "Eroare in mod Inregistrare: Numar maxim de vanzari in bon",
+                solution: [
+                    "Închideți bonul curent",
+                    "Continuați pe un bon nou"
+                ]
+            },
+            {
+                code: "-111024",
+                model: "Datecs",
+                displayText: "Registration mode error: End of 24 hour blocking",
+                description: "Eroare in mod Inregistrare: Au trecut 24 ore fara Raport Z!",
+                solution: [
+                    "Efectuați Raportul Z imediat",
+                    "Nu mai puteți opera până la efectuarea raportului"
+                ]
+            },
+            {
+                code: "-111030",
+                model: "Datecs",
+                displayText: "Registration mode error: Multiplication of quantity and price is 0",
+                description: "Eroare in mod Inregistrare: Produsul cantitate x pret este 0",
+                solution: [
+                    "Verificați cantitatea și prețul",
+                    "Asigurați-vă că valoarea nu este zero"
+                ]
+            },
+            {
+                code: "-111031",
+                model: "Datecs",
+                displayText: "Registration mode error: Value is too big",
+                description: "Eroare in mod Inregistrare: Valoare prea mare",
+                solution: [
+                    "Reduceți valoarea",
+                    "Verificați limita maximă"
+                ]
+            },
+            {
+                code: "-111032",
+                model: "Datecs",
+                displayText: "Registration mode error: Value is bad",
+                description: "Eroare in mod Inregistrare: Valoare gresita",
+                solution: [
+                    "Corectați valoarea introdusă",
+                    "Introduceți o valoare validă"
+                ]
+            },
+            {
+                code: "-111033",
+                model: "Datecs",
+                displayText: "Registration mode error: Price is too big",
+                description: "Eroare in mod Inregistrare: Pret prea mare",
+                solution: [
+                    "Reduceți prețul",
+                    "Verificați limita maximă de preț"
+                ]
+            },
+            {
+                code: "-111034",
+                model: "Datecs",
+                displayText: "Registration mode error: Price is bad",
+                description: "Eroare in mod Inregistrare: Pret gresit",
+                solution: [
+                    "Introduceți un preț valid",
+                    "Verificați formatul prețului"
+                ]
+            },
+            {
+                code: "-111050",
+                model: "Datecs",
+                displayText: "Registration mode error: Payment is not initiated",
+                description: "Eroare in mod Inregistrare: Plata nu a fost initiata",
+                solution: [
+                    "Inițiați plata",
+                    "Selectați metoda de plată"
+                ]
+            },
+            {
+                code: "-111052",
+                model: "Datecs",
+                displayText: "Registration mode error: Receipt total limit is reached",
+                description: "Eroare in mod Inregistrare: Limita total bon atinsa",
+                solution: [
+                    "Închideți bonul curent",
+                    "Continuați pe un bon nou"
+                ]
+            },
+            {
+                code: "-111063",
+                model: "Datecs",
+                displayText: "Registration mode error: Entered sum is bigger than receipt sum",
+                description: "Eroare in mod Inregistrare: Suma introdusa este mai mare decat suma bonului",
+                solution: [
+                    "Introduceți o sumă mai mică sau egală",
+                    "Verificați suma de plată"
+                ]
+            },
+            {
+                code: "-111064",
+                model: "Datecs",
+                displayText: "Registration mode error: Entered sum is smaller than receipt sum",
+                description: "Eroare in mod Inregistrare: Suma introdusa este mai mica decat suma bonului",
+                solution: [
+                    "Introduceți suma corectă",
+                    "Plata trebuie să acopere totalul"
+                ]
+            },
+            {
+                code: "-111076",
+                model: "Datecs",
+                displayText: "Operator not logged in",
+                description: "Eroare in mod Inregistrare: Operatorul nu s-a logat",
+                solution: [
+                    "Autentificați-vă ca operator",
+                    "Introduceți codul de operator"
+                ]
+            },
+            {
+                code: "-111080",
+                model: "Datecs",
+                displayText: "Registration mode error: Out of stock",
+                description: "Eroare in mod Inregistrare: Depasire stoc",
+                solution: [
+                    "Verificați stocul disponibil",
+                    "Reduceți cantitatea"
+                ]
+            },
+            
+            // Printer Errors
+            {
+                code: "-112000",
+                model: "Datecs",
+                displayText: "Fiscal printer error: Fiscal printer invalid command",
+                description: "Eroare imprimanta fiscala: Comanda gresita imprimanta fiscala",
+                solution: [
+                    "Verificați comanda trimisă",
+                    "Consultați manualul de comandă"
+                ]
+            },
+            {
+                code: "-112001",
+                model: "Datecs",
+                displayText: "Fiscal printer error: Fiscal printer command invalid syntax",
+                description: "Eroare imprimanta fiscala: Sintaxa gresita in comanda imprimanta fiscala",
+                solution: [
+                    "Corectați sintaxa comenzii",
+                    "Verificați parametrii"
+                ]
+            },
+            {
+                code: "-112002",
+                model: "Datecs",
+                displayText: "Fiscal printer error: Command is not permitted",
+                description: "Eroare imprimanta fiscala: Comanda nu e permisa",
+                solution: [
+                    "Verificați permisiunile",
+                    "Comanda nu este disponibilă în acest mod"
+                ]
+            },
+            {
+                code: "-112003",
+                model: "Datecs",
+                displayText: "Fiscal printer error: Register overflow",
+                description: "Eroare imprimanta fiscala: Depasire registri",
+                solution: [
+                    "Efectuați Raportul Z",
+                    "Registrele imprimantei sunt pline"
+                ]
+            },
+            {
+                code: "-112004",
+                model: "Datecs",
+                displayText: "Fiscal printer error: Wrong date/time",
+                description: "Eroare imprimanta fiscala: Data/ora gresita",
+                solution: [
+                    "Setați data și ora corectă",
+                    "Verificați setările de dată"
+                ]
+            },
+            {
+                code: "-112005",
+                model: "Datecs",
+                displayText: "Fiscal printer error: PC mode is needed",
+                description: "Eroare imprimanta fiscala: Treceti in mod PC",
+                solution: [
+                    "Comutați în modul PC",
+                    "Configurați modul de operare"
+                ]
+            },
+            {
+                code: "-112006",
+                model: "Datecs",
+                displayText: "Fiscal printer error: No paper",
+                description: "Eroare imprimanta fiscala: Lipsa hartie",
+                solution: [
+                    "Încărcați hârtie termică",
+                    "Verificați senzorul de hârtie"
+                ]
+            },
+            {
+                code: "-112007",
+                model: "Datecs",
+                displayText: "Fiscal printer error: Cover is open",
+                description: "Eroare imprimanta fiscala: Capac deschis",
+                solution: [
+                    "Închideți capacul imprimantei",
+                    "Verificați dacă este fixat corect"
+                ]
+            },
+            {
+                code: "-112008",
+                model: "Datecs",
+                displayText: "Fiscal printer error: Printing mechanism error",
+                description: "Eroare imprimanta fiscala: Eroare mecanism imprimare",
+                solution: [
+                    "Reporniți imprimanta",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+
+            // Erori Tremol
+            {
+                code: "LIPSA HARTIE",
+                model: "Tremol",
+                displayText: "LIPSA HARTIE",
+                description: "Lipsă hârtie în imprimantă. AMEF se blochează și afișează acest mesaj.",
+                solution: [
+                    "Deschideți imprimanta prin ridicarea manetei de pe capacul imprimantei",
+                    "Scoateți capetele rolei vechi și eventualele resturi",
+                    "Introduceți rola nouă de hârtie termică cu partea termosensibilă în jos",
+                    "Trageți capătul liber al rolei în așa fel încât să iasă în afara locașului",
+                    "Închideți capacul interior printr-o apăsare ușoară",
+                    "Închideți capacul superior al imprimantei și treceți capătul liber prin fanta acestuia"
+                ]
+            },
+            {
+                code: "RAM RESET",
+                model: "Tremol",
+                displayText: "RAM RESET",
+                description: "Eroare în memoria operațională AMEF - memoria nulă. Date incorecte în memoria operațională.",
+                solution: [
+                    "AMEF va citi informația din memoria fiscală și va invita operatorul să fixeze data curentă și ora",
+                    "Introduceți data curentă în format ZZ LL AA și confirmați",
+                    "Introduceți ora curentă în format OO MM și confirmați",
+                    "După anularea RAM, toți parametrii AMEF vor fi restabiliți de către memoria EEPROM",
+                    "Dacă memoria EEPROM este defectă, parametrii vor fi reconstituiți implicit",
+                    "Reprogramați parametrii dacă este necesar"
+                ],
+                urgent: true
+            },
+            
+            // Erori Incotex
+            {
+                code: "Er 1",
+                model: "Incotex",
+                displayText: "Depășire valoare maximă în urma înmulțirii!",
+                description: "Eroare la calcularea valorii totale - depășire limită.",
+                solution: [
+                    "Verificați cantitatea și prețul introdus",
+                    "Reduceți cantitatea sau prețul",
+                    "Contactați service-ul dacă problema persistă"
+                ]
+            },
+            {
+                code: "Er 2",
+                model: "Incotex",
+                displayText: "Depășire valoare maximă zilnică!",
+                description: "S-a depășit valoarea maximă permisă pentru operațiile zilnice.",
+                solution: [
+                    "Efectuați raportul fiscal zilnic",
+                    "Verificați setările casei de marcat"
+                ]
+            },
+            {
+                code: "Er 3",
+                model: "Incotex",
+                displayText: "Operație ilegală!",
+                description: "Operația încercată nu este permisă.",
+                solution: [
+                    "Verificați permisiunile operatorului",
+                    "Consultați manualul de utilizare"
+                ]
+            },
+            {
+                code: "Er 4",
+                model: "Incotex",
+                displayText: "Discount-ul valorilor este mai mare decât valoarea la care se aplică!",
+                description: "Reducerea aplicată depășește valoarea produsului.",
+                solution: [
+                    "Verificați valoarea discount-ului introdus",
+                    "Introduceți o valoare mai mică pentru discount"
+                ]
+            },
+            {
+                code: "Er 5",
+                model: "Incotex",
+                displayText: "Suma este ZERO!",
+                description: "Încercare de efectuare operație cu suma zero.",
+                solution: [
+                    "Verificați valoarea introdusă",
+                    "Introduceți o sumă diferită de zero"
+                ]
+            },
+            {
+                code: "Er 6",
+                model: "Incotex",
+                displayText: "Depășire valoare bon!",
+                description: "Valoarea bonului a depășit limita maximă permisă.",
+                solution: [
+                    "Închideți bonul curent",
+                    "Începeți un bon nou pentru restul produselor"
+                ]
+            },
+            {
+                code: "Er 7",
+                model: "Incotex",
+                displayText: "Depășire cantitate maximă!",
+                description: "Cantitatea introdusă depășește limita maximă.",
+                solution: [
+                    "Reduceți cantitatea",
+                    "Verificați limita maximă de cantitate programată"
+                ]
+            },
+            {
+                code: "Er 8",
+                model: "Incotex",
+                displayText: "Depășire preț maxim!",
+                description: "Prețul introdus depășește limita maximă permisă.",
+                solution: [
+                    "Reduceți prețul",
+                    "Verificați limita maximă de preț programată"
+                ]
+            },
+            {
+                code: "Er 9",
+                model: "Incotex",
+                displayText: "Valoarea este ZERO!",
+                description: "Valoarea introdusă este zero.",
+                solution: [
+                    "Introduceți o valoare diferită de zero",
+                    "Verificați datele introduse"
+                ]
+            },
+            {
+                code: "Er 10",
+                model: "Incotex",
+                displayText: "Prețul liber este dezactivat pentru acest PLU sau Departament!",
+                description: "Nu se poate introduce preț manual pentru acest produs.",
+                solution: [
+                    "Utilizați prețul programat pentru PLU",
+                    "Activați opțiunea de preț liber din setări"
+                ]
+            },
+            {
+                code: "Er 11",
+                model: "Incotex",
+                displayText: "Cantitatea trebuie să fie întreagă!",
+                description: "Cantitatea introdusă trebuie să fie un număr întreg.",
+                solution: [
+                    "Introduceți o cantitate fără zecimale",
+                    "Verificați formatul cantității"
+                ]
+            },
+            {
+                code: "Er 12",
+                model: "Incotex",
+                displayText: "Depășire număr maxim operatii pe bon. Bonul trebuie finalizat!",
+                description: "S-a atins numărul maxim de operații permis pe un bon.",
+                solution: [
+                    "Finalizați bonul curent",
+                    "Începeți un bon nou"
+                ]
+            },
+            {
+                code: "Er 13",
+                model: "Incotex",
+                displayText: "Valoare procent este nu este în intervalul 0,01 – 99,99!",
+                description: "Procentul introdus este în afara intervalului permis.",
+                solution: [
+                    "Introduceți o valoare procentuală între 0.01 și 99.99",
+                    "Verificați valoarea introdusă"
+                ]
+            },
+            {
+                code: "Er 14",
+                model: "Incotex",
+                displayText: "Operația este dezactivată deoarece rezultatul este NEGATIV!",
+                description: "Operația ar genera un rezultat negativ, ceea ce nu este permis.",
+                solution: [
+                    "Verificați valorile introduse",
+                    "Asigurați-vă că rezultatul nu devine negativ"
+                ]
+            },
+            {
+                code: "Er 16",
+                model: "Incotex",
+                displayText: "Cantitatea din stoc este insuficientă pentru această operație!",
+                description: "Nu există suficient stoc pentru operația solicitată.",
+                solution: [
+                    "Verificați stocul disponibil",
+                    "Reduceți cantitatea sau alimentați stocul"
+                ]
+            },
+            {
+                code: "Er 19",
+                model: "Incotex",
+                displayText: "Nu există înregistrări în bonul fiscal care pot fi corectate! / Depășire raport periodic!",
+                description: "Nu există operații de corectat în bon sau s-a depășit raportul periodic.",
+                solution: [
+                    "Verificați bonul pentru operații existente",
+                    "Efectuați raportul periodic necesar"
+                ]
+            },
+            {
+                code: "Er 21",
+                model: "Incotex",
+                displayText: "Valoarea care se scoate din sertar este mai mare decât disponibilă!",
+                description: "Încercare de scoatere a unei sume mai mari decât cea disponibilă în sertar.",
+                solution: [
+                    "Verificați suma disponibilă în sertar",
+                    "Introduceți o sumă mai mică"
+                ]
+            },
+            {
+                code: "Er 22",
+                model: "Incotex",
+                displayText: "Depășire Raport Operator!",
+                description: "Raportul pe operator a atins limita maximă.",
+                solution: [
+                    "Efectuați raportul pe operator cu resetare",
+                    "Consultați tehnicianul de service"
+                ]
+            },
+            {
+                code: "Er 23",
+                model: "Incotex",
+                displayText: "Operatorul nu are drept pentru această operație – setări opțiunile operatorului!",
+                description: "Operatorul nu are permisiunea pentru operația încercată.",
+                solution: [
+                    "Verificați drepturile operatorului în setări",
+                    "Utilizați un alt operator cu permisiuni corespunzătoare"
+                ]
+            },
+            {
+                code: "Er 24",
+                model: "Incotex",
+                displayText: "S-a atins numărul maxim de modificări / înregistrări în MF!",
+                description: "Memoria fiscală a atins limita de înregistrări.",
+                solution: [
+                    "Contactați urgent service-ul autorizat",
+                    "Memoria fiscală trebuie înlocuită"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er 25",
+                model: "Incotex",
+                displayText: "Interval ilegal pentru raport!",
+                description: "Intervalul selectat pentru raport nu este valid.",
+                solution: [
+                    "Verificați datele de început și sfârșit",
+                    "Selectați un interval corect"
+                ]
+            },
+            {
+                code: "Er 26",
+                model: "Incotex",
+                displayText: "Depășire Raport PLU!",
+                description: "Raportul pe articole (PLU) a atins limita maximă.",
+                solution: [
+                    "Efectuați raportul PLU cu resetare",
+                    "Consultați tehnicianul de service"
+                ]
+            },
+            {
+                code: "Er 27",
+                model: "Incotex",
+                displayText: "Jurnalul Electronic nu conține numărul bonului fiscal introdus!",
+                description: "Numărul bonului căutat nu există în Jurnalul Electronic.",
+                solution: [
+                    "Verificați numărul introdus",
+                    "Verificați intervalul de date pentru căutare"
+                ]
+            },
+            {
+                code: "Er 28",
+                model: "Incotex",
+                displayText: "Acest cod de bare este deja programat pentru un alt PLU!",
+                description: "Codul de bare este deja folosit pentru un alt produs.",
+                solution: [
+                    "Utilizați un alt cod de bare",
+                    "Verificați lista de coduri de bare existente"
+                ]
+            },
+            {
+                code: "Er 29",
+                model: "Incotex",
+                displayText: "Trebuie efectuate Raport 2 PLU și Raport Fiscal Zilnic!",
+                description: "Este necesară efectuarea rapoartelor înainte de a continua.",
+                solution: [
+                    "Efectuați mai întâi Raport 2 PLU",
+                    "Efectuați apoi Raportul Fiscal Zilnic"
+                ]
+            },
+            {
+                code: "Er 30",
+                model: "Incotex",
+                displayText: "Depășire Raport Grupe!",
+                description: "Raportul pe grupe a atins limita maximă.",
+                solution: [
+                    "Efectuați raportul pe grupe cu resetare",
+                    "Consultați tehnicianul de service"
+                ]
+            },
+            {
+                code: "Er 31",
+                model: "Incotex",
+                displayText: "Storno nepermis – TVA nu poate fi negativ!",
+                description: "Anularea nu este permisă deoarece ar genera TVA negativ.",
+                solution: [
+                    "Verificați operația de anulare",
+                    "Consultați manualul de utilizare"
+                ]
+            },
+            {
+                code: "Er 32",
+                model: "Incotex",
+                displayText: "Operație ilegală – nu este asociată cota TVA la Departamentul / Grup!",
+                description: "Departamentul sau grupa nu are o cotă TVA asociată.",
+                solution: [
+                    "Asociați o cotă TVA departamentului/grupei",
+                    "Verificați programarea TVA"
+                ]
+            },
+            {
+                code: "Er 33",
+                model: "Incotex",
+                displayText: "Au trecut 24 ore de la primul bon fiscal. Efectuați Raport Fiscal Zilnic!",
+                description: "S-a depășit intervalul de 24 ore fără raport fiscal zilnic.",
+                solution: [
+                    "Efectuați imediat Raportul Fiscal Zilnic",
+                    "Nu mai puteți opera până la efectuarea raportului"
+                ]
+            },
+            {
+                code: "Er 40",
+                model: "Incotex",
+                displayText: "Depășire Interval service. Chemați tehnicianul de service!",
+                description: "S-a depășit intervalul pentru service-ul periodic.",
+                solution: [
+                    "Contactați tehnicianul de service autorizat",
+                    "Este necesară intervenția pentru service periodic"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er 43",
+                model: "Incotex",
+                displayText: "Număr neprogramat în câmpul obligatoriu!",
+                description: "Un câmp obligatoriu nu a fost programat corect.",
+                solution: [
+                    "Verificați programarea câmpurilor obligatorii",
+                    "Completați datele lipsă în setări"
+                ]
+            },
+            {
+                code: "Er 73",
+                model: "Incotex",
+                displayText: "Baterie descărcată.",
+                description: "Bateria internă a casei de marcat este descărcată.",
+                solution: [
+                    "Contactați service-ul pentru înlocuire baterie",
+                    "Nu opriți aparatul de la rețea"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er 74",
+                model: "Incotex",
+                displayText: "Raport 2 din PC nu se poate face! Data PC este anterioară datei ultimei înregistrări din MF.",
+                description: "Data din calculator este mai veche decât ultima înregistrare fiscală.",
+                solution: [
+                    "Corectați data din calculator",
+                    "Asigurați-vă că data este corectă"
+                ]
+            },
+            {
+                code: "Er 75",
+                model: "Incotex",
+                displayText: "Înregistrare imposibilă deoarece limita preț în PLU – PREȚ MAXIM sau IN DEPARTAMENTE – PREȚ MAXIM sau VALOARE MAXIMĂ este prea mică!",
+                description: "Limitele de preț sau valoare sunt prea mici pentru operația solicitată.",
+                solution: [
+                    "Verificați limitele programate în setări",
+                    "Măriți limitele sau reduceți prețul/valoarea"
+                ]
+            },
+            {
+                code: "Er 76",
+                model: "Incotex",
+                displayText: "Eroare ceas de timp real!",
+                description: "Ceasul intern al casei de marcat nu funcționează corect.",
+                solution: [
+                    "Contactați service-ul autorizat",
+                    "Este posibilă înlocuirea bateriei sau a circuitului"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er 77",
+                model: "Incotex",
+                displayText: "Eroare generală Jurnal Electronic!",
+                description: "Jurnalul Electronic a întâmpinat o eroare generală.",
+                solution: [
+                    "Verificați cardul SD al JE",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er 78",
+                model: "Incotex",
+                displayText: "Jurnal Electronic PLUS!",
+                description: "Eroare specifică Jurnalului Electronic Plus.",
+                solution: [
+                    "Verificați starea JE",
+                    "Contactați service-ul autorizat"
+                ]
+            },
+            {
+                code: "Er 79",
+                model: "Incotex",
+                displayText: "SD Card JE invalid – înlocuiți SD Card!",
+                description: "Cardul SD pentru Jurnalul Electronic este invalid.",
+                solution: [
+                    "Înlocuiți cardul SD al JE",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er 81",
+                model: "Incotex",
+                displayText: "Valoare SHA eronată. Înlocuiți memoria JE!",
+                description: "Eroare de integritate a datelor în Jurnalul Electronic.",
+                solution: [
+                    "Înlocuiți memoria JE",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er 88",
+                model: "Incotex",
+                displayText: "Eroare în Memoria Fiscală!",
+                description: "Memoria fiscală a întâmpinat o eroare.",
+                solution: [
+                    "Nu continuați operarea",
+                    "Contactați imediat service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er 90",
+                model: "Incotex",
+                displayText: "Eroare la export fișier XML – nu există fișiere în intervalul de raportare ales.",
+                description: "Nu există date în intervalul selectat pentru export XML.",
+                solution: [
+                    "Verificați intervalul selectat",
+                    "Asigurați-vă că există date în perioada respectivă"
+                ]
+            },
+            {
+                code: "Er 93",
+                model: "Incotex",
+                displayText: "Eroare generală în modulul TPM. Efectuați TEST 1 în Service mode și verificați starea modulelor!",
+                description: "Eroare în modulul de securitate TPM.",
+                solution: [
+                    "Intrați în modul Service",
+                    "Efectuați TEST 1",
+                    "Verificați starea modulelor"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er 1100",
+                model: "Incotex",
+                displayText: "Eroare HW – nu există comunicație între MCU1 și MCU2",
+                description: "Eroare hardware de comunicație între procesoare.",
+                solution: [
+                    "Contactați service-ul autorizat",
+                    "Este posibilă o defecțiune hardware majoră"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er 1005",
+                model: "Incotex",
+                displayText: "Lipsă Certificat digital. Instalați certificatul digital!",
+                description: "Certificatul digital lipsește sau este corupt.",
+                solution: [
+                    "Instalați certificatul digital",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er 1011",
+                model: "Incotex",
+                displayText: "Eroare SD Card MCU2",
+                description: "Cardul SD pentru MCU2 este defect sau lipsă.",
+                solution: [
+                    "Verificați cardul SD",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er 1012",
+                model: "Incotex",
+                displayText: "Eroare Crypto Chip",
+                description: "Eroare a cipului criptografic.",
+                solution: [
+                    "Contactați service-ul autorizat",
+                    "Este necesară înlocuirea componentelor"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er 1014",
+                model: "Incotex",
+                displayText: "Eroare RAM",
+                description: "Eroare a memoriei RAM.",
+                solution: [
+                    "Contactați service-ul autorizat",
+                    "Este posibilă o defecțiune hardware"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er 1015",
+                model: "Incotex",
+                displayText: "Eroare Crypto Chip",
+                description: "Eroare a cipului criptografic (dublură).",
+                solution: [
+                    "Contactați service-ul autorizat",
+                    "Este necesară înlocuirea componentelor"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er 1026",
+                model: "Incotex",
+                displayText: "Eroare SD Card FAT / Serie SD Card MCU2 diferită",
+                description: "Eroare de sistem de fișiere pe cardul SD sau serie diferită.",
+                solution: [
+                    "Formatați cardul SD MCU2",
+                    "Contactați service-ul pentru înlocuire card SD"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er MF 1",
+                model: "Incotex",
+                displayText: "Lipsește MF",
+                description: "Memoria fiscală nu este detectată.",
+                solution: [
+                    "Verificați conexiunea memoriei fiscale",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er MF 2",
+                model: "Incotex",
+                displayText: "Eroare scriere în MF",
+                description: "Nu se poate scrie în memoria fiscală.",
+                solution: [
+                    "Nu continuați operarea",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er MF 3",
+                model: "Incotex",
+                displayText: "Eroare citire din MF",
+                description: "Nu se poate citi din memoria fiscală.",
+                solution: [
+                    "Nu continuați operarea",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er MF 4",
+                model: "Incotex",
+                displayText: "Eroare sumă de Control",
+                description: "Suma de control a memoriei fiscale este incorectă.",
+                solution: [
+                    "Contactați service-ul autorizat",
+                    "Datele din MF pot fi corupte"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er MF 5",
+                model: "Incotex",
+                displayText: "Eroare verificare prezență MF sau MF nu este recunoscută",
+                description: "Memoria fiscală nu este recunoscută de sistem.",
+                solution: [
+                    "Verificați memoria fiscală",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er MF 6",
+                model: "Incotex",
+                displayText: "Eroare în conținut înregistrare",
+                description: "Conținutul unei înregistrări din MF este eronat.",
+                solution: [
+                    "Contactați service-ul autorizat",
+                    "Memoria fiscală poate fi defectă"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er MF 7",
+                model: "Incotex",
+                displayText: "MF Înlocuită. Efectuați Reset RAM sau introduceți MF corectă.",
+                description: "Memoria fiscală a fost înlocuită cu alta.",
+                solution: [
+                    "Efectuați Reset RAM dacă este cazul",
+                    "Introduceți memoria fiscală corectă"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er MF 8",
+                model: "Incotex",
+                displayText: "Diferență între număr TVA în casa de marcat și în MF / S-a găsit o înregistrare goală",
+                description: "Neconcordanță între datele casei și memoria fiscală.",
+                solution: [
+                    "Contactați service-ul autorizat",
+                    "Verificați programarea TVA"
+                ],
+                urgent: true
+            },
+            {
+                code: "Er MF 10",
+                model: "Incotex",
+                displayText: "Eroare MF 10",
+                description: "Eroare specifică memoriei fiscale.",
+                solution: [
+                    "Contactați service-ul autorizat",
+                    "Memoria fiscală necesită intervenție"
+                ],
+                urgent: true
+            },
+            
+            // Erori Zit
+            {
+                code: "2",
+                model: "Zit",
+                displayText: "PREA MULTE SIMBOLURI",
+                description: "S-a depășit limita maximă de simboluri posibile pentru câmpul dat",
+                solution: [
+                    "Modificați denumirea introdusă",
+                    "Încadrați-vă în limita maximă de caractere permisă"
+                ]
+            },
+            {
+                code: "3",
+                model: "Zit",
+                displayText: "OPERATIE GRESITA",
+                description: "Operație sau tastă greșită",
+                solution: [
+                    "Apăsați tasta C și încercați din nou"
+                ]
+            },
+            {
+                code: "9",
+                model: "Zit",
+                displayText: "ERR SCRIERE MF",
+                description: "Eroare în Memoria Fiscală",
+                solution: [
+                    "Contactați SERVICE autorizat",
+                    "Nu continuați operarea casei de marcat"
+                ],
+                urgent: true
+            },
+            {
+                code: "16",
+                model: "Zit",
+                displayText: "DEP. REGISTRI",
+                description: "Depășire sume/valori maxime posibile pentru ziua curentă",
+                solution: [
+                    "Dacă nu știți care este motivul, contactați SERVICE înainte de a efectua Raport Z",
+                    "Efectuați Raportul Z pentru resetarea registrelor"
+                ]
+            },
+            {
+                code: "19",
+                model: "Zit",
+                displayText: "OPERATIE GRESITA",
+                description: "Operație eronată",
+                solution: [
+                    "Apăsați tasta C și încercați din nou"
+                ]
+            },
+            {
+                code: "21",
+                model: "Zit",
+                displayText: "BARCODE GRESIT",
+                description: "Cod de Bare introdus greșit",
+                solution: [
+                    "Apăsați tasta C și încercați din nou",
+                    "Verificați corectitudinea codului de bare"
+                ]
+            },
+            {
+                code: "26",
+                model: "Zit",
+                displayText: "DEP REG RAP Z",
+                description: "Depășire sume/valori maxime posibile pentru ziua curentă",
+                solution: [
+                    "Dacă nu știți care este motivul, contactați SERVICE înainte de a efectua Raport Z",
+                    "Efectuați Raportul Z pentru resetarea registrelor"
+                ]
+            },
+            {
+                code: "28",
+                model: "Zit",
+                displayText: "SCHIMB INTERZIS",
+                description: "Nu se poate modifica valoarea (programare antet)",
+                solution: [
+                    "Efectuați Rapoartele necesare",
+                    "Contactați SERVICE dacă problema persistă"
+                ]
+            },
+            {
+                code: "35",
+                model: "Zit",
+                displayText: "STOC INSUFICIENT",
+                description: "Stoc insuficient, ajuns pe 0",
+                solution: [
+                    "Modificați valoarea stocului",
+                    "Alimentați stocul pentru produsul respectiv"
+                ]
+            },
+            {
+                code: "37",
+                model: "Zit",
+                displayText: "0 BARCODE",
+                description: "Nu ați introdus Cod de Bare",
+                solution: [
+                    "Introduceți Codul de Bare",
+                    "Verificați că ați scanat corect produsul"
+                ]
+            },
+            {
+                code: "40",
+                model: "Zit",
+                displayText: "EROARE",
+                description: "Parola introdusă este greșită",
+                solution: [
+                    "Introduceți codul corect",
+                    "Verificați parola în manualul de utilizare"
+                ]
+            },
+            {
+                code: "42",
+                model: "Zit",
+                displayText: "DEP RAP 24H",
+                description: "Au trecut 24 ore de la primul BON emis",
+                solution: [
+                    "Efectuați Raportul Z imediat",
+                    "Nu mai puteți opera până la efectuarea raportului"
+                ]
+            },
+            {
+                code: "44",
+                model: "Zit",
+                displayText: "CERTIFICAT",
+                description: "Nu este încărcat certificatul digital",
+                solution: [
+                    "Contactați unitatea de SERVICE pentru încărcarea certificatului digital al AMEF",
+                    "Certificatul digital trebuie instalat de personal autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "48",
+                model: "Zit",
+                displayText: "DEP NR LINII BON",
+                description: "Depășire Poziții maxime pe un bon",
+                solution: [
+                    "Închideți Bonul",
+                    "Continuați vânzarea pe următorul bon"
+                ]
+            },
+            {
+                code: "49",
+                model: "Zit",
+                displayText: "PREA MULTE ZECIMALE",
+                description: "Depășire număr maxim de zecimale",
+                solution: [
+                    "Limitați-vă la numărul de zecimale definit pentru UM respectivă",
+                    "Verificați setările unității de măsură"
+                ]
+            },
+            {
+                code: "50",
+                model: "Zit",
+                displayText: "EROARE BON DESCHIS",
+                description: "Bon deschis, nu puteți ieși din Regim Vânzare",
+                solution: [
+                    "Închideți bonul pentru a continua",
+                    "Finalizați sau anulați bonul curent"
+                ]
+            },
+            {
+                code: "51",
+                model: "Zit",
+                displayText: "EROARE CANTAR",
+                description: "Eroare comunicare cântar",
+                solution: [
+                    "Verificați comunicarea cu cântarul",
+                    "Contactați SERVICE dacă problema persistă"
+                ]
+            },
+            {
+                code: "53",
+                model: "Zit",
+                displayText: "BC INTERZIS",
+                description: "Cod de bare interzis",
+                solution: [
+                    "Verificați parametri Articole",
+                    "Codul de bare nu este permis pentru acest tip de operație"
+                ]
+            },
+            {
+                code: "58",
+                model: "Zit",
+                displayText: "DEP REG RAP OP",
+                description: "Depășire sume/valori maxime posibile pentru ziua curentă",
+                solution: [
+                    "Dacă nu știți care este motivul, contactați SERVICE înainte de a efectua Raport Z",
+                    "Efectuați Raportul Operatorilor cu resetare"
+                ]
+            },
+            {
+                code: "59",
+                model: "Zit",
+                displayText: "LISTATI RAP Z",
+                description: "Trebuie să listați Raport Z",
+                solution: [
+                    "Efectuați Raportul Z",
+                    "Accesați modul rapoarte și generați Raportul Zilnic"
+                ]
+            },
+            {
+                code: "64",
+                model: "Zit",
+                displayText: "DEP NR PLATI",
+                description: "Depășire număr plăți posibile",
+                solution: [
+                    "Verificați plățile folosite",
+                    "Închideți bonul și începeți unul nou"
+                ]
+            },
+            {
+                code: "66",
+                model: "Zit",
+                displayText: "OPERATIE NEPERMISA / PAROLA GRESITA",
+                description: "Nu este permisă operația în regimul selectat sau parolă greșită",
+                solution: [
+                    "Apăsați CL apoi ON/OFF, după care faceți selecția în ordinea corectă",
+                    "Reintroduceți parola corectă"
+                ]
+            },
+            {
+                code: "69",
+                model: "Zit",
+                displayText: "BC NU EXISTA",
+                description: "Cod de bare inexistent",
+                solution: [
+                    "Verificați parametri Articole",
+                    "Programați codul de bare în baza de date"
+                ]
+            },
+            {
+                code: "74",
+                model: "Zit",
+                displayText: "DEP REG RAP ART",
+                description: "Depășire sume/valori maxime posibile pentru ziua curentă",
+                solution: [
+                    "Dacă nu știți care este motivul, contactați SERVICE înainte de a efectua Raport Z",
+                    "Efectuați Raportul de Articole cu resetare"
+                ]
+            },
+            {
+                code: "75",
+                model: "Zit",
+                displayText: "LISTATI RAP OP",
+                description: "Trebuie să listați Raport Operatori",
+                solution: [
+                    "Listați Raportul de Operatori",
+                    "Accesați modul rapoarte și generați Raportul Operatorilor"
+                ]
+            },
+            {
+                code: "77",
+                model: "Zit",
+                displayText: "PAROLA GRESITA",
+                description: "Parolă eronată",
+                solution: [
+                    "Reintroduceți parola corectă",
+                    "Verificați parola în manual"
+                ]
+            },
+            {
+                code: "80",
+                model: "Zit",
+                displayText: "TRANZACTIE ZERO",
+                description: "Tranzacție cu valoare 0",
+                solution: [
+                    "Verificați pozițiile vândute",
+                    "Asigurați-vă că ați introdus produse cu valoare > 0"
+                ]
+            },
+            {
+                code: "82",
+                model: "Zit",
+                displayText: "VALOARE GRESITA",
+                description: "Valoare greșită",
+                solution: [
+                    "Reintroduceți o valoare corectă",
+                    "Verificați formatul valorii introduse"
+                ]
+            },
+            {
+                code: "83",
+                model: "Zit",
+                displayText: "NUME NECOMPLETAT",
+                description: "Nu ați completat numele",
+                solution: [
+                    "Completați numele și reîncercați",
+                    "Reprogramare denumire articol"
+                ]
+            },
+            {
+                code: "85",
+                model: "Zit",
+                displayText: "BC EXISTENT",
+                description: "Cod de Bare deja există",
+                solution: [
+                    "Verificați codul de bare în baza de date a casei",
+                    "Utilizați un cod de bare unic"
+                ]
+            },
+            {
+                code: "87",
+                model: "Zit",
+                displayText: "EROARE CARD SD",
+                description: "Eroare SD card",
+                solution: [
+                    "Înlocuiți cardul SD",
+                    "Contactați SERVICE pentru înlocuire"
+                ],
+                urgent: true
+            },
+            {
+                code: "91",
+                model: "Zit",
+                displayText: "LISTATI RAP ART",
+                description: "Trebuie să listați Raport Articole",
+                solution: [
+                    "Listați Raportul de Articole",
+                    "Accesați modul rapoarte și generați Raportul Articole"
+                ]
+            },
+            {
+                code: "96",
+                model: "Zit",
+                displayText: "PLATA",
+                description: "Efectuați PLATA",
+                solution: [
+                    "Efectuați plata pentru bonul curent",
+                    "Finalizați tranzacția"
+                ]
+            },
+            {
+                code: "98",
+                model: "Zit",
+                displayText: "OPERATIUNE NEPERMIS",
+                description: "Nu este permisă operația în regimul selectat",
+                solution: [
+                    "Apăsați C, STL, va afișa conținutul bonului",
+                    "Verificați starea bonului curent"
+                ]
+            },
+            {
+                code: "112",
+                model: "Zit",
+                displayText: "OPERATIE INTERZISA",
+                description: "Trebuie făcut Raport Z",
+                solution: [
+                    "Listați Raport Z pe toate categoriile 1*2*8*",
+                    "Apoi reluați operația"
+                ]
+            }
+        ];
+
+        // Variabile globale
+        let searchHistory = [];
+        let currentModelFilter = "all";
+
+        // Elemente DOM
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const resultsCount = document.getElementById('resultsCount');
+        const modelBtns = document.querySelectorAll('.model-btn');
+        const exampleItems = document.querySelectorAll('.example-item');
+        const historySection = document.getElementById('historySection');
+        const historyItems = document.getElementById('historyItems');
+
+        // Funcție pentru afișarea erorilor
+        function displayErrors(errors) {
+            resultsCount.textContent = `${errors.length} erori găsite`;
+            
+            if (errors.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">❌</div>
+                        <p>Nu s-au găsit erori care să corespundă căutării.</p>
+                        <p>Încercați cu alt termen de căutare sau selectați un alt model.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            
+            errors.forEach(error => {
+                const urgentClass = error.urgent ? 'style="border-left-color: #e74c3c;"' : '';
+                
+                html += `
+                <div class="error-item" ${urgentClass}>
+                    <div class="error-code">
+                        ${error.code}
+                        <span class="error-model">${error.model}</span>
+                        ${error.urgent ? '<span style="color: #e74c3c; font-size: 0.9rem;">(URGENT)</span>' : ''}
+                    </div>
+                    <div class="error-display">${error.displayText}</div>
+                    <div class="error-description">${error.description}</div>
+                    
+                    <div class="solution-section">
+                        <div class="solution-title">🛠️ Pași de rezolvare:</div>
+                        <ul class="solution-steps">
+                            ${error.solution.map(step => `<li>${step}</li>`).join('')}
+                        </ul>
+                    </div>
+                </div>
+                `;
+            });
+            
+            resultsContainer.innerHTML = html;
+        }
+
+        // Funcție pentru căutarea erorilor
+        function searchErrors() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            
+            if (searchTerm) {
+                // Salvează în istoric
+                if (!searchHistory.includes(searchTerm)) {
+                    searchHistory.unshift(searchTerm);
+                    if (searchHistory.length > 5) searchHistory.pop();
+                    updateSearchHistory();
+                }
+                
+                // Filtrează după model
+                let filteredErrors = errorsDatabase;
+                if (currentModelFilter !== 'all') {
+                    filteredErrors = filteredErrors.filter(error => error.model === currentModelFilter);
+                }
+                
+                // Caută în baza de date
+                const results = filteredErrors.filter(error => {
+                    return error.code.toLowerCase().includes(searchTerm) ||
+                           error.displayText.toLowerCase().includes(searchTerm) ||
+                           error.description.toLowerCase().includes(searchTerm) ||
+                           (error.solution && error.solution.some(step => step.toLowerCase().includes(searchTerm)));
+                });
+                
+                displayErrors(results);
+            } else {
+                // Dacă căutarea este goală, arată toate erorile filtrate după model
+                let filteredErrors = errorsDatabase;
+                if (currentModelFilter !== 'all') {
+                    filteredErrors = filteredErrors.filter(error => error.model === currentModelFilter);
+                }
+                displayErrors(filteredErrors);
+            }
+        }
+
+        // Funcție pentru actualizarea istoricului căutărilor
+        function updateSearchHistory() {
+            if (searchHistory.length > 0) {
+                historySection.style.display = 'block';
+                historyItems.innerHTML = '';
+                
+                searchHistory.forEach(term => {
+                    const historyItem = document.createElement('div');
+                    historyItem.className = 'history-item';
+                    historyItem.textContent = term;
+                    historyItem.addEventListener('click', () => {
+                        searchInput.value = term;
+                        searchErrors();
+                    });
+                    historyItems.appendChild(historyItem);
+                });
+            } else {
+                historySection.style.display = 'none';
+            }
+        }
+
+        // Funcție pentru setarea filtrului de model
+        function setModelFilter(model) {
+            currentModelFilter = model;
+            modelBtns.forEach(btn => {
+                if (btn.dataset.model === model) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            searchErrors();
+        }
+
+        // Evenimente
+        searchBtn.addEventListener('click', searchErrors);
+        
+        searchInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                searchErrors();
+            }
+        });
+
+        // Evenimente pentru filtrele de model
+        modelBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                setModelFilter(btn.dataset.model);
+            });
+        });
+
+        // Evenimente pentru exemplele de căutare
+        exampleItems.forEach(item => {
+            item.addEventListener('click', () => {
+                searchInput.value = item.dataset.search;
+                searchErrors();
+            });
+        });
+
+        // La încărcarea paginii, arată toate erorile
+        window.addEventListener('DOMContentLoaded', () => {
+            displayErrors(errorsDatabase);
+            resultsCount.textContent = `${errorsDatabase.length} erori în baza de date`;
+            
+            // Adaugă câteva exemple în istoric
+            searchHistory = ['-100001', '-100114', '-100403', '-100500', '-111013', '-111024', '91', '30', 'Er 1', 'Er MF 1', '2', '35', 'LIPSA HARTIE', 'RAM RESET'];
+            updateSearchHistory();
+        });
+    </script>
+</body>
+</html>
