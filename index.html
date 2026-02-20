@@ -288,6 +288,9 @@
             font-size: 1.3rem;
             margin-bottom: 15px;
             color: #2c3e50;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .history-items {
@@ -307,6 +310,21 @@
         
         .history-item:hover {
             background-color: #e9ecef;
+        }
+        
+        .clear-history-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+        
+        .clear-history-btn:hover {
+            background-color: #c0392b;
         }
         
         @media (max-width: 768px) {
@@ -410,7 +428,10 @@
             </div>
             
             <div class="history-section" id="historySection" style="display: none;">
-                <div class="history-title">Căutări recente:</div>
+                <div class="history-title">
+                    <span>Căutări recente:</span>
+                    <button class="clear-history-btn" id="clearHistoryBtn">Șterge istoric</button>
+                </div>
                 <div class="history-items" id="historyItems"></div>
             </div>
         </section>
@@ -423,9 +444,11 @@
     </div>
 
     <script>
-        // Baza de date cu erori
+        // BAZA DE DATE COMPLETĂ CU TOATE ERORILE
         const errorsDatabase = [
-            // Erori Daisy (Compact S) din manualul primit - Paginile 34-36
+            // ========================================
+            // MODEL: DAISY (Compact S)
+            // ========================================
             {
                 code: "3",
                 model: "Daisy",
@@ -898,8 +921,11 @@
                 urgent: true
             },
 
-            // Erori Datecs din tabelul ErrorCodes - 2020.xls
-            // COM Server Error Codes
+            // ========================================
+            // MODEL: DATECS - TOATE CATEGORIILE DIN EXCEL
+            // ========================================
+            
+            // ----- COM Server Error Codes (0 la -10530) -----
             {
                 code: "0",
                 model: "Datecs",
@@ -1281,6 +1307,128 @@
                 ]
             },
             {
+                code: "-10513",
+                model: "Datecs",
+                displayText: "Check for exceeding the upper limit of the parameter (length) [OUTPUT]",
+                description: "Depășire limită superioară a parametrului de ieșire (lungime).",
+                solution: [
+                    "Verificați datele returnate de dispozitiv",
+                    "Consultați specificațiile tehnice"
+                ]
+            },
+            {
+                code: "-10514",
+                model: "Datecs",
+                displayText: "Check for exceeding the lower limit of the parameter (length) [OUTPUT]",
+                description: "Depășire limită inferioară a parametrului de ieșire (lungime).",
+                solution: [
+                    "Verificați datele returnate de dispozitiv",
+                    "Asigurați-vă că datele sunt complete"
+                ]
+            },
+            {
+                code: "-10515",
+                model: "Datecs",
+                displayText: "Check for availability in the enumerated list of values [OUTPUT]",
+                description: "Verificare disponibilitate în lista de valori pentru parametrul de ieșire.",
+                solution: [
+                    "Valoarea returnată nu este în lista permisă",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-10516",
+                model: "Datecs",
+                displayText: "Check whether the parameter is real number [OUTPUT]",
+                description: "Verificare dacă parametrul de ieșire este număr real.",
+                solution: [
+                    "Dispozitivul a returnat o valoare invalidă",
+                    "Reporniți aparatul",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-10517",
+                model: "Datecs",
+                displayText: "Check for exceeding the upper limit of the parameter (Currency value) [OUTPUT]",
+                description: "Depășire limită superioară a parametrului de ieșire (valoare monetară).",
+                solution: [
+                    "Valoarea returnată depășește limita maximă",
+                    "Verificați integritatea datelor"
+                ]
+            },
+            {
+                code: "-10518",
+                model: "Datecs",
+                displayText: "Check for exceeding the lower limit of the parameter (Currency value) [OUTPUT]",
+                description: "Depășire limită inferioară a parametrului de ieșire (valoare monetară).",
+                solution: [
+                    "Valoarea returnată este sub limita minimă",
+                    "Verificați corectitudinea datelor"
+                ]
+            },
+            {
+                code: "-10519",
+                model: "Datecs",
+                displayText: "Check for exceeding the upper limit of the parameter (QTY value) [OUTPUT]",
+                description: "Depășire limită superioară a parametrului de ieșire (cantitate).",
+                solution: [
+                    "Cantitatea returnată depășește limita maximă",
+                    "Verificați datele"
+                ]
+            },
+            {
+                code: "-10520",
+                model: "Datecs",
+                displayText: "Check for exceeding the lower limit of the parameter (QTY value) [OUTPUT]",
+                description: "Depășire limită inferioară a parametrului de ieșire (cantitate).",
+                solution: [
+                    "Cantitatea returnată este sub limita minimă",
+                    "Verificați datele"
+                ]
+            },
+            {
+                code: "-10521",
+                model: "Datecs",
+                displayText: "Check whether the parameter is an integer value [OUTPUT]",
+                description: "Verificare dacă parametrul de ieșire este număr întreg.",
+                solution: [
+                    "Dispozitivul a returnat o valoare care nu este întreagă",
+                    "Reporniți aparatul"
+                ]
+            },
+            {
+                code: "-10522",
+                model: "Datecs",
+                displayText: "Check for exceeding the upper limit of the parameter (INT value) [OUTPUT]",
+                description: "Depășire limită superioară a parametrului de ieșire (valoare întreagă).",
+                solution: [
+                    "Valoarea întreagă returnată depășește limita",
+                    "Verificați datele"
+                ]
+            },
+            {
+                code: "-10523",
+                model: "Datecs",
+                displayText: "Check for exceeding the lower limit of the parameter (INT value) [OUTPUT]",
+                description: "Depășire limită inferioară a parametrului de ieșire (valoare întreagă).",
+                solution: [
+                    "Valoarea întreagă returnată este sub limita minimă",
+                    "Verificați datele"
+                ]
+            },
+            {
+                code: "-10524",
+                model: "Datecs",
+                displayText: "Missing output parameter [OUTPUT]",
+                description: "Parametru de ieșire lipsă.",
+                solution: [
+                    "Dispozitivul nu a returnat toți parametrii așteptați",
+                    "Reporniți aparatul",
+                    "Contactați service-ul"
+                ]
+            },
+            {
                 code: "-10525",
                 model: "Datecs",
                 displayText: "Timeout error",
@@ -1342,7 +1490,536 @@
                 ]
             },
             
-            // Fiscal Device Error Codes
+            // ----- COM Server Error Codes (-23000 la -33043) -----
+            {
+                code: "-23000",
+                model: "Datecs",
+                displayText: "No internet connection",
+                description: "Conexiune la internet indisponibilă.",
+                solution: [
+                    "Verificați cablul de rețea/WiFi",
+                    "Verificați setările de rețea",
+                    "Contactați administratorul de rețea"
+                ]
+            },
+            {
+                code: "-23001",
+                model: "Datecs",
+                displayText: "Client can not connect to the server",
+                description: "Clientul nu se poate conecta la server.",
+                solution: [
+                    "Verificați conexiunea la internet",
+                    "Verificați dacă serverul este disponibil",
+                    "Verificați setările firewall"
+                ]
+            },
+            {
+                code: "-23002",
+                model: "Datecs",
+                displayText: "Client can not register calback",
+                description: "Clientul nu poate înregistra callback.",
+                solution: [
+                    "Reporniți aplicația",
+                    "Verificați permisiunile aplicației",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-23003",
+                model: "Datecs",
+                displayText: "Client can not disconnect properly from the server",
+                description: "Clientul nu se poate deconecta corect de la server.",
+                solution: [
+                    "Încercați să reporniți aplicația",
+                    "Verificați starea conexiunii"
+                ]
+            },
+            {
+                code: "-23004",
+                model: "Datecs",
+                displayText: "Client can not get user table from the server",
+                description: "Clientul nu poate obține tabelul de utilizatori de la server.",
+                solution: [
+                    "Verificați permisiunile utilizatorului",
+                    "Contactați administratorul"
+                ]
+            },
+            {
+                code: "-23005",
+                model: "Datecs",
+                displayText: "Client can not clear old transactions from the server",
+                description: "Clientul nu poate șterge tranzacțiile vechi de pe server.",
+                solution: [
+                    "Verificați permisiunile",
+                    "Încercați din nou mai târziu"
+                ]
+            },
+            {
+                code: "-23006",
+                model: "Datecs",
+                displayText: "Client can not broadcast the message",
+                description: "Clientul nu poate difuza mesajul.",
+                solution: [
+                    "Verificați conexiunea la rețea",
+                    "Reporniți aplicația"
+                ]
+            },
+            {
+                code: "-23007",
+                model: "Datecs",
+                displayText: "Client can not execute update method (2)",
+                description: "Clientul nu poate executa metoda de actualizare.",
+                solution: [
+                    "Verificați versiunea software-ului",
+                    "Contactați service-ul pentru actualizare"
+                ]
+            },
+            {
+                code: "-33000",
+                model: "Datecs",
+                displayText: "Load from to failed",
+                description: "Încărcarea din fișier a eșuat.",
+                solution: [
+                    "Verificați calea fișierului",
+                    "Verificați permisiunile de acces"
+                ]
+            },
+            {
+                code: "-33001",
+                model: "Datecs",
+                displayText: "Save to file failed",
+                description: "Salvarea în fișier a eșuat.",
+                solution: [
+                    "Verificați spațiul disponibil pe disc",
+                    "Verificați permisiunile de scriere"
+                ]
+            },
+            {
+                code: "-33002",
+                model: "Datecs",
+                displayText: "Wrong protocol - readByte method:(missing SOH byte)",
+                description: "Protocol greșit - octet SOH lipsă.",
+                solution: [
+                    "Verificați conexiunea serială",
+                    "Verificați setările de comunicație",
+                    "Reporniți aparatul"
+                ]
+            },
+            {
+                code: "-33003",
+                model: "Datecs",
+                displayText: "Wrong protocol - readByte method:(missing SEQ byte)",
+                description: "Protocol greșit - octet SEQ lipsă.",
+                solution: [
+                    "Verificați conexiunea serială",
+                    "Verificați setările de comunicație"
+                ]
+            },
+            {
+                code: "-33004",
+                model: "Datecs",
+                displayText: "Wrong protocol - readByte method:(missing EOT byte)",
+                description: "Protocol greșit - octet EOT lipsă.",
+                solution: [
+                    "Verificați integritatea transmisiei",
+                    "Retransmiteți comanda"
+                ]
+            },
+            {
+                code: "-33005",
+                model: "Datecs",
+                displayText: "Wrong protocol - readByte method:(missing ENQ byte)",
+                description: "Protocol greșit - octet ENQ lipsă.",
+                solution: [
+                    "Verificați sincronizarea comunicației",
+                    "Reporniți aparatul"
+                ]
+            },
+            {
+                code: "-33006",
+                model: "Datecs",
+                displayText: "Wrong protocol - readByte method:(missing BCC byte)",
+                description: "Protocol greșit - octet BCC lipsă (checksum).",
+                solution: [
+                    "Eroare de integritate a datelor",
+                    "Retransmiteți comanda"
+                ]
+            },
+            {
+                code: "-33007",
+                model: "Datecs",
+                displayText: "Wrong protocol - readByte method:(missing ETX byte)",
+                description: "Protocol greșit - octet ETX lipsă.",
+                solution: [
+                    "Mesajul nu s-a terminat corect",
+                    "Retransmiteți comanda"
+                ]
+            },
+            {
+                code: "-33008",
+                model: "Datecs",
+                displayText: "Error due parsing. Something is wrong in the script line",
+                description: "Eroare la parsare. Ceva este greșit în linia de script.",
+                solution: [
+                    "Verificați sintaxa scriptului",
+                    "Corectați linia indicată"
+                ]
+            },
+            {
+                code: "-33009",
+                model: "Datecs",
+                displayText: "The script is empty",
+                description: "Scriptul este gol.",
+                solution: [
+                    "Scriptul nu conține comenzi",
+                    "Adăugați comenzi în script"
+                ]
+            },
+            {
+                code: "-33010",
+                model: "Datecs",
+                displayText: "The script execution was interrupted by user",
+                description: "Execuția scriptului a fost întreruptă de utilizator.",
+                solution: [
+                    "Utilizatorul a oprit execuția",
+                    "Reluați scriptul dacă este necesar"
+                ]
+            },
+            {
+                code: "-33011",
+                model: "Datecs",
+                displayText: "Duplicate label",
+                description: "Etichetă duplicată în script.",
+                solution: [
+                    "Etichetele trebuie să fie unice",
+                    "Redenumiți etichetele duplicate"
+                ]
+            },
+            {
+                code: "-33012",
+                model: "Datecs",
+                displayText: "Invalid parameter value",
+                description: "Valoare parametru invalidă.",
+                solution: [
+                    "Verificați valoarea parametrului",
+                    "Consultați documentația pentru valori valide"
+                ]
+            },
+            {
+                code: "-33013",
+                model: "Datecs",
+                displayText: "FiscalDevice component is not assigned to scrypt engine",
+                description: "Componenta FiscalDevice nu este asignată motorului de script.",
+                solution: [
+                    "Verificați configurația scriptului",
+                    "Asigurați-vă că dispozitivul fiscal este conectat"
+                ]
+            },
+            {
+                code: "-33014",
+                model: "Datecs",
+                displayText: "Misc component is not assigned to scrypt engine",
+                description: "Componenta Misc nu este asignată motorului de script.",
+                solution: [
+                    "Verificați configurația scriptului",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-33015",
+                model: "Datecs",
+                displayText: "The index is out of range. The value is greater than numbers of the fields in the answer",
+                description: "Indexul este în afara domeniului. Valoarea este mai mare decât numărul de câmpuri din răspuns.",
+                solution: [
+                    "Verificați indexul accesat",
+                    "Răspunsul nu conține atâtea câmpuri"
+                ]
+            },
+            {
+                code: "-33016",
+                model: "Datecs",
+                displayText: "Misc component not assigned",
+                description: "Componenta Misc nu este asignată.",
+                solution: [
+                    "Verificați configurația aplicației",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-33017",
+                model: "Datecs",
+                displayText: "Error container component not assigned",
+                description: "Componenta container de erori nu este asignată.",
+                solution: [
+                    "Verificați configurația aplicației",
+                    "Reporniți aplicația"
+                ]
+            },
+            {
+                code: "-33018",
+                model: "Datecs",
+                displayText: "Description container component not assigned",
+                description: "Componenta container de descrieri nu este asignată.",
+                solution: [
+                    "Verificați configurația aplicației",
+                    "Reporniți aplicația"
+                ]
+            },
+            {
+                code: "-33019",
+                model: "Datecs",
+                displayText: "Connector component not assigned",
+                description: "Componenta connector nu este asignată.",
+                solution: [
+                    "Verificați configurația conexiunii",
+                    "Asigurați-vă că driver-ele sunt instalate"
+                ]
+            },
+            {
+                code: "-33020",
+                model: "Datecs",
+                displayText: "Device depended method is not prepared",
+                description: "Metoda dependentă de dispozitiv nu este pregătită.",
+                solution: [
+                    "Verificați starea dispozitivului",
+                    "Reporniți dispozitivul"
+                ]
+            },
+            {
+                code: "-33021",
+                model: "Datecs",
+                displayText: "Fiscal device component not assigned",
+                description: "Componenta dispozitiv fiscal nu este asignată.",
+                solution: [
+                    "Verificați configurația aplicației",
+                    "Asigurați-vă că dispozitivul fiscal este selectat"
+                ]
+            },
+            {
+                code: "-33022",
+                model: "Datecs",
+                displayText: "Device not connected",
+                description: "Dispozitivul nu este conectat.",
+                solution: [
+                    "Verificați cablurile de conexiune",
+                    "Verificați dacă dispozitivul este pornit",
+                    "Selectați portul COM corect"
+                ]
+            },
+            {
+                code: "-33023",
+                model: "Datecs",
+                displayText: "Device is connected - you can not change these values until the device is still connected",
+                description: "Dispozitivul este conectat - nu puteți schimba aceste valori cât timp dispozitivul este conectat.",
+                solution: [
+                    "Deconectați dispozitivul înainte de modificare",
+                    "Efectuați modificările offline"
+                ]
+            },
+            {
+                code: "-33024",
+                model: "Datecs",
+                displayText: "Invalid file name",
+                description: "Nume fișier invalid.",
+                solution: [
+                    "Verificați numele fișierului",
+                    "Numele nu trebuie să conțină caractere speciale"
+                ]
+            },
+            {
+                code: "-33025",
+                model: "Datecs",
+                displayText: "Unknown device model",
+                description: "Model de dispozitiv necunoscut.",
+                solution: [
+                    "Verificați compatibilitatea",
+                    "Actualizați driverele",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-33026",
+                model: "Datecs",
+                displayText: "Transport protocol not supported",
+                description: "Protocol de transport nesuportat.",
+                solution: [
+                    "Verificați setările de comunicație",
+                    "Selectați un protocol compatibil"
+                ]
+            },
+            {
+                code: "-33027",
+                model: "Datecs",
+                displayText: "Not supported script engine",
+                description: "Motor de script nesuportat.",
+                solution: [
+                    "Actualizați software-ul",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-33028",
+                model: "Datecs",
+                displayText: "Device answer is not by its protocol",
+                description: "Răspunsul dispozitivului nu respectă protocolul.",
+                solution: [
+                    "Verificați compatibilitatea",
+                    "Reporniți dispozitivul",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-33029",
+                model: "Datecs",
+                displayText: "No files for download",
+                description: "Nu există fișiere pentru descărcare.",
+                solution: [
+                    "Verificați dacă există fișiere disponibile",
+                    "Copiați mai întâi fișierele în locația corespunzătoare"
+                ]
+            },
+            {
+                code: "-33030",
+                model: "Datecs",
+                displayText: "Delete file - access denied",
+                description: "Ștergere fișier - acces interzis.",
+                solution: [
+                    "Verificați permisiunile fișierului",
+                    "Rulați aplicația ca administrator"
+                ]
+            },
+            {
+                code: "-33031",
+                model: "Datecs",
+                displayText: "The download is canceled by user",
+                description: "Descărcarea a fost anulată de utilizator.",
+                solution: [
+                    "Reluați descărcarea dacă este necesar"
+                ]
+            },
+            {
+                code: "-33032",
+                model: "Datecs",
+                displayText: "Incorrect checksum",
+                description: "Sumă de control incorectă.",
+                solution: [
+                    "Fișierul este corupt",
+                    "Re-descărcați fișierul",
+                    "Verificați integritatea datelor"
+                ]
+            },
+            {
+                code: "-33033",
+                model: "Datecs",
+                displayText: "Empty stamp name",
+                description: "Nume ștampilă gol.",
+                solution: [
+                    "Completați numele ștampilei",
+                    "Introduceți un nume valid"
+                ]
+            },
+            {
+                code: "-33034",
+                model: "Datecs",
+                displayText: "The stamp name length must be <= 12 symbols",
+                description: "Lungimea numelui ștampilei trebuie să fie ≤ 12 simboluri.",
+                solution: [
+                    "Reduceți numărul de caractere",
+                    "Folosiți maximum 12 caractere"
+                ]
+            },
+            {
+                code: "-33035",
+                model: "Datecs",
+                displayText: "Invalid command name",
+                description: "Nume comandă invalid.",
+                solution: [
+                    "Verificați numele comenzii",
+                    "Consultați lista de comenzi disponibile"
+                ]
+            },
+            {
+                code: "-33036",
+                model: "Datecs",
+                displayText: "Invalid param index",
+                description: "Index parametru invalid.",
+                solution: [
+                    "Verificați indexul parametrului",
+                    "Indexul trebuie să fie în domeniul valid"
+                ]
+            },
+            {
+                code: "-33037",
+                model: "Datecs",
+                displayText: "Invalid param name",
+                description: "Nume parametru invalid.",
+                solution: [
+                    "Verificați numele parametrului",
+                    "Consultați documentația pentru nume valide"
+                ]
+            },
+            {
+                code: "-33038",
+                model: "Datecs",
+                displayText: "Command not found",
+                description: "Comandă negăsită.",
+                solution: [
+                    "Verificați numele comenzii",
+                    "Comanda nu este disponibilă pentru acest dispozitiv"
+                ]
+            },
+            {
+                code: "-33039",
+                model: "Datecs",
+                displayText: "Invalid enumerate list index",
+                description: "Index listă enumerată invalid.",
+                solution: [
+                    "Indexul trebuie să fie în lista de valori",
+                    "Verificați valorile permise"
+                ]
+            },
+            {
+                code: "-33040",
+                model: "Datecs",
+                displayText: "No input params for this command",
+                description: "Nu există parametri de intrare pentru această comandă.",
+                solution: [
+                    "Comanda nu necesită parametri",
+                    "Verificați sintaxa comenzii"
+                ]
+            },
+            {
+                code: "-33041",
+                model: "Datecs",
+                displayText: "Param not found",
+                description: "Parametru negăsit.",
+                solution: [
+                    "Verificați numele parametrului",
+                    "Parametrul nu este definit pentru această comandă"
+                ]
+            },
+            {
+                code: "-33042",
+                model: "Datecs",
+                displayText: "No output params - general error",
+                description: "Nu există parametri de ieșire - eroare generală.",
+                solution: [
+                    "Comanda nu a returnat date",
+                    "Verificați execuția comenzii"
+                ]
+            },
+            {
+                code: "-33043",
+                model: "Datecs",
+                displayText: "The COM Server not assigned",
+                description: "Serverul COM nu este asignat.",
+                solution: [
+                    "Verificați configurația serverului COM",
+                    "Reporniți aplicația"
+                ]
+            },
+            
+            // ----- Fiscal Device Generic Errors (100000 - 100100) -----
             {
                 code: "-100001",
                 model: "Datecs",
@@ -1437,7 +2114,7 @@
                 ]
             },
             
-            // Fiscal Memory Errors
+            // ----- Fiscal Memory Errors (100100 - 100255) -----
             {
                 code: "-100100",
                 model: "Datecs",
@@ -1623,7 +2300,7 @@
                 urgent: true
             },
             
-            // Printer Driver Errors
+            // ----- Printer Driver Errors (100400 - 100499) -----
             {
                 code: "-100400",
                 model: "Datecs",
@@ -1713,7 +2390,7 @@
                 ]
             },
             
-            // System Errors
+            // ----- System Errors (100500 - 101000) -----
             {
                 code: "-100500",
                 model: "Datecs",
@@ -1834,7 +2511,7 @@
                 ]
             },
             
-            // Common Logical Errors
+            // ----- Common Logical Errors (101000 - 101500) -----
             {
                 code: "-101000",
                 model: "Datecs",
@@ -2006,7 +2683,7 @@
                 ]
             },
             
-            // General Errors
+            // ----- General Errors (102000 - 103000) -----
             {
                 code: "-102000",
                 model: "Datecs",
@@ -2118,7 +2795,7 @@
                 ]
             },
             
-            // PLU Database Errors
+            // ----- PLU Database Errors (103000 - 104000) -----
             {
                 code: "-103000",
                 model: "Datecs",
@@ -2211,7 +2888,7 @@
                 ]
             },
             
-            // Service Operations Errors
+            // ----- Service Operations Errors (104000 - 105000) -----
             {
                 code: "-104000",
                 model: "Datecs",
@@ -2315,15 +2992,1679 @@
                 ]
             },
             
-            // Registration Mode Errors (111000 - 111499)
+            // ----- EJ - Electronic Journal Errors (105000 - 106000) -----
+            {
+                code: "-105000",
+                model: "Datecs",
+                displayText: "EJ error: No records in EJ",
+                description: "Eroare JE: Nu sunt inregistrari in JE",
+                solution: [
+                    "Verificați perioada selectată",
+                    "Jurnalul electronic nu conține înregistrări"
+                ]
+            },
+            {
+                code: "-105001",
+                model: "Datecs",
+                displayText: "EJ error: Cannot add to EJ",
+                description: "Eroare JE: Nu se poate adauga in JE",
+                solution: [
+                    "Verificați spațiul disponibil pe cardul SD",
+                    "Verificați integritatea cardului SD"
+                ]
+            },
+            {
+                code: "-105002",
+                model: "Datecs",
+                displayText: "EJ error: SAM module signature error",
+                description: "Eroare JE: Eroare semnatura SAM in JE",
+                solution: [
+                    "Verificați modulul SAM",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "-105003",
+                model: "Datecs",
+                displayText: "EJ error: Signature key version is changed -> impossible check",
+                description: "Eroare JE: Versiune cheie semnatura schimbata ->Verificare imposibila",
+                solution: [
+                    "Contactați service-ul autorizat",
+                    "Este necesară actualizarea cheilor"
+                ],
+                urgent: true
+            },
+            {
+                code: "-105004",
+                model: "Datecs",
+                displayText: "EJ error: Bad record in EJ",
+                description: "Eroare JE: Inregistrare gresita in JE",
+                solution: [
+                    "Jurnalul electronic conține înregistrări corupte",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-105005",
+                model: "Datecs",
+                displayText: "EJ error: Generate signature error( cannoct generate signature )",
+                description: "Eroare JE: eroare generare semnatura",
+                solution: [
+                    "Verificați modulul SAM",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "-105006",
+                model: "Datecs",
+                displayText: "EJ error: Wrong type of document to sign",
+                description: "Eroare JE: Tip document gresit pt semnare",
+                solution: [
+                    "Documentul nu poate fi semnat",
+                    "Verificați tipul documentului"
+                ]
+            },
+            {
+                code: "-105007",
+                model: "Datecs",
+                displayText: "EJ error: Document is already signed",
+                description: "Eroare JE: Document deja semnat",
+                solution: [
+                    "Documentul a fost deja semnat anterior",
+                    "Nu este necesară o nouă semnătură"
+                ]
+            },
+            {
+                code: "-105008",
+                model: "Datecs",
+                displayText: "EJ error: EJ is not from this device",
+                description: "Eroare JE: JE nu apartine AMEF",
+                solution: [
+                    "Jurnalul electronic nu aparține acestui dispozitiv",
+                    "Restaurați jurnalul original"
+                ],
+                urgent: true
+            },
+            {
+                code: "-105009",
+                model: "Datecs",
+                displayText: "EJ error: EJ is almost full",
+                description: "Eroare JE: JE la limita",
+                solution: [
+                    "Jurnalul electronic este aproape plin",
+                    "Pregătiți înlocuirea cardului SD"
+                ]
+            },
+            {
+                code: "-105010",
+                model: "Datecs",
+                displayText: "EJ error: EJ is full",
+                description: "Eroare JE: JE plin",
+                solution: [
+                    "Jurnalul electronic este plin",
+                    "Contactați service-ul pentru înlocuire card SD"
+                ],
+                urgent: true
+            },
+            {
+                code: "-105011",
+                model: "Datecs",
+                displayText: "EJ error: Wrong format of EJ",
+                description: "Eroare JE: Format gresit JE",
+                solution: [
+                    "Formatul jurnalului electronic este incorect",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-105012",
+                model: "Datecs",
+                displayText: "The electronic journal is not ready",
+                description: "JE nu e pregatit",
+                solution: [
+                    "Așteptați inițializarea jurnalului electronic",
+                    "Verificați cardul SD"
+                ]
+            },
+            {
+                code: "-105013",
+                model: "Datecs",
+                displayText: "Error in EJ structure. Create new one",
+                description: "Eroare in structura JE. Creati unul nou!",
+                solution: [
+                    "Structura jurnalului electronic este coruptă",
+                    "Contactați service-ul pentru creare nou JE"
+                ],
+                urgent: true
+            },
+            {
+                code: "-105014",
+                model: "Datecs",
+                displayText: "Cannot create file",
+                description: "Nu se poate creea fisierul",
+                solution: [
+                    "Verificați spațiul disponibil",
+                    "Verificați permisiunile de scriere"
+                ]
+            },
+            {
+                code: "-105015",
+                model: "Datecs",
+                displayText: "Cannot verify data in EJ",
+                description: "Nu se pot verifica datele din JE",
+                solution: [
+                    "Datele din jurnalul electronic sunt corupte",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-105016",
+                model: "Datecs",
+                displayText: "Cannot open a file",
+                description: "Nu se poate deschide fisierul",
+                solution: [
+                    "Verificați dacă fișierul există",
+                    "Verificați permisiunile de acces"
+                ]
+            },
+            {
+                code: "-105017",
+                model: "Datecs",
+                displayText: "Cannot close file",
+                description: "Nu se poate inchide fisierul",
+                solution: [
+                    "Verificați sistemul de fișiere",
+                    "Reporniți aparatul"
+                ]
+            },
+            {
+                code: "-105018",
+                model: "Datecs",
+                displayText: "Cannot read data from a file",
+                description: "Nu se pot citi datele din fisier",
+                solution: [
+                    "Fișierul este corupt sau inaccesibil",
+                    "Verificați integritatea datelor"
+                ]
+            },
+            {
+                code: "-105019",
+                model: "Datecs",
+                displayText: "Cannot write data in file",
+                description: "Nu se pot scrie date in fisier",
+                solution: [
+                    "Verificați spațiul disponibil",
+                    "Verificați permisiunile de scriere"
+                ]
+            },
+            
+            // ----- Clients Database Errors (106000 - 107000) -----
+            {
+                code: "-106000",
+                model: "Datecs",
+                displayText: "Client database error: Firm does not exist",
+                description: "Eroare baza de date client: Firma inexistenta",
+                solution: [
+                    "Verificați codul firmei",
+                    "Adăugați firma în baza de date"
+                ]
+            },
+            {
+                code: "-106001",
+                model: "Datecs",
+                displayText: "Client database error: Firmcode already exists",
+                description: "Eroare baza de date client: Cod firma existent",
+                solution: [
+                    "Utilizați un alt cod de firmă",
+                    "Codul trebuie să fie unic"
+                ]
+            },
+            {
+                code: "-106002",
+                model: "Datecs",
+                displayText: "Client database error: EIK already exists",
+                description: "Eroare baza de date client: CUI existent",
+                solution: [
+                    "CUI-ul există deja în baza de date",
+                    "Verificați datele firmei"
+                ]
+            },
+            {
+                code: "-106003",
+                model: "Datecs",
+                displayText: "Client database error: Firm database is full",
+                description: "Eroare baza de date client: Baza date firme plina",
+                solution: [
+                    "Baza de date clienți este plină",
+                    "Ștergeți clienții neutilizați"
+                ]
+            },
+            {
+                code: "-106004",
+                model: "Datecs",
+                displayText: "Client database error: Firm database is not found",
+                description: "Eroare baza de date client: Baza date firme inexistenta",
+                solution: [
+                    "Baza de date clienți nu există",
+                    "Creați baza de date"
+                ]
+            },
+            
+            // ----- Certificates Store Errors (107001 - 108000) -----
+            {
+                code: "-107001",
+                model: "Datecs",
+                displayText: "Invalid certificate",
+                description: "Certificat invalid",
+                solution: [
+                    "Certificatul digital este invalid",
+                    "Reinstalați certificatul",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "-107002",
+                model: "Datecs",
+                displayText: "Certificate exist",
+                description: "Certificat existent",
+                solution: [
+                    "Certificatul există deja",
+                    "Nu este necesară reinstalarea"
+                ]
+            },
+            {
+                code: "-107003",
+                model: "Datecs",
+                displayText: "Certificate unpack failed",
+                description: "Dezarhivare certificat esuata",
+                solution: [
+                    "Fișierul certificat este corupt",
+                    "Obțineți un nou certificat"
+                ]
+            },
+            {
+                code: "-107004",
+                model: "Datecs",
+                displayText: "Wrong certificate password",
+                description: "Parola certificat gresita",
+                solution: [
+                    "Introduceți parola corectă pentru certificat",
+                    "Contactați furnizorul certificatului"
+                ]
+            },
+            {
+                code: "-107005",
+                model: "Datecs",
+                displayText: "File write error",
+                description: "Eroare scriere fisier",
+                solution: [
+                    "Verificați spațiul disponibil",
+                    "Verificați permisiunile de scriere"
+                ]
+            },
+            {
+                code: "-107006",
+                model: "Datecs",
+                displayText: "File read error",
+                description: "Eroare citire fisier",
+                solution: [
+                    "Fișierul este corupt sau inaccesibil",
+                    "Verificați integritatea fișierului"
+                ]
+            },
+            {
+                code: "-107007",
+                model: "Datecs",
+                displayText: "Certificate not found",
+                description: "Certificatul nu a fost gasit",
+                solution: [
+                    "Certificatul digital lipsește",
+                    "Instalați certificatul digital",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "-107500",
+                model: "Datecs",
+                displayText: "The current account has expired",
+                description: "Profilul curent a expirat",
+                solution: [
+                    "Profilul fiscal a expirat",
+                    "Contactați service-ul pentru reînnoire"
+                ],
+                urgent: true
+            },
+            {
+                code: "-107501",
+                model: "Datecs",
+                displayText: "Invalid profile file",
+                description: "Fisier profil invalid",
+                solution: [
+                    "Fișierul de profil este corupt",
+                    " reinstalați profilul"
+                ]
+            },
+            {
+                code: "-107502",
+                model: "Datecs",
+                displayText: "Profile start date is invalid",
+                description: "Data start profil este invalida",
+                solution: [
+                    "Data de început a profilului este incorectă",
+                    "Verificați setările de dată"
+                ]
+            },
+            {
+                code: "-107503",
+                model: "Datecs",
+                displayText: "Profile verification fail",
+                description: "Verificare Profilului a esuat",
+                solution: [
+                    "Verificarea profilului a eșuat",
+                    " reinstalați profilul"
+                ]
+            },
+            {
+                code: "-107504",
+                model: "Datecs",
+                displayText: "Wrong profile struct format",
+                description: "Eroare format fisier de profil",
+                solution: [
+                    "Formatul fișierului de profil este incorect",
+                    "Obțineți un fișier de profil valid"
+                ]
+            },
+            
+            // ----- Smartcard Errors (109000 - 110000) -----
+            {
+                code: "-109981",
+                model: "Datecs",
+                displayText: "Smartcard error: No card in the holder",
+                description: "Eroare smartcard: Lipsa card",
+                solution: [
+                    "Introduceți cardul smart în cititor",
+                    "Verificați dacă cardul este introdus corect"
+                ]
+            },
+            {
+                code: "-109982",
+                model: "Datecs",
+                displayText: "Smartcard error: Configuration failed",
+                description: "Eroare smartcard: Configurare esuata",
+                solution: [
+                    "Configurarea smartcard-ului a eșuat",
+                    "Verificați compatibilitatea cardului"
+                ]
+            },
+            {
+                code: "-109983",
+                model: "Datecs",
+                displayText: "Smartcard error: SmartCard communication error",
+                description: "Eroare smartcard: Eroare comunicare SmartCard",
+                solution: [
+                    "Eroare de comunicare cu smartcard-ul",
+                    "Curățați contactele cardului",
+                    "Verificați cititorul"
+                ]
+            },
+            {
+                code: "-109984",
+                model: "Datecs",
+                displayText: "Smartcard error: Supply voltage drop a VCC over-current detection or overheating",
+                description: "Eroare smartcard: Soc tensiune de alimentare sau supraincalzire",
+                solution: [
+                    "Problemă de alimentare sau supraîncălzire",
+                    "Opriți aparatul și lăsați-l să se răcească",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-109985",
+                model: "Datecs",
+                displayText: "Smartcard error: Unexpected response from the applet",
+                description: "Eroare smartcard: Raspuns necunoscut",
+                solution: [
+                    "Răspuns neașteptat de la smartcard",
+                    "Verificați dacă cardul este valid"
+                ]
+            },
+            {
+                code: "-109986",
+                model: "Datecs",
+                displayText: "The ID of the smart card does not match the ID stored in the fiscal memory",
+                description: "ID Smart Card diferit fata de cel salvat in Memoria Fiscala",
+                solution: [
+                    "ID-ul smartcard-ului nu corespunde cu cel din MF",
+                    "Utilizați cardul original",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            
+            // ----- SAM Module Errors (110000 - 110100) -----
+            {
+                code: "-110000",
+                model: "Datecs",
+                displayText: "SAM module error: SAM init error",
+                description: "Eroare modul SAM: Eroare initializare SAM",
+                solution: [
+                    "Eroare la inițializarea modulului SAM",
+                    "Reporniți aparatul",
+                    "Verificați modulul SAM"
+                ],
+                urgent: true
+            },
+            {
+                code: "-110001",
+                model: "Datecs",
+                displayText: "SAM module error: Error while trying to open SAM module with programmed serial number",
+                description: "Eroare modul SAM: Eroare la dechiderea modulului SAM cu ID programat",
+                solution: [
+                    "Eroare la deschiderea modulului SAM",
+                    "Verificați seria modulului SAM",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-110002",
+                model: "Datecs",
+                displayText: "SAM module error: Opening SAM with empty ID",
+                description: "Eroare modul SAM: Deschidere SAM cu ID nul",
+                solution: [
+                    "ID-ul modulului SAM este gol",
+                    "Programați ID-ul corect",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-110003",
+                model: "Datecs",
+                displayText: "SAM module error: SAM select file error",
+                description: "Eroare modul SAM: Eroare fisier selectare SAM",
+                solution: [
+                    "Eroare la selectarea fișierului în SAM",
+                    "Reporniți aparatul",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-110004",
+                model: "Datecs",
+                displayText: "SAM module error: SAM init telegram error",
+                description: "Eroare modul SAM: SAM init telegram error",
+                solution: [
+                    "Eroare de telegramă la inițializarea SAM",
+                    "Reporniți aparatul",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-110005",
+                model: "Datecs",
+                displayText: "SAM module error: SAM is already open",
+                description: "Eroare modul SAM: SAM deschis",
+                solution: [
+                    "Modulul SAM este deja deschis",
+                    "Continuați operația"
+                ]
+            },
+            {
+                code: "-110006",
+                model: "Datecs",
+                displayText: "SAM module error: SAM communication error",
+                description: "Eroare modul SAM: Eroare comunicare SAM",
+                solution: [
+                    "Eroare de comunicare cu modulul SAM",
+                    "Verificați conexiunea",
+                    "Reporniți aparatul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-110010",
+                model: "Datecs",
+                displayText: "SAM module error: Operation execution in SAM module is unsuccessful",
+                description: "Eroare modul SAM: Executare operatiune esuata in SAM",
+                solution: [
+                    "Operația în modulul SAM a eșuat",
+                    "Încercați din nou",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-110011",
+                model: "Datecs",
+                displayText: "SAM module error: Cannot get last transaction from SAM",
+                description: "Eroare modul SAM: Nu se poate obtine ultima tranzactie de la SAM",
+                solution: [
+                    "Nu se poate citi ultima tranzacție din SAM",
+                    "Verificați modulul SAM",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-110012",
+                model: "Datecs",
+                displayText: "SAM module error: Cannot register current transaction in SAM",
+                description: "Eroare modul SAM: Nu se poate inregistra operatiunea in SAM",
+                solution: [
+                    "Tranzacția nu poate fi înregistrată în SAM",
+                    "Verificați starea SAM",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-110013",
+                model: "Datecs",
+                displayText: "SAM module error: Cannot get Z-report from SAM",
+                description: "Eroare modul SAM: Nu se poate obtine rap.Z din SAM",
+                solution: [
+                    "Nu se poate citi raportul Z din SAM",
+                    "Verificați modulul SAM",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-110014",
+                model: "Datecs",
+                displayText: "SAM module error: Cannot register Z-report in SAM",
+                description: "Eroare modul SAM: Nu se poate inregistra rap.Z in SAM",
+                solution: [
+                    "Raportul Z nu poate fi înregistrat în SAM",
+                    "Verificați starea SAM",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-110021",
+                model: "Datecs",
+                displayText: "SAM module error: Transaction is closed in SAM -> 'closing needed'",
+                description: "Eroare modul SAM: Tranzactia e inchisa in SAM -> Inchideti'",
+                solution: [
+                    "Tranzacția este închisă în SAM",
+                    "Efectuați închiderea zilei"
+                ]
+            },
+            {
+                code: "-110022",
+                model: "Datecs",
+                displayText: "SAM module error: Z-report already closed in SAM -> 'Z needed'",
+                description: "Eroare modul SAM: Rap.Z deja inchis in SAM -> 'Rulati Z'",
+                solution: [
+                    "Raportul Z este deja închis în SAM",
+                    "Efectuați raportul Z"
+                ]
+            },
+            {
+                code: "-110023",
+                model: "Datecs",
+                displayText: "SAM module error: Unsent Z-reports -> 'communication needed'",
+                description: "Eroare modul SAM: Rap. Z netrimis-> 'Porniti comunicatia'",
+                solution: [
+                    "Există rapoarte Z netrimise",
+                    "Porniți comunicarea cu serverul"
+                ]
+            },
+            {
+                code: "-110024",
+                model: "Datecs",
+                displayText: "SAM module error: Overflow in reg -> 'Z needed'",
+                description: "Eroare modul SAM: Registri plini -> 'Rulati Z'",
+                solution: [
+                    "Registrele SAM sunt pline",
+                    "Efectuați raportul Z"
+                ]
+            },
+            {
+                code: "-110025",
+                model: "Datecs",
+                displayText: "SAM module error: Not opened( empty ) Z - report -> 'Z impossible'",
+                description: "Eroare modul SAM: Nu exista rap. Z deschis-> 'Rulare Z imposibila'",
+                solution: [
+                    "Nu există raport Z deschis în SAM",
+                    "Raportul Z nu poate fi rulat"
+                ]
+            },
+            
+            // ----- EXT Fiscal Device Errors (110100 - 110200) -----
+            {
+                code: "-110100",
+                model: "Datecs",
+                displayText: "Device error: Communication error",
+                description: "Eroare aparat: Eroare comunicatie",
+                solution: [
+                    "Verificați conexiunea cu dispozitivul",
+                    "Reporniți ambele dispozitive"
+                ]
+            },
+            {
+                code: "-110101",
+                model: "Datecs",
+                displayText: "Device error: Wrong struct format",
+                description: "Eroare aparat: Format structura eronat",
+                solution: [
+                    "Formatul structurii de date este incorect",
+                    "Verificați protocolul de comunicație"
+                ]
+            },
+            {
+                code: "-110102",
+                model: "Datecs",
+                displayText: "Device error: ST flag is active",
+                description: "Eroare aparat: Indicator ST activ",
+                solution: [
+                    "Indicatorul ST este activ",
+                    "Verificați starea dispozitivului"
+                ]
+            },
+            {
+                code: "-110103",
+                model: "Datecs",
+                displayText: "Device error: Invalid data",
+                description: "Eroare aparat: Informatie invalida",
+                solution: [
+                    "Datele primite sunt invalide",
+                    "Verificați parametrii trimiși"
+                ]
+            },
+            {
+                code: "-110104",
+                model: "Datecs",
+                displayText: "Device error: Device is not fiscalized",
+                description: "Eroare aparat: Aparatul nu e fiscalizat",
+                solution: [
+                    "Dispozitivul nu este fiscalizat",
+                    "Efectuați fiscalizarea",
+                    "Contactați service-ul autorizat"
+                ],
+                urgent: true
+            },
+            {
+                code: "-110105",
+                model: "Datecs",
+                displayText: "Device error: Device is already fiscalized",
+                description: "Eroare aparat: Aparat deja fiscalizat",
+                solution: [
+                    "Dispozitivul este deja fiscalizat",
+                    "Nu se poate repeta fiscalizarea"
+                ]
+            },
+            {
+                code: "-110106",
+                model: "Datecs",
+                displayText: "Device error: Device is in service mode",
+                description: "Eroare aparat: Aparat in mod service",
+                solution: [
+                    "Dispozitivul este în mod service",
+                    "Ieșiți din modul service pentru operare normală"
+                ]
+            },
+            {
+                code: "-110107",
+                model: "Datecs",
+                displayText: "Device error: Service date is passed",
+                description: "Eroare aparat: Data Service depasita",
+                solution: [
+                    "Data service-ului a fost depășită",
+                    "Contactați service-ul pentru revizie"
+                ]
+            },
+            {
+                code: "-110108",
+                model: "Datecs",
+                displayText: "Device error: Day( shift ) is open",
+                description: "Eroare aparat: Tura este deschisa",
+                solution: [
+                    "Tura este deschisă",
+                    "Închideți tura înainte de operație"
+                ]
+            },
+            {
+                code: "-110109",
+                model: "Datecs",
+                displayText: "Device error: Day( shift ) is closed",
+                description: "Eroare aparat: Tura este inchisa",
+                solution: [
+                    "Tura este închisă",
+                    "Deschideți o tură nouă"
+                ]
+            },
+            {
+                code: "-110110",
+                model: "Datecs",
+                displayText: "Device error: Z-report number and shift number are not equal",
+                description: "Eroare aparat: Numar rap. Z si numarul turei nu sunt egale",
+                solution: [
+                    "Numărul raportului Z nu corespunde cu tura",
+                    "Verificați consistența datelor"
+                ]
+            },
+            {
+                code: "-110111",
+                model: "Datecs",
+                displayText: "Device error: Only admin has permition",
+                description: "Eroare aparat: Permis doar pt. admin",
+                solution: [
+                    "Operația necesită drepturi de administrator",
+                    "Autentificați-vă ca administrator"
+                ]
+            },
+            {
+                code: "-110112",
+                model: "Datecs",
+                displayText: "Device error: Fiscal memory is closed",
+                description: "Eroare aparat: Echipamentul nu este fiscalizat",
+                solution: [
+                    "Memoria fiscală este închisă",
+                    "Efectuați fiscalizarea",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            
+            // ----- NAP Server Errors (110200 - 110300) -----
+            {
+                code: "-110200",
+                model: "Datecs",
+                displayText: "NAP server error: Error open session",
+                description: "Eroare server retea: Eroare deschidere sesiune",
+                solution: [
+                    "Eroare la deschiderea sesiunii cu serverul NAP",
+                    "Verificați conexiunea la internet",
+                    "Încercați din nou"
+                ]
+            },
+            {
+                code: "-110201",
+                model: "Datecs",
+                displayText: "NAP server error: Error preparing data for server",
+                description: "Eroare server retea: Eroare pregatire date pt. server",
+                solution: [
+                    "Eroare la pregătirea datelor pentru server",
+                    "Reporniți aplicația"
+                ]
+            },
+            {
+                code: "-110202",
+                model: "Datecs",
+                displayText: "NAP server error: There is unsent data",
+                description: "Eroare server retea: Exista date netrimise",
+                solution: [
+                    "Există date netrimise către server",
+                    "Așteptați trimiterea automată sau trimiteți manual"
+                ]
+            },
+            {
+                code: "-110203",
+                model: "Datecs",
+                displayText: "NAP server error: Receiving data error",
+                description: "Eroare server retea: Eroare primire date",
+                solution: [
+                    "Eroare la primirea datelor de la server",
+                    "Verificați conexiunea",
+                    "Încercați din nou"
+                ]
+            },
+            {
+                code: "-110204",
+                model: "Datecs",
+                displayText: "NAP server error: Empty data",
+                description: "Eroare server retea: Lipsa date",
+                solution: [
+                    "Serverul a returnat date goale",
+                    "Verificați cererea trimisă"
+                ]
+            },
+            {
+                code: "-110205",
+                model: "Datecs",
+                displayText: "NAP server error: Server negative answer",
+                description: "Eroare server retea: Raspuns negativ de la server",
+                solution: [
+                    "Serverul a returnat un răspuns negativ",
+                    "Verificați datele trimise",
+                    "Contactați administratorul"
+                ]
+            },
+            {
+                code: "-110206",
+                model: "Datecs",
+                displayText: "NAP server error: Wrong answer format",
+                description: "Eroare server retea: Raspuns cu format eronat",
+                solution: [
+                    "Formatul răspunsului serverului este incorect",
+                    "Actualizați software-ul"
+                ]
+            },
+            {
+                code: "-110207",
+                model: "Datecs",
+                displayText: "NAP server error: Server HOSTDI is zerro",
+                description: "Eroare server retea: Identificator server este zero",
+                solution: [
+                    "ID-ul serverului este zero",
+                    "Verificați setările de configurare"
+                ]
+            },
+            {
+                code: "-110208",
+                model: "Datecs",
+                displayText: "NAP server error: Server exception",
+                description: "Eroare server retea: Exceptie server",
+                solution: [
+                    "Excepție pe server",
+                    "Încercați mai târziu"
+                ]
+            },
+            {
+                code: "-110209",
+                model: "Datecs",
+                displayText: "NAP server error: Not registered on server",
+                description: "Eroare server retea: Neinregistrat la server",
+                solution: [
+                    "Dispozitivul nu este înregistrat pe server",
+                    "Efectuați înregistrarea",
+                    "Contactați administratorul"
+                ]
+            },
+            {
+                code: "-110210",
+                model: "Datecs",
+                displayText: "NAP server error: Communication with NAP server is blocked",
+                description: "Eroare server retea: Comunicarea cu serverul blocata",
+                solution: [
+                    "Comunicarea cu serverul este blocată",
+                    "Verificați setările de rețea",
+                    "Contactați administratorul"
+                ]
+            },
+            {
+                code: "-110211",
+                model: "Datecs",
+                displayText: "NAP server error: Modem error",
+                description: "Eroare server retea: Eroare modem",
+                solution: [
+                    "Eroare de modem",
+                    "Verificați conexiunea GPRS/3G"
+                ]
+            },
+            {
+                code: "-110212",
+                model: "Datecs",
+                displayText: "NAP server error: NAP is busy",
+                description: "Eroare server retea: Retea ocupata",
+                solution: [
+                    "Rețeaua este ocupată",
+                    "Încercați din nou mai târziu"
+                ]
+            },
+            {
+                code: "-110213",
+                model: "Datecs",
+                displayText: "NAP server error: Already registered",
+                description: "Eroare server retea: Deja inregistrat",
+                solution: [
+                    "Dispozitivul este deja înregistrat",
+                    "Nu este necesară o nouă înregistrare"
+                ]
+            },
+            {
+                code: "-110214",
+                model: "Datecs",
+                displayText: "NAP server error: Wrong PS type",
+                description: "Eroare server retea: Tip PS eronat",
+                solution: [
+                    "Tipul PS este incorect",
+                    "Verificați configurația"
+                ]
+            },
+            {
+                code: "-110215",
+                model: "Datecs",
+                displayText: "NAP server error: Deregistered in NAP",
+                description: "Eroare server retea: Delogare de la retea",
+                solution: [
+                    "Dispozitivul a fost delogat de pe server",
+                    "Efectuați o nouă înregistrare"
+                ]
+            },
+            {
+                code: "-110216",
+                model: "Datecs",
+                displayText: "NAP server error: Wrong IMSI number",
+                description: "Eroare server retea: Numar IMSI eronat",
+                solution: [
+                    "Numărul IMSI este incorect",
+                    "Verificați cardul SIM"
+                ]
+            },
+            {
+                code: "-110217",
+                model: "Datecs",
+                displayText: "NAP server error: Device is blocked( maximum Z-reports )",
+                description: "Eroare server retea: Aparatul e blocat( numar maxim rap. Z)",
+                solution: [
+                    "Dispozitivul este blocat (număr maxim rapoarte Z)",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-110218",
+                model: "Datecs",
+                displayText: "NAP server error: Wrong FD( Fiscal device ) type",
+                description: "Eroare server retea: Tip eronat de aparat fiscal",
+                solution: [
+                    "Tipul dispozitivului fiscal este incorect",
+                    "Verificați configurația"
+                ]
+            },
+            {
+                code: "-110219",
+                model: "Datecs",
+                displayText: "NAP server error: The ECR is blocked by server",
+                description: "Eroare server retea: Aparat fiscal blocat de server",
+                solution: [
+                    "Dispozitivul este blocat de server",
+                    "Contactați administratorul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-110220",
+                model: "Datecs",
+                displayText: "NAP server error: The ECR is blocked - server error",
+                description: "Eroare server retea: Aparatul fiscal e blocat - Eroare server",
+                solution: [
+                    "Blocare dispozitiv din cauza erorii de server",
+                    "Încercați mai târziu"
+                ]
+            },
+            {
+                code: "-110221",
+                model: "Datecs",
+                displayText: "NAP server error: No server address",
+                description: "Eroare server retea: Adresa server lipsa",
+                solution: [
+                    "Adresa serverului lipsește",
+                    "Configurați adresa serverului"
+                ]
+            },
+            {
+                code: "-110222",
+                model: "Datecs",
+                displayText: "NAP server error: Max. registrations reached",
+                description: "Eroare server retea: S-a atins numarul maxim de inregistrari",
+                solution: [
+                    "Numărul maxim de înregistrări a fost atins",
+                    "Contactați administratorul"
+                ]
+            },
+            {
+                code: "-110223",
+                model: "Datecs",
+                displayText: "Invalid INN of the cashier",
+                description: "Invalid INN (id retea) pentru casier",
+                solution: [
+                    "INN-ul casierului este invalid",
+                    "Verificați datele casierului"
+                ]
+            },
+            {
+                code: "-110224",
+                model: "Datecs",
+                displayText: "Invalid INN of the server",
+                description: "Invalid INN (id retea) pentru server",
+                solution: [
+                    "INN-ul serverului este invalid",
+                    "Verificați configurația serverului"
+                ]
+            },
+            {
+                code: "-110225",
+                model: "Datecs",
+                displayText: "NAP server error: Device is blocked( unsent sales documents )",
+                description: "Eroare server retea: Echipament blocat ( Documente vanzari netrimise)",
+                solution: [
+                    "Dispozitiv blocat - documente de vânzare netrimise",
+                    "Trimiteți documentele restante"
+                ],
+                urgent: true
+            },
+            {
+                code: "-110226",
+                model: "Datecs",
+                displayText: "NAP server error: Communication with NAP server is blocked. More than 24 hours from last sent receipt",
+                description: "Eroare server retea: Comunicatia cu serverul este blocat. Mai mult de 24 de ore de la ultimul bon fiscal trimis",
+                solution: [
+                    "Comunicare blocată - peste 24 ore de la ultimul bon trimis",
+                    "Verificați conexiunea",
+                    "Trimiteți datele restante"
+                ],
+                urgent: true
+            },
+            
+            // ----- WORK_INVALID Errors (110300 - 110400) -----
+            {
+                code: "-110300",
+                model: "Datecs",
+                displayText: "Working error: Invalid file",
+                description: "Eroare operare: Fisier invalid",
+                solution: [
+                    "Fișierul este invalid",
+                    "Verificați formatul fișierului"
+                ]
+            },
+            {
+                code: "-110301",
+                model: "Datecs",
+                displayText: "Working error: Invalid parameters",
+                description: "Eroare operare: Parametru invalid",
+                solution: [
+                    "Parametrii sunt invalizi",
+                    "Verificați valorile introduse"
+                ]
+            },
+            
+            // ----- NRA Connection Errors (110400 - 110500) -----
+            {
+                code: "-110400",
+                model: "Datecs",
+                displayText: "Connection error: Connection init error",
+                description: "Eroare conectare: Eroare la initiere conectare",
+                solution: [
+                    "Eroare la inițierea conexiunii",
+                    "Verificați setările de rețea"
+                ]
+            },
+            {
+                code: "-110401",
+                model: "Datecs",
+                displayText: "NRA connection error: Wrong parameteres",
+                description: "NRA Eroare conectare: Parametri invalizi",
+                solution: [
+                    "Parametrii de conectare sunt invalizi",
+                    "Verificați configurația"
+                ]
+            },
+            {
+                code: "-110402",
+                model: "Datecs",
+                displayText: "NRA connection error: No GPRS",
+                description: "NRA Eroare conectare: Lipsa GPRS",
+                solution: [
+                    "Conexiune GPRS indisponibilă",
+                    "Verificați semnalul și setările"
+                ]
+            },
+            {
+                code: "-110403",
+                model: "Datecs",
+                displayText: "Connection error: Failed to initialize connection with NRA Repository Server",
+                description: "Eroare conectare: Intialiare conexiune cu NRA esuata",
+                solution: [
+                    "Conexiunea cu serverul NRA a eșuat",
+                    "Verificați setările și conexiunea"
+                ]
+            },
+            {
+                code: "-110404",
+                model: "Datecs",
+                displayText: "Connection error: Wrong answer format",
+                description: "Eroare conectare: Format raspuns gresit",
+                solution: [
+                    "Formatul răspunsului este greșit",
+                    "Actualizați software-ul"
+                ]
+            },
+            {
+                code: "-110405",
+                model: "Datecs",
+                displayText: "Connection error: Wrong configuration",
+                description: "Eroare conectare: Configuratie eronata",
+                solution: [
+                    "Configurația este eronată",
+                    "Verificați setările"
+                ]
+            },
+            
+            // ----- Modem Errors (110500 - 110600) -----
+            {
+                code: "-110500",
+                model: "Datecs",
+                displayText: "Modem error: error in communication between device and modem",
+                description: "Eroare modem: Eroare comunicare intre modem si AMEF",
+                solution: [
+                    "Eroare de comunicare între dispozitiv și modem",
+                    "Verificați conexiunile",
+                    "Reporniți modemul"
+                ]
+            },
+            {
+                code: "-110501",
+                model: "Datecs",
+                displayText: "Modem error: No SIM card",
+                description: "Eroare modem: Lipsa SIM card",
+                solution: [
+                    "Cardul SIM lipsește",
+                    "Introduceți un card SIM valid"
+                ]
+            },
+            {
+                code: "-110502",
+                model: "Datecs",
+                displayText: "Modem error: Wrong PIN of SIM",
+                description: "Eroare modem: PIN invalid pt. SIM",
+                solution: [
+                    "PIN-ul SIM este invalid",
+                    "Introduceți PIN-ul corect"
+                ]
+            },
+            {
+                code: "-110503",
+                model: "Datecs",
+                displayText: "Modem error: Cannot register to mobile network",
+                description: "Eroare modem: Nu se poate conecta la reteaua mobila",
+                solution: [
+                    "Nu se poate conecta la rețeaua mobilă",
+                    "Verificați semnalul și setările"
+                ]
+            },
+            {
+                code: "-110504",
+                model: "Datecs",
+                displayText: "Modem error: No PPP connection( cannot connect )",
+                description: "Eroare modem: lipsa conexiune PPP ( nu se poate conecta )",
+                solution: [
+                    "Conexiunea PPP nu poate fi stabilită",
+                    "Verificați setările APN"
+                ]
+            },
+            {
+                code: "-110505",
+                model: "Datecs",
+                displayText: "Modem error: Wrong modem configuration( for example - no programmed apn )",
+                description: "Eroare modem: Configurare eronata modem( ex.APN ne-programat )",
+                solution: [
+                    "Configurația modemului este eronată",
+                    "Verificați setările APN"
+                ]
+            },
+            {
+                code: "-110506",
+                model: "Datecs",
+                displayText: "Modem error: Modem initializing",
+                description: "Eroare modem: Modemul se initializeaza",
+                solution: [
+                    "Modemul se inițializează",
+                    "Așteptați finalizarea inițializării"
+                ]
+            },
+            {
+                code: "-110507",
+                model: "Datecs",
+                displayText: "Modem error: Modem is not ready",
+                description: "Eroare modem: Modemul nu e pregatit",
+                solution: [
+                    "Modemul nu este pregătit",
+                    "Verificați starea modemului"
+                ]
+            },
+            {
+                code: "-110508",
+                model: "Datecs",
+                displayText: "Modem error: Remove SIM card",
+                description: "Eroare modem: Scoateti cardul SIM",
+                solution: [
+                    "Scoateți cardul SIM",
+                    "Verificați cardul SIM"
+                ]
+            },
+            {
+                code: "-110509",
+                model: "Datecs",
+                displayText: "Modem error: Modem found a cell",
+                description: "Eroare modem: Modemul a localizat o celula",
+                solution: [
+                    "Modemul a găsit o celulă",
+                    "Așteptați conectarea"
+                ]
+            },
+            {
+                code: "-110510",
+                model: "Datecs",
+                displayText: "Modem error: Modem does not find a cell",
+                description: "Eroare modem: Modemul nu a localizat o celula",
+                solution: [
+                    "Modemul nu găsește o celulă",
+                    "Verificați acoperirea rețelei"
+                ]
+            },
+            {
+                code: "-110511",
+                model: "Datecs",
+                displayText: "Modem error: Failed lot days",
+                description: "Eroare modem: Failed lot days",
+                solution: [
+                    "Eroare necunoscută modem",
+                    "Reporniți modemul"
+                ]
+            },
+            {
+                code: "-110512",
+                model: "Datecs",
+                displayText: "Modem error: Already connected to a different APN when a PPP connection is started",
+                description: "Eroare modem: Deja conectat cu un alt APN cand conexiunea PPP a fost initiata",
+                solution: [
+                    "Deja conectat la un APN diferit",
+                    "Deconectați și reconectați"
+                ]
+            },
+            {
+                code: "-110601",
+                model: "Datecs",
+                displayText: "Modem error: Device is not connected to AP( access point )",
+                description: "Eroare modem: Aparat neconectat la AP( access point )",
+                solution: [
+                    "Dispozitivul nu este conectat la punctul de acces",
+                    "Verificați conexiunea"
+                ]
+            },
+            
+            // ----- Network Errors (110700 - 110800) -----
+            {
+                code: "-110700",
+                model: "Datecs",
+                displayText: "Network error: Cannot resolve address",
+                description: "Eroare retea: Adresa nu a putut fi identificata",
+                solution: [
+                    "Adresa serverului nu poate fi rezolvată",
+                    "Verificați DNS și conexiunea"
+                ]
+            },
+            {
+                code: "-110701",
+                model: "Datecs",
+                displayText: "Network error: Cannot open socket for communication with server",
+                description: "Eroare retea: Nu se poate deschide conexiune (socket) cu serverul",
+                solution: [
+                    "Socket-ul nu poate fi deschis",
+                    "Verificați firewall-ul"
+                ]
+            },
+            {
+                code: "-110702",
+                model: "Datecs",
+                displayText: "Network error: Connection error( cannot connect to a server )",
+                description: "Eroare retea: Eroare conexiune ( nu se poate conecta la server )",
+                solution: [
+                    "Conexiunea la server a eșuat",
+                    "Verificați disponibilitatea serverului"
+                ]
+            },
+            {
+                code: "-110703",
+                model: "Datecs",
+                displayText: "Network error: Config error( for example: no server address )",
+                description: "Eroare retea: Eroare configurare ( ex.: lipsa adresa server )",
+                solution: [
+                    "Eroare de configurare rețea",
+                    "Verificați setările"
+                ]
+            },
+            {
+                code: "-110704",
+                model: "Datecs",
+                displayText: "Network error: Connection socket is already opened",
+                description: "Eroare retea: Conexiune (socket) deja deschisa",
+                solution: [
+                    "Conexiunea este deja deschisă",
+                    "Închideți conexiunea existentă"
+                ]
+            },
+            {
+                code: "-110705",
+                model: "Datecs",
+                displayText: "Network error: SSL communication error( something went wrong in cryptographic protocol )",
+                description: "Eroare retea: Eroare comunicare SSL( eroare in protocolul criptografic )",
+                solution: [
+                    "Eroare de comunicare SSL",
+                    "Verificați certificatele",
+                    "Actualizați software-ul"
+                ]
+            },
+            {
+                code: "-110706",
+                model: "Datecs",
+                displayText: "Network error: HTTP communication error( something went wrong in http protocol )",
+                description: "Eroare retea: Eroare comunicare HTTP (eroare in protocolul http)",
+                solution: [
+                    "Eroare de protocol HTTP",
+                    "Verificați conexiunea"
+                ]
+            },
+            
+            // ----- Tax Terminal Errors (110800 - 110899) -----
+            {
+                code: "-110800",
+                model: "Datecs",
+                displayText: "Tax terminal error: No error",
+                description: "Eroare conexiune ANAF: Fara erori",
+                solution: [
+                    "Nu există erori"
+                ]
+            },
+            {
+                code: "-110801",
+                model: "Datecs",
+                displayText: "Tax terminal error: Unknown ID",
+                description: "Eroare conexiune ANAF: ID necunoscut",
+                solution: [
+                    "ID necunoscut pentru serverul ANAF",
+                    "Verificați datele de autentificare"
+                ]
+            },
+            {
+                code: "-110802",
+                model: "Datecs",
+                displayText: "Tax terminal error: Invalid token( key from the server )",
+                description: "Eroare conexiune ANAF: Token invalid ( cheia serverului )",
+                solution: [
+                    "Token-ul de autentificare este invalid",
+                    "Reautentificați-vă"
+                ]
+            },
+            {
+                code: "-110803",
+                model: "Datecs",
+                displayText: "Tax terminal error: Protocol error",
+                description: "Eroare conexiune ANAF: Eroare protocol",
+                solution: [
+                    "Eroare de protocol în comunicarea cu ANAF",
+                    "Actualizați software-ul"
+                ]
+            },
+            {
+                code: "-110804",
+                model: "Datecs",
+                displayText: "Tax terminal error: The command is unknown",
+                description: "Eroare conexiune ANAF: Comanda necunoscuta",
+                solution: [
+                    "Comanda nu este recunoscută de server",
+                    "Verificați versiunea API"
+                ]
+            },
+            {
+                code: "-110805",
+                model: "Datecs",
+                displayText: "Tax terminal error: The command is not supported",
+                description: "Eroare conexiune ANAF: Comanda nu e suportata",
+                solution: [
+                    "Comanda nu este suportată",
+                    "Consultați documentația"
+                ]
+            },
+            {
+                code: "-110806",
+                model: "Datecs",
+                displayText: "Tax terminal error: Invalid configuration",
+                description: "Eroare conexiune ANAF: Configuratie invalida",
+                solution: [
+                    "Configurația pentru ANAF este invalidă",
+                    "Verificați setările"
+                ]
+            },
+            {
+                code: "-110807",
+                model: "Datecs",
+                displayText: "Tax terminal error: SSL is not allowed",
+                description: "Eroare conexiune ANAF: SSL nu e permis",
+                solution: [
+                    "Conexiunea SSL nu este permisă",
+                    "Verificați setările de securitate"
+                ]
+            },
+            {
+                code: "-110808",
+                model: "Datecs",
+                displayText: "Tax terminal error: Invalid request number",
+                description: "Eroare conexiune ANAF: Numar cerere invalid",
+                solution: [
+                    "Numărul cererii este invalid",
+                    "Verificați formatul cererii"
+                ]
+            },
+            {
+                code: "-110809",
+                model: "Datecs",
+                displayText: "Tax terminal error: Invalid retry request",
+                description: "Eroare conexiune ANAF: Repetare cerere invalida",
+                solution: [
+                    "Cererea de reîncercare este invalidă",
+                    "Încercați din nou"
+                ]
+            },
+            {
+                code: "-110810",
+                model: "Datecs",
+                displayText: "Tax terminal error: Cannot cancel ticket",
+                description: "Eroare conexiune ANAF: Tichetul nu poate fi anulat",
+                solution: [
+                    "Tichetul nu poate fi anulat",
+                    "Verificați starea tichetului"
+                ]
+            },
+            {
+                code: "-110811",
+                model: "Datecs",
+                displayText: "Tax terminal error: More than 24 hours from shift opening",
+                description: "Eroare conexiune ANAF: S-au depasit 24 ore de la deschiderea turei",
+                solution: [
+                    "Peste 24 de ore de la deschiderea turei",
+                    "Efectuați raportul Z"
+                ]
+            },
+            {
+                code: "-110812",
+                model: "Datecs",
+                displayText: "Tax terminal error: Invalid login name or password",
+                description: "Eroare conexiune ANAF: Nume sau parola de conectare, invalide",
+                solution: [
+                    "Numele de utilizator sau parola sunt invalide",
+                    "Verificați datele de autentificare"
+                ]
+            },
+            {
+                code: "-110813",
+                model: "Datecs",
+                displayText: "Tax terminal error: Incorrect request data",
+                description: "Eroare conexiune ANAF: Continutul cererii e incorect",
+                solution: [
+                    "Conținutul cererii este incorect",
+                    "Verificați datele trimise"
+                ]
+            },
+            {
+                code: "-110814",
+                model: "Datecs",
+                displayText: "Tax terminal error: Not enough cash",
+                description: "Eroare conexiune ANAF: Numerar insuficient",
+                solution: [
+                    "Numerar insuficient în sertar",
+                    "Alimentați sertarul"
+                ]
+            },
+            {
+                code: "-110815",
+                model: "Datecs",
+                displayText: "Tax terminal error: Blocked from server",
+                description: "Eroare conexiune ANAF: Blocat de server",
+                solution: [
+                    "Blocat de serverul ANAF",
+                    "Contactați administratorul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-110854",
+                model: "Datecs",
+                displayText: "Tax terminal error: Service temporarily unavailable",
+                description: "Eroare conexiune ANAF: Serviciu temporar indisponibil",
+                solution: [
+                    "Serviciul ANAF este temporar indisponibil",
+                    "Încercați mai târziu"
+                ]
+            },
+            {
+                code: "-110855",
+                model: "Datecs",
+                displayText: "Tax terminal error: Unknown error",
+                description: "Eroare conexiune ANAF: Eroare necunoscuta",
+                solution: [
+                    "Eroare necunoscută în comunicarea cu ANAF",
+                    "Reporniți aparatul",
+                    "Contactați service-ul"
+                ]
+            },
+            
+            // ----- REGMODE ERRORS (111000 - 111499) -----
+            {
+                code: "-111000",
+                model: "Datecs",
+                displayText: "Registration mode error: Common error followed by deliting all data for the command",
+                description: "Eroare in mod Inregistrare: Eroare - stergeti toate datele comenzii",
+                solution: [
+                    "Eroare generală în modul înregistrare",
+                    "Ștergeți toate datele comenzii și reîncercați"
+                ]
+            },
+            {
+                code: "-111001",
+                model: "Datecs",
+                displayText: "Registration mode error: Common error followed by partly deliting data for the command",
+                description: "Eroare in mod Inregistrare: Eroare - stergeti componentele gresite din comanda",
+                solution: [
+                    "Eroare generală în modul înregistrare",
+                    "Ștergeți componentele greșite din comandă"
+                ]
+            },
+            {
+                code: "-111002",
+                model: "Datecs",
+                displayText: "Registration mode error: Syntax error. Check the parameters of the command",
+                description: "Eroare in mod Inregistrare: Eroare sintaxa. Verificati parametrii comenzii",
+                solution: [
+                    "Eroare de sintaxă",
+                    "Verificați parametrii comenzii"
+                ]
+            },
+            {
+                code: "-111003",
+                model: "Datecs",
+                displayText: "Registration mode error: Cannot do operation",
+                description: "Eroare in mod Inregistrare: Operatiunea nu poate fi executata",
+                solution: [
+                    "Operația nu poate fi executată",
+                    "Verificați starea dispozitivului"
+                ]
+            },
+            {
+                code: "-111004",
+                model: "Datecs",
+                displayText: "Registration mode error: PLU code was not found",
+                description: "Eroare in mod Inregistrare: Codul PLU nu a fost gasit",
+                solution: [
+                    "Codul PLU nu a fost găsit",
+                    "Verificați codul introdus"
+                ]
+            },
+            {
+                code: "-111005",
+                model: "Datecs",
+                displayText: "Registration mode error: Forbidden VAT",
+                description: "Eroare in mod Inregistrare: TVA interzis",
+                solution: [
+                    "Cota TVA nu este permisă",
+                    "Verificați setările TVA"
+                ]
+            },
             {
                 code: "-111006",
                 model: "Datecs",
                 displayText: "Registration mode error: Overflow in multiplication of quantity and price",
                 description: "Eroare in mod Inregistrare: Depasire in produsul dintre cantitate si pret",
                 solution: [
-                    "Reduceți cantitatea sau prețul",
-                    "Verificați limitele maxime"
+                    "Depășire în produsul cantitate × preț",
+                    "Reduceți cantitatea sau prețul"
+                ]
+            },
+            {
+                code: "-111007",
+                model: "Datecs",
+                displayText: "Registration mode error: PLU has no price",
+                description: "Eroare in mod Inregistrare: PLU nu are pret",
+                solution: [
+                    "PLU-ul nu are preț programat",
+                    "Programați un preț pentru PLU"
+                ]
+            },
+            {
+                code: "-111008",
+                model: "Datecs",
+                displayText: "Registration mode error: Group is not in range",
+                description: "Eroare in mod Inregistrare: Grup in afara domeniului",
+                solution: [
+                    "Grupa este în afara domeniului",
+                    "Selectați o grupă validă"
+                ]
+            },
+            {
+                code: "-111009",
+                model: "Datecs",
+                displayText: "Registration mode error: Department is not in range",
+                description: "Eroare in mod Inregistrare: Departament in afara domeniului",
+                solution: [
+                    "Departamentul este în afara domeniului",
+                    "Selectați un departament valid"
+                ]
+            },
+            {
+                code: "-111010",
+                model: "Datecs",
+                displayText: "Registration mode error: BAR code does not exist",
+                description: "Eroare in mod Inregistrare: Codul de bare nu exista",
+                solution: [
+                    "Codul de bare nu există",
+                    "Verificați codul introdus"
+                ]
+            },
+            {
+                code: "-111011",
+                model: "Datecs",
+                displayText: "Registration mode error: Overflow of the PLU turnover",
+                description: "Eroare in mod Inregistrare: Depasire rulaj PLU",
+                solution: [
+                    "Depășire a rulajului PLU",
+                    "Efectuați raportul Z"
+                ]
+            },
+            {
+                code: "-111012",
+                model: "Datecs",
+                displayText: "Registration mode error: Overflow of the PLU quantity",
+                description: "Eroare in mod Inregistrare: Depasire cantitate PLU",
+                solution: [
+                    "Depășire a cantității PLU",
+                    "Reduceți cantitatea"
                 ]
             },
             {
@@ -2332,8 +4673,8 @@
                 displayText: "Registration mode error: ECR daily registers overflow",
                 description: "Eroare in mod Inregistrare: Depasire registri zilnici AMEF",
                 solution: [
-                    "Efectuați Raportul Z",
-                    "Registrele zilnice sunt pline"
+                    "Depășire registri zilnici",
+                    "Efectuați raportul Z"
                 ]
             },
             {
@@ -2342,8 +4683,8 @@
                 displayText: "Registration mode error: Bill total register overflow",
                 description: "Eroare in mod Inregistrare: Depasire registrii total",
                 solution: [
-                    "Închideți bonul curent",
-                    "Începeți un bon nou"
+                    "Depășire registri total bon",
+                    "Închideți bonul curent"
                 ]
             },
             {
@@ -2352,8 +4693,8 @@
                 displayText: "Registration mode error: Receipt is opened",
                 description: "Eroare in mod Inregistrare: Bon deschis",
                 solution: [
-                    "Finalizați bonul curent",
-                    "Închideți bonul înainte de operație"
+                    "Bonul este deja deschis",
+                    "Finalizați bonul curent"
                 ]
             },
             {
@@ -2362,8 +4703,28 @@
                 displayText: "Registration mode error: Receipt is closed",
                 description: "Eroare in mod Inregistrare: Bon inchis",
                 solution: [
-                    "Deschideți un bon nou",
-                    "Operația necesită un bon deschis"
+                    "Bonul este închis",
+                    "Deschideți un bon nou"
+                ]
+            },
+            {
+                code: "-111017",
+                model: "Datecs",
+                displayText: "Registration mode error: No cash in ECR",
+                description: "Eroare in mod Inregistrare: AMEF fara numerar",
+                solution: [
+                    "Nu există numerar în sertar",
+                    "Alimentați sertarul"
+                ]
+            },
+            {
+                code: "-111018",
+                model: "Datecs",
+                displayText: "Registration mode error: Payment is initiated",
+                description: "Eroare in mod Inregistrare: Plata e initiata",
+                solution: [
+                    "Plata este deja inițiată",
+                    "Finalizați plata"
                 ]
             },
             {
@@ -2372,8 +4733,48 @@
                 displayText: "Registration mode error: Maximum number of sales in receipt",
                 description: "Eroare in mod Inregistrare: Numar maxim de vanzari in bon",
                 solution: [
-                    "Închideți bonul curent",
-                    "Continuați pe un bon nou"
+                    "Număr maxim de vânzări în bon atins",
+                    "Închideți bonul și începeți unul nou"
+                ]
+            },
+            {
+                code: "-111020",
+                model: "Datecs",
+                displayText: "Registration mode error: No transactions",
+                description: "Eroare in mod Inregistrare: Fara tranzactii",
+                solution: [
+                    "Nu există tranzacții",
+                    "Adăugați produse în bon"
+                ]
+            },
+            {
+                code: "-111021",
+                model: "Datecs",
+                displayText: "Registration mode error: Possible negative turnover",
+                description: "Eroare in mod Inregistrare: Posibil rulaj negativ",
+                solution: [
+                    "Posibil rulaj negativ",
+                    "Verificați operațiile de anulare"
+                ]
+            },
+            {
+                code: "-111022",
+                model: "Datecs",
+                displayText: "Registration mode error: Foreign payment has change",
+                description: "Eroare in mod Inregistrare: Rest pentru plata in valuta",
+                solution: [
+                    "Plata în valută generează rest",
+                    "Verificați suma plătită"
+                ]
+            },
+            {
+                code: "-111023",
+                model: "Datecs",
+                displayText: "Registration mode error: Transaction is not found in the receipt",
+                description: "Eroare in mod Inregistrare: Tranzactia nu este inregistrata in bon",
+                solution: [
+                    "Tranzacția nu este înregistrată în bon",
+                    "Verificați indexul tranzacției"
                 ]
             },
             {
@@ -2382,8 +4783,58 @@
                 displayText: "Registration mode error: End of 24 hour blocking",
                 description: "Eroare in mod Inregistrare: Au trecut 24 ore fara Raport Z!",
                 solution: [
-                    "Efectuați Raportul Z imediat",
-                    "Nu mai puteți opera până la efectuarea raportului"
+                    "Au trecut 24 de ore fără raport Z",
+                    "Efectuați raportul Z imediat"
+                ]
+            },
+            {
+                code: "-111025",
+                model: "Datecs",
+                displayText: "Registration mode error: Invalid invoice range",
+                description: "Eroare in mod Inregistrare: Nr factura in afara domeniului",
+                solution: [
+                    "Numărul facturii este în afara domeniului",
+                    "Verificați numărul introdus"
+                ]
+            },
+            {
+                code: "-111026",
+                model: "Datecs",
+                displayText: "Registration mode error: Operation is cancelled by operator",
+                description: "Eroare in mod Inregistrare: Operatiune anulata de operator",
+                solution: [
+                    "Operația a fost anulată de operator",
+                    "Reîncepeți operația"
+                ]
+            },
+            {
+                code: "-111027",
+                model: "Datecs",
+                displayText: "Registration mode error: Operation approved by POS",
+                description: "Eroare in mod Inregistrare: Operatiune aprobata la POS",
+                solution: [
+                    "Operația a fost aprobată de POS",
+                    "Continuați"
+                ]
+            },
+            {
+                code: "-111028",
+                model: "Datecs",
+                displayText: "Registration mode error: Operation is not approved by POS",
+                description: "Eroare in mod Inregistrare: Operatiune respinsa la POS",
+                solution: [
+                    "Operația a fost respinsă de POS",
+                    "Verificați datele plății"
+                ]
+            },
+            {
+                code: "-111029",
+                model: "Datecs",
+                displayText: "Registration mode error: POS terminal communication error",
+                description: "Eroare in mod Inregistrare: Eroare comunicatie POS",
+                solution: [
+                    "Eroare de comunicare cu terminalul POS",
+                    "Verificați conexiunea"
                 ]
             },
             {
@@ -2392,8 +4843,8 @@
                 displayText: "Registration mode error: Multiplication of quantity and price is 0",
                 description: "Eroare in mod Inregistrare: Produsul cantitate x pret este 0",
                 solution: [
-                    "Verificați cantitatea și prețul",
-                    "Asigurați-vă că valoarea nu este zero"
+                    "Produsul cantitate × preț este 0",
+                    "Verificați valorile introduse"
                 ]
             },
             {
@@ -2402,8 +4853,8 @@
                 displayText: "Registration mode error: Value is too big",
                 description: "Eroare in mod Inregistrare: Valoare prea mare",
                 solution: [
-                    "Reduceți valoarea",
-                    "Verificați limita maximă"
+                    "Valoarea este prea mare",
+                    "Reduceți valoarea"
                 ]
             },
             {
@@ -2412,8 +4863,8 @@
                 displayText: "Registration mode error: Value is bad",
                 description: "Eroare in mod Inregistrare: Valoare gresita",
                 solution: [
-                    "Corectați valoarea introdusă",
-                    "Introduceți o valoare validă"
+                    "Valoarea este greșită",
+                    "Corectați valoarea"
                 ]
             },
             {
@@ -2422,8 +4873,8 @@
                 displayText: "Registration mode error: Price is too big",
                 description: "Eroare in mod Inregistrare: Pret prea mare",
                 solution: [
-                    "Reduceți prețul",
-                    "Verificați limita maximă de preț"
+                    "Prețul este prea mare",
+                    "Reduceți prețul"
                 ]
             },
             {
@@ -2432,8 +4883,128 @@
                 displayText: "Registration mode error: Price is bad",
                 description: "Eroare in mod Inregistrare: Pret gresit",
                 solution: [
-                    "Introduceți un preț valid",
-                    "Verificați formatul prețului"
+                    "Prețul este greșit",
+                    "Corectați prețul"
+                ]
+            },
+            {
+                code: "-111035",
+                model: "Datecs",
+                displayText: "Registration mode error: Operation all void is selected to be executed",
+                description: "Eroare in mod Inregistrare: Operatiunea de stergere totala a fost selectata pentru executie",
+                solution: [
+                    "Operația de ștergere totală a fost selectată",
+                    "Confirmați sau anulați operația"
+                ]
+            },
+            {
+                code: "-111036",
+                model: "Datecs",
+                displayText: "Registration mode error: Only all void operation is permitted",
+                description: "Eroare in mod Inregistrare: Doar stergerea totala e permisa",
+                solution: [
+                    "Doar ștergerea totală este permisă",
+                    "Executați ștergerea totală"
+                ]
+            },
+            {
+                code: "-111040",
+                model: "Datecs",
+                displayText: "Registration mode error: Restaurant: There is no free space for other purchases",
+                description: "Eroare in mod Inregistrare: Restaurant: Nu mai este spatiu pentru alte vanzari",
+                solution: [
+                    "Nu mai este spațiu pentru alte vânzări în restaurant",
+                    "Închideți nota curentă"
+                ]
+            },
+            {
+                code: "-111041",
+                model: "Datecs",
+                displayText: "Registration mode error: Restaurant: There is no free space for new acount",
+                description: "Eroare in mod Inregistrare: Restaurant: Nu mai este spatiu pentru nota noua",
+                solution: [
+                    "Nu mai este spațiu pentru o notă nouă",
+                    "Închideți notele existente"
+                ]
+            },
+            {
+                code: "-111042",
+                model: "Datecs",
+                displayText: "Registration mode error: Restaurant: Account is already opened",
+                description: "Eroare in mod Inregistrare: Restaurant: Nota deja deschisa",
+                solution: [
+                    "Nota este deja deschisă",
+                    "Selectați o altă notă"
+                ]
+            },
+            {
+                code: "-111043",
+                model: "Datecs",
+                displayText: "Registration mode error: Restaurant: Wrong index",
+                description: "Eroare in mod Inregistrare: Restaurant: Index gresit",
+                solution: [
+                    "Indexul notei este greșit",
+                    "Verificați indexul introdus"
+                ]
+            },
+            {
+                code: "-111044",
+                model: "Datecs",
+                displayText: "Registration mode error: Restaurant: Account is not found",
+                description: "Eroare in mod Inregistrare: Restaurant: Nota nu e gasita",
+                solution: [
+                    "Nota nu a fost găsită",
+                    "Verificați numărul notei"
+                ]
+            },
+            {
+                code: "-111045",
+                model: "Datecs",
+                displayText: "Registration mode error: Restaurant: Not permitted( only for admins )",
+                description: "Eroare in mod Inregistrare: Restaurant: Nu e permis (doar pt. admin)",
+                solution: [
+                    "Operația nu este permisă (doar pentru administratori)",
+                    "Autentificați-vă ca administrator"
+                ]
+            },
+            {
+                code: "-111046",
+                model: "Datecs",
+                displayText: "Registration mode error: non-fiscal receipt is opened",
+                description: "Eroare in mod Inregistrare: Bon nefiscal deschis",
+                solution: [
+                    "Bonul nefiscal este deschis",
+                    "Finalizați bonul nefiscal"
+                ]
+            },
+            {
+                code: "-111047",
+                model: "Datecs",
+                displayText: "Registration mode error: fiscal receipt is opened",
+                description: "Eroare in mod Inregistrare: Bon fiscal deschis",
+                solution: [
+                    "Bonul fiscal este deschis",
+                    "Finalizați bonul fiscal"
+                ]
+            },
+            {
+                code: "-111048",
+                model: "Datecs",
+                displayText: "Registration mode error: Buyers TIN is already entered",
+                description: "Eroare in mod Inregistrare: CIF cumparator deja introdus",
+                solution: [
+                    "CIF-ul cumpărătorului a fost deja introdus",
+                    "Continuați"
+                ]
+            },
+            {
+                code: "-111049",
+                model: "Datecs",
+                displayText: "Registration mode error: Buyers TIN is not entered",
+                description: "Eroare in mod Inregistrare: CIF cumparator nu a fost introdus",
+                solution: [
+                    "CIF-ul cumpărătorului nu a fost introdus",
+                    "Introduceți CIF-ul"
                 ]
             },
             {
@@ -2442,8 +5013,18 @@
                 displayText: "Registration mode error: Payment is not initiated",
                 description: "Eroare in mod Inregistrare: Plata nu a fost initiata",
                 solution: [
-                    "Inițiați plata",
-                    "Selectați metoda de plată"
+                    "Plata nu a fost inițiată",
+                    "Inițiați plata"
+                ]
+            },
+            {
+                code: "-111051",
+                model: "Datecs",
+                displayText: "Registration mode error: Reeipt type mismatch",
+                description: "Eroare in mod Inregistrare: Tip bon gresit",
+                solution: [
+                    "Tipul bonului este greșit",
+                    "Selectați tipul corect de bon"
                 ]
             },
             {
@@ -2452,8 +5033,108 @@
                 displayText: "Registration mode error: Receipt total limit is reached",
                 description: "Eroare in mod Inregistrare: Limita total bon atinsa",
                 solution: [
-                    "Închideți bonul curent",
-                    "Continuați pe un bon nou"
+                    "Limita totalului bonului a fost atinsă",
+                    "Închideți bonul și începeți unul nou"
+                ]
+            },
+            {
+                code: "-111053",
+                model: "Datecs",
+                displayText: "Registration mode error: Sum cannot be divided by the minimum coin",
+                description: "Eroare in mod Inregistrare: Suma nu poate fi data in monede",
+                solution: [
+                    "Suma nu poate fi dată în monede",
+                    "Verificați valoarea"
+                ]
+            },
+            {
+                code: "-111054",
+                model: "Datecs",
+                displayText: "Registration mode error: Sum must be <= payment amount",
+                description: "Eroare in mod Inregistrare: Suma trebuie sa fie <= decat valoarea platii",
+                solution: [
+                    "Suma trebuie să fie ≤ valoarea plății",
+                    "Introduceți o sumă mai mică sau egală"
+                ]
+            },
+            {
+                code: "-111055",
+                model: "Datecs",
+                displayText: "Registration mode error: Sum of voucher must be entered when paying with voucher",
+                description: "Eroare in mod Inregistrare: Suma pe vouchere se introduce doar la plata cu voucher",
+                solution: [
+                    "Suma pe voucher se introduce doar la plata cu voucher",
+                    "Introduceți suma corectă"
+                ]
+            },
+            {
+                code: "-111056",
+                model: "Datecs",
+                displayText: "Registration mode error: Value surcharge of the difference between voucher sum and total must be done when paying with voucher and sum > total",
+                description: "Eroare in mod Inregistrare: Valoarea majorarii este diferenta dintre suma voucherelor si total",
+                solution: [
+                    "Suma voucherului este mai mare decât totalul",
+                    "Verificați diferența"
+                ]
+            },
+            {
+                code: "-111057",
+                model: "Datecs",
+                displayText: "Registration mode error: Payment with foreign currency is disabled",
+                description: "Eroare in mod Inregistrare: Plata cu valuta este dezactivata",
+                solution: [
+                    "Plata în valută este dezactivată",
+                    "Activați opțiunea sau folosiți altă metodă"
+                ]
+            },
+            {
+                code: "-111058",
+                model: "Datecs",
+                displayText: "Registration mode error: Payment with foreign currency is impossible",
+                description: "Eroare in mod Inregistrare: Plata cu valuta nu este posibila",
+                solution: [
+                    "Plata în valută nu este posibilă",
+                    "Folosiți altă metodă de plată"
+                ]
+            },
+            {
+                code: "-111059",
+                model: "Datecs",
+                displayText: "Registration mode error: Sum must be bigger or equal to payment amount",
+                description: "Eroare in mod Inregistrare: Suma in valuta trebuie sa fie mai mare sau egala decat valoarea de plata",
+                solution: [
+                    "Suma în valută trebuie să fie ≥ valoarea de plată",
+                    "Introduceți o sumă mai mare sau egală"
+                ]
+            },
+            {
+                code: "-111060",
+                model: "Datecs",
+                displayText: "Registration mode error: Safe opening is disabled",
+                description: "Eroare in mod Inregistrare: Deschidere sertar dezactivata",
+                solution: [
+                    "Deschiderea sertarului este dezactivată",
+                    "Activați opțiunea în setări"
+                ]
+            },
+            {
+                code: "-111061",
+                model: "Datecs",
+                displayText: "Registration mode error: Forbidden payment",
+                description: "Eroare in mod Inregistrare: Plata interzisa",
+                solution: [
+                    "Metoda de plată este interzisă",
+                    "Folosiți o altă metodă"
+                ]
+            },
+            {
+                code: "-111062",
+                model: "Datecs",
+                displayText: "Registration mode error: Forbidden key for surcharge/discount",
+                description: "Eroare in mod Inregistrare: Tasta majorare/reducere interzisa",
+                solution: [
+                    "Tasta pentru majorare/reducere este interzisă",
+                    "Verificați permisiunile"
                 ]
             },
             {
@@ -2462,8 +5143,8 @@
                 displayText: "Registration mode error: Entered sum is bigger than receipt sum",
                 description: "Eroare in mod Inregistrare: Suma introdusa este mai mare decat suma bonului",
                 solution: [
-                    "Introduceți o sumă mai mică sau egală",
-                    "Verificați suma de plată"
+                    "Suma introdusă este mai mare decât totalul bonului",
+                    "Introduceți suma corectă"
                 ]
             },
             {
@@ -2472,8 +5153,118 @@
                 displayText: "Registration mode error: Entered sum is smaller than receipt sum",
                 description: "Eroare in mod Inregistrare: Suma introdusa este mai mica decat suma bonului",
                 solution: [
-                    "Introduceți suma corectă",
-                    "Plata trebuie să acopere totalul"
+                    "Suma introdusă este mai mică decât totalul bonului",
+                    "Introduceți suma corectă"
+                ]
+            },
+            {
+                code: "-111065",
+                model: "Datecs",
+                displayText: "Registration mode error: Fiscal printer: Sum of receipt is 0. Operation 'void' is needed",
+                description: "Eroare in mod Inregistrare: Suma bonului este 0. Executati operatiunea de anulare 'void'",
+                solution: [
+                    "Suma bonului este 0",
+                    "Executați operația de anulare 'void'"
+                ]
+            },
+            {
+                code: "-111066",
+                model: "Datecs",
+                displayText: "Registration mode error: Fiscal printer: Operation 'void' is executed. Close receipt is needed",
+                description: "Eroare in mod Inregistrare: Operatiunea 'void' este executata. Inchideti bonul",
+                solution: [
+                    "Operația 'void' a fost executată",
+                    "Închideți bonul"
+                ]
+            },
+            {
+                code: "-111067",
+                model: "Datecs",
+                displayText: "Registration mode error: Storno receipt is opened",
+                description: "Eroare in mod Inregistrare: Bon Storno este deschis",
+                solution: [
+                    "Bonul de storno este deschis",
+                    "Finalizați bonul de storno"
+                ]
+            },
+            {
+                code: "-111068",
+                model: "Datecs",
+                displayText: "Registration mode error: Sum is not entered",
+                description: "Eroare in mod Inregistrare: Suma nu a fost introdusa",
+                solution: [
+                    "Suma nu a fost introdusă",
+                    "Introduceți suma"
+                ]
+            },
+            {
+                code: "-111069",
+                model: "Datecs",
+                displayText: "Registration mode error: Price type is invalid",
+                description: "Eroare in mod Inregistrare: Tip pret invalid",
+                solution: [
+                    "Tipul prețului este invalid",
+                    "Selectați un tip valid"
+                ]
+            },
+            {
+                code: "-111070",
+                model: "Datecs",
+                displayText: "Registration mode error: Linked surcharge is forbidden",
+                description: "Eroare in mod Inregistrare: Majorarea asociata este interzisa",
+                solution: [
+                    "Majorarea asociată este interzisă",
+                    "Verificați setările"
+                ]
+            },
+            {
+                code: "-111071",
+                model: "Datecs",
+                displayText: "Registration mode error: Negative price is forbidden",
+                description: "Eroare in mod Inregistrare: Pretul negativ este interzis",
+                solution: [
+                    "Prețul negativ este interzis",
+                    "Introduceți un preț pozitiv"
+                ]
+            },
+            {
+                code: "-111072",
+                model: "Datecs",
+                displayText: "Registration mode error: More than 1 VAT in one receipt is not allowed",
+                description: "Eroare in mod Inregistrare: Este permisa o singura cota TVA pe bon",
+                solution: [
+                    "O singură cotă TVA este permisă pe bon",
+                    "Verificați cotele TVA folosite"
+                ]
+            },
+            {
+                code: "-111073",
+                model: "Datecs",
+                displayText: "Registration mode error: Pinpad error",
+                description: "Eroare in mod Inregistrare: Eroare Pinpad",
+                solution: [
+                    "Eroare Pinpad",
+                    "Verificați conexiunea cu Pinpad-ul"
+                ]
+            },
+            {
+                code: "-111074",
+                model: "Datecs",
+                displayText: "Registration mode error: Buyer data is wrong",
+                description: "Eroare in mod Inregistrare: Datele cumparatorului sunt gresite",
+                solution: [
+                    "Datele cumpărătorului sunt greșite",
+                    "Corectați datele"
+                ]
+            },
+            {
+                code: "-111075",
+                model: "Datecs",
+                displayText: "Registration mode error: Vat system disable",
+                description: "Eroare in mod Inregistrare: Sistem TVA deconectat",
+                solution: [
+                    "Sistemul TVA este deconectat",
+                    "Activați sistemul TVA"
                 ]
             },
             {
@@ -2482,8 +5273,8 @@
                 displayText: "Operator not logged in",
                 description: "Eroare in mod Inregistrare: Operatorul nu s-a logat",
                 solution: [
-                    "Autentificați-vă ca operator",
-                    "Introduceți codul de operator"
+                    "Operatorul nu este autentificat",
+                    "Autentificați-vă"
                 ]
             },
             {
@@ -2492,20 +5283,869 @@
                 displayText: "Registration mode error: Out of stock",
                 description: "Eroare in mod Inregistrare: Depasire stoc",
                 solution: [
-                    "Verificați stocul disponibil",
-                    "Reduceți cantitatea"
+                    "Stoc insuficient",
+                    "Verificați stocul disponibil"
+                ]
+            },
+            {
+                code: "-111081",
+                model: "Datecs",
+                displayText: "Registration mode error: Must pushing of the STL before TL",
+                description: "Eroare in mod Inregistrare: Apasati STL inaintea TL",
+                solution: [
+                    "Apăsați STL înainte de TL",
+                    "Urmați ordinea corectă a operațiilor"
+                ]
+            },
+            {
+                code: "-111082",
+                model: "Datecs",
+                displayText: "Package does not exist",
+                description: "Arhiva nu exista",
+                solution: [
+                    "Arhiva nu există",
+                    "Verificați existența arhivei"
+                ]
+            },
+            {
+                code: "-111083",
+                model: "Datecs",
+                displayText: "Measuring unit not found",
+                description: "Unitatea de masura nu e gasita",
+                solution: [
+                    "Unitatea de măsură nu a fost găsită",
+                    "Programați unitatea de măsură"
+                ]
+            },
+            {
+                code: "-111084",
+                model: "Datecs",
+                displayText: "Category not found in the data base",
+                description: "Categoria nu e gasita in baza de date",
+                solution: [
+                    "Categoria nu există în baza de date",
+                    "Adăugați categoria"
+                ]
+            },
+            {
+                code: "-111085",
+                model: "Datecs",
+                displayText: "Invalid department name",
+                description: "Nume departament incorect",
+                solution: [
+                    "Numele departamentului este incorect",
+                    "Corectați numele"
+                ]
+            },
+            {
+                code: "-111086",
+                model: "Datecs",
+                displayText: "Bank terminal not configured",
+                description: "Terminal bancar neconfigurat",
+                solution: [
+                    "Terminalul bancar nu este configurat",
+                    "Configurați terminalul"
+                ]
+            },
+            {
+                code: "-111089",
+                model: "Datecs",
+                displayText: "Entered price is bigger than the programmed",
+                description: "Pretul introdus e mai mare decat cel programat",
+                solution: [
+                    "Prețul introdus este mai mare decât cel programat",
+                    "Introduceți un preț mai mic sau modificați prețul programat"
+                ]
+            },
+            {
+                code: "-111090",
+                model: "Datecs",
+                displayText: "Fix PLU's price",
+                description: "Pret PLU fix",
+                solution: [
+                    "Prețul PLU este fix",
+                    "Nu poate fi modificat în bon"
+                ]
+            },
+            {
+                code: "-111092",
+                model: "Datecs",
+                displayText: "Voucher payment cannot have change",
+                description: "Plata cu Voucher nu poate avea rest",
+                solution: [
+                    "Plata cu voucher nu poate genera rest",
+                    "Utilizați o valoare exactă a voucherului"
+                ]
+            },
+            {
+                code: "-111093",
+                model: "Datecs",
+                displayText: "Sum for advance payment is bigger than the sum of article",
+                description: "Suma platita in avans este mai mare decat suma tuturor articolelor",
+                solution: [
+                    "Suma plătită în avans depășește totalul",
+                    "Reduceți suma de avans"
+                ]
+            },
+            {
+                code: "-111095",
+                model: "Datecs",
+                displayText: "Invalid parameter - PLU is not defined as excise PLU",
+                description: "Parametru invalid - PLU nu este definit ca PLU accizabil",
+                solution: [
+                    "PLU-ul nu este definit ca accizabil",
+                    "Verificați setările PLU"
+                ]
+            },
+            {
+                code: "-111096",
+                model: "Datecs",
+                displayText: "Excise stamp of an excise PLU is not entered",
+                description: "Valoare accizei al unui PLU accizabil nu este introdusa",
+                solution: [
+                    "Valoarea accizei nu a fost introdusă",
+                    "Introduceți valoarea accizei"
+                ]
+            },
+            {
+                code: "-111097",
+                model: "Datecs",
+                displayText: "SALE FORBIDDEN (excise stamp is not valid)",
+                description: "VANZARE INTERZISA (Valoarea accizei nu este valida)",
+                solution: [
+                    "Vânzare interzisă - acciza nu este validă",
+                    "Verificați valoarea accizei"
                 ]
             },
             
-            // Printer Errors
+            // ----- PINPAD ERRORS (111500 - 112000) -----
+            {
+                code: "-111500",
+                model: "Datecs",
+                displayText: "Pinpad error: No error from pinpad",
+                description: "Eroare PinPad: Fara eroare pinpad",
+                solution: [
+                    "Nu există erori de la pinpad"
+                ]
+            },
+            {
+                code: "-111501",
+                model: "Datecs",
+                displayText: "Pinpad error: General error",
+                description: "Eroare PinPad: Eroare generala",
+                solution: [
+                    "Eroare generală pinpad",
+                    "Reporniți pinpad-ul",
+                    "Verificați conexiunea"
+                ]
+            },
+            {
+                code: "-111502",
+                model: "Datecs",
+                displayText: "Pinpad error: Not valid command or sub command code",
+                description: "Eroare PinPad: comanda sau cod comanda invalide",
+                solution: [
+                    "Comandă invalidă pentru pinpad",
+                    "Verificați comanda trimisă"
+                ]
+            },
+            {
+                code: "-111503",
+                model: "Datecs",
+                displayText: "Pinpad error: Invalid parameter",
+                description: "Eroare PinPad: parametru invalid",
+                solution: [
+                    "Parametru invalid pentru pinpad",
+                    "Verificați parametrii"
+                ]
+            },
+            {
+                code: "-111504",
+                model: "Datecs",
+                displayText: "Pinpad error: The address is outside limits",
+                description: "Eroare PinPad: Adresare in afara domeniului",
+                solution: [
+                    "Adresa este în afara limitelor",
+                    "Verificați adresa"
+                ]
+            },
+            {
+                code: "-111505",
+                model: "Datecs",
+                displayText: "Pinpad error: The value is outside limits",
+                description: "Eroare PinPad: Valoare peste limite",
+                solution: [
+                    "Valoarea este în afara limitelor",
+                    "Introduceți o valoare validă"
+                ]
+            },
+            {
+                code: "-111506",
+                model: "Datecs",
+                displayText: "Pinpad error: The length is outside limits",
+                description: "Eroare PinPad: Lungime depasita",
+                solution: [
+                    "Lungimea datelor depășește limita",
+                    "Reduceți lungimea"
+                ]
+            },
+            {
+                code: "-111507",
+                model: "Datecs",
+                displayText: "Pinpad error: The action is not permited in current state",
+                description: "Eroare PinPad: Actiune nepermisa",
+                solution: [
+                    "Acțiunea nu este permisă în starea curentă",
+                    "Verificați starea pinpad-ului"
+                ]
+            },
+            {
+                code: "-111508",
+                model: "Datecs",
+                displayText: "Pinpad error: There is no data to be returned",
+                description: "Eroare PinPad: Nu sunt date de transmis",
+                solution: [
+                    "Nu există date de returnat"
+                ]
+            },
+            {
+                code: "-111509",
+                model: "Datecs",
+                displayText: "Pinpad error: Timeout occurs",
+                description: "Eroare PinPad: Timeout",
+                solution: [
+                    "Timeout pinpad",
+                    "Verificați conexiunea",
+                    "Încercați din nou"
+                ]
+            },
+            {
+                code: "-111510",
+                model: "Datecs",
+                displayText: "Pinpad error: Invalid key number",
+                description: "Eroare PinPad: Numar cheie invalid",
+                solution: [
+                    "Numărul cheii este invalid",
+                    "Verificați configurația cheilor"
+                ]
+            },
+            {
+                code: "-111511",
+                model: "Datecs",
+                displayText: "Pinpad error: Invalid key attributes(usage)",
+                description: "Eroare PinPad: Atribut cheie invalid (usage)",
+                solution: [
+                    "Atributul cheii este invalid",
+                    "Verificați configurația"
+                ]
+            },
+            {
+                code: "-111512",
+                model: "Datecs",
+                displayText: "Pinpad error: Calling of non-existing device",
+                description: "Eroare PinPad: Apel la aparat inexistent",
+                solution: [
+                    "Dispozitivul pinpad nu există",
+                    "Verificați conexiunea"
+                ]
+            },
+            {
+                code: "-111514",
+                model: "Datecs",
+                displayText: "Pinpad error: Pin entering limit exceed",
+                description: "Eroare PinPad: Depasire numar incercari PIN",
+                solution: [
+                    "Numărul maxim de încercări PIN a fost depășit",
+                    "Așteptați sau contactați banca"
+                ]
+            },
+            {
+                code: "-111515",
+                model: "Datecs",
+                displayText: "Pinpad error: General error in flash commands",
+                description: "Eroare PinPad: Eroare generala - flash command",
+                solution: [
+                    "Eroare generală în comenzile flash",
+                    "Reporniți pinpad-ul"
+                ]
+            },
+            {
+                code: "-111516",
+                model: "Datecs",
+                displayText: "Pinpad error: General hardware error",
+                description: "Eroare PinPad: Eroare hardware generala",
+                solution: [
+                    "Eroare hardware pinpad",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-111518",
+                model: "Datecs",
+                displayText: "Pinpad error: The button 'CANCEL' is pressed",
+                description: "Eroare PinPad: Tasta 'CANCEL' este apasata",
+                solution: [
+                    "Tasta CANCEL a fost apăsată",
+                    "Reîncepeți operația"
+                ]
+            },
+            {
+                code: "-111519",
+                model: "Datecs",
+                displayText: "Pinpad error: Invalid signature",
+                description: "Eroare PinPad: Semnatura invalida",
+                solution: [
+                    "Semnătura electronică este invalidă",
+                    "Verificați datele"
+                ]
+            },
+            {
+                code: "-111520",
+                model: "Datecs",
+                displayText: "Pinpad error: Invalid data in header",
+                description: "Eroare PinPad: Informatie eronata in antet",
+                solution: [
+                    "Datele din antet sunt eronate",
+                    "Verificați configurația"
+                ]
+            },
+            {
+                code: "-111521",
+                model: "Datecs",
+                displayText: "Pinpad error: Incorrect password",
+                description: "Eroare PinPad: Parola incorecta",
+                solution: [
+                    "Parola pinpad este incorectă",
+                    " reintroduceți parola"
+                ]
+            },
+            {
+                code: "-111522",
+                model: "Datecs",
+                displayText: "Pinpad error: Invalid key format",
+                description: "Eroare PinPad: Format cheie invalid",
+                solution: [
+                    "Formatul cheii este invalid",
+                    "Verificați configurația"
+                ]
+            },
+            {
+                code: "-111523",
+                model: "Datecs",
+                displayText: "Pinpad error: General error in smart card reader",
+                description: "Eroare PinPad: Eroare generala cititor cip",
+                solution: [
+                    "Eroare generală în cititorul de carduri",
+                    "Verificați cititorul"
+                ]
+            },
+            {
+                code: "-111524",
+                model: "Datecs",
+                displayText: "Pinpad error: Error code returned from HAL functions",
+                description: "Eroare PinPad: Cod eroare returnat de functii HAL",
+                solution: [
+                    "Eroare hardware pinpad",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-111525",
+                model: "Datecs",
+                displayText: "Pinpad error: Invalid key (may not be present)",
+                description: "Eroare PinPad: Cheie invalida",
+                solution: [
+                    "Cheia este invalidă sau lipsește",
+                    "Verificați configurația"
+                ]
+            },
+            {
+                code: "-111526",
+                model: "Datecs",
+                displayText: "Pinpad error: The PIN length is less than 4 or bigger than 12",
+                description: "Eroare PinPad: Lungimea PIN este mai mica de 4 sau mai mare de 12",
+                solution: [
+                    "Lungimea PIN trebuie să fie între 4 și 12 caractere",
+                    "Introduceți un PIN valid"
+                ]
+            },
+            {
+                code: "-111527",
+                model: "Datecs",
+                displayText: "Pinpad error: Issuer or ICC key invalid remainder length",
+                description: "Eroare PinPad: Cheia emitent sau ICC are o lungime invalida",
+                solution: [
+                    "Lungimea cheii emitentului este invalidă",
+                    "Contactați banca"
+                ]
+            },
+            {
+                code: "-111531",
+                model: "Datecs",
+                displayText: "Pinpad error: The action is not permitted",
+                description: "Eroare PinPad: Actiunea nu e permisa",
+                solution: [
+                    "Acțiunea nu este permisă",
+                    "Verificați permisiunile"
+                ]
+            },
+            {
+                code: "-111532",
+                model: "Datecs",
+                displayText: "Pinpad error: TMK is not loaded. The action cannot be executed",
+                description: "Eroare PinPad: Cheia TMK nu e incarcata. Actiunea nu poate fi executata",
+                solution: [
+                    "Cheia TMK nu este încărcată",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-111533",
+                model: "Datecs",
+                displayText: "Pinpad error: Wrong key format",
+                description: "Eroare PinPad: Format cheie invalid",
+                solution: [
+                    "Formatul cheii este greșit",
+                    "Verificați configurația"
+                ]
+            },
+            {
+                code: "-111534",
+                model: "Datecs",
+                displayText: "Pinpad error: Duplicated key",
+                description: "Eroare PinPad: Cheie duplicata",
+                solution: [
+                    "Cheia este duplicată",
+                    "Utilizați o cheie unică"
+                ]
+            },
+            {
+                code: "-111535",
+                model: "Datecs",
+                displayText: "Pinpad error: General keyboard error",
+                description: "Eroare PinPad: Eroare generala tastatura",
+                solution: [
+                    "Eroare generală tastatură pinpad",
+                    "Verificați tastatura"
+                ]
+            },
+            {
+                code: "-111536",
+                model: "Datecs",
+                displayText: "Pinpad error: The keyboard is no calibrated",
+                description: "Eroare PinPad: Tastatura nu e calibrata",
+                solution: [
+                    "Tastatura pinpad nu este calibrată",
+                    "Contactați service-ul"
+                ]
+            },
+            {
+                code: "-111537",
+                model: "Datecs",
+                displayText: "Pinpad error: Keyboard bug detected",
+                description: "Eroare PinPad: Eroare tastatura detectata",
+                solution: [
+                    "Eroare detectată în tastatura pinpad",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-111538",
+                model: "Datecs",
+                displayText: "Pinpad error: The device is busy try again",
+                description: "Eroare PinPad: Aparatul este ocupat",
+                solution: [
+                    "Pinpad-ul este ocupat",
+                    "Încercați din nou"
+                ]
+            },
+            {
+                code: "-111539",
+                model: "Datecs",
+                displayText: "Pinpad error: Device is tampered",
+                description: "Eroare PinPad: Aparatul este corupt",
+                solution: [
+                    "Pinpad-ul a fost modificat sau este corupt",
+                    "Contactați service-ul imediat"
+                ],
+                urgent: true
+            },
+            {
+                code: "-111540",
+                model: "Datecs",
+                displayText: "Pinpad error: Error in encrypted head",
+                description: "Eroare PinPad: Eroare in antetul incriptat",
+                solution: [
+                    "Eroare în antetul criptat",
+                    "Verificați securitatea"
+                ]
+            },
+            {
+                code: "-111541",
+                model: "Datecs",
+                displayText: "Pinpad error: The button 'OK' is pressed",
+                description: "Eroare PinPad: Tasta 'OK' este apasata",
+                solution: [
+                    "Tasta OK a fost apăsată",
+                    "Continuați"
+                ]
+            },
+            {
+                code: "-111542",
+                model: "Datecs",
+                displayText: "Pinpad error: Wrong PAN",
+                description: "Eroare PinPad: Numar card incorect",
+                solution: [
+                    "Numărul cardului este incorect",
+                    " reintroduceți cardul"
+                ]
+            },
+            {
+                code: "-111543",
+                model: "Datecs",
+                displayText: "Pinpad error: Out of memory",
+                description: "Eroare PinPad: Depasire memorie",
+                solution: [
+                    "Memorie insuficientă în pinpad",
+                    "Reporniți pinpad-ul"
+                ]
+            },
+            {
+                code: "-111544",
+                model: "Datecs",
+                displayText: "Pinpad error: EMV error",
+                description: "Eroare PinPad: Eroare EMV",
+                solution: [
+                    "Eroare EMV",
+                    "Verificați cardul"
+                ]
+            },
+            {
+                code: "-111545",
+                model: "Datecs",
+                displayText: "Pinpad error: Cryptographic error",
+                description: "Eroare PinPad: Eroare criptografica",
+                solution: [
+                    "Eroare criptografică",
+                    "Contactați banca"
+                ]
+            },
+            {
+                code: "-111546",
+                model: "Datecs",
+                displayText: "Pinpad error: Communication error",
+                description: "Eroare PinPad: Eroare de comunicatie",
+                solution: [
+                    "Eroare de comunicare cu pinpad-ul",
+                    "Verificați conexiunea"
+                ]
+            },
+            {
+                code: "-111547",
+                model: "Datecs",
+                displayText: "Pinpad error: Invalid firmware version",
+                description: "Eroare PinPad: Versiune firmware invalida",
+                solution: [
+                    "Versiunea firmware pinpad este invalidă",
+                    "Actualizați firmware-ul"
+                ]
+            },
+            {
+                code: "-111548",
+                model: "Datecs",
+                displayText: "Pinpad error: Printer is out of paper",
+                description: "Eroare PinPad: Lipsa hartie la imprimanta",
+                solution: [
+                    "Imprimanta pinpad nu are hârtie",
+                    "Încărcați hârtie în pinpad"
+                ]
+            },
+            {
+                code: "-111549",
+                model: "Datecs",
+                displayText: "Pinpad error: Printer is overheated",
+                description: "Eroare PinPad: Imprimanta supraincalzita",
+                solution: [
+                    "Imprimanta pinpad este supraîncălzită",
+                    "Așteptați răcirea"
+                ]
+            },
+            {
+                code: "-111550",
+                model: "Datecs",
+                displayText: "Pinpad error: Device is not connected",
+                description: "Eroare PinPad: Aparatul nu e conectat",
+                solution: [
+                    "Pinpad-ul nu este conectat",
+                    "Verificați conexiunea"
+                ]
+            },
+            {
+                code: "-111551",
+                model: "Datecs",
+                displayText: "Pinpad error: Use the chip reader",
+                description: "Eroare PinPad: Folositi cititorul cip",
+                solution: [
+                    "Folosiți cititorul de cip pentru card",
+                    "Introduceți cardul în cititorul de cip"
+                ]
+            },
+            {
+                code: "-111552",
+                model: "Datecs",
+                displayText: "Pinpad error: End the day first",
+                description: "Eroare PinPad: Intai, inchideti ziua",
+                solution: [
+                    "Închideți mai întâi ziua fiscală",
+                    "Efectuați raportul Z"
+                ]
+            },
+            {
+                code: "-111554",
+                model: "Datecs",
+                displayText: "Pinpad error: Error from Borica",
+                description: "Eroare PinPad: Eroare de la host",
+                solution: [
+                    "Eroare de la host-ul bancar",
+                    "Contactați banca"
+                ]
+            },
+            {
+                code: "-111555",
+                model: "Datecs",
+                displayText: "Pinpad error: No connection with pinpad",
+                description: "Eroare PinPad: Nu exista conexiune cu PinPad",
+                solution: [
+                    "Nu există conexiune cu pinpad-ul",
+                    "Verificați cablurile"
+                ]
+            },
+            {
+                code: "-111556",
+                model: "Datecs",
+                displayText: "Pinpad error: Success in pinpad unsuccess in ECR",
+                description: "Eroare PinPad: Conectare cu succes la PinPad - esuata la AMEF",
+                solution: [
+                    "Conexiune reușită cu pinpad-ul dar eșuată cu casa",
+                    "Reporniți ambele dispozitive"
+                ]
+            },
+            {
+                code: "-111557",
+                model: "Datecs",
+                displayText: "Pinpad error: Not configured connection between fiscal device and PinPad",
+                description: "Eroare PinPad: Conectare neconfigurata intre AMEF si PinPad",
+                solution: [
+                    "Conexiunea dintre casă și pinpad nu este configurată",
+                    "Configurați conexiunea"
+                ]
+            },
+            {
+                code: "-111558",
+                model: "Datecs",
+                displayText: "Pinpad error: The last transactions are equals or connection is interrupted - try again",
+                description: "Eroare PinPad: Ultimele tranzactii sunt egale sau conexiunea e intrerupta- Incercati inca odata",
+                solution: [
+                    "Ultimele tranzacții sunt identice sau conexiunea este întreruptă",
+                    "Încercați din nou"
+                ]
+            },
+            {
+                code: "-111559",
+                model: "Datecs",
+                displayText: "Pinpad error: Payment type: debit/credit card via PinPad. In the fiscal receipt is allowed only one payment with such type",
+                description: "Eroare PinPad: Tip de plata: card debit/credit via PinPad. In AMEF e permisa doar o tranzactie de acest tip",
+                solution: [
+                    "O singură plată cu card este permisă pe bon",
+                    "Verificați plățile"
+                ]
+            },
+            {
+                code: "-111560",
+                model: "Datecs",
+                displayText: "Pinpad error: Unknown result of the transaction between fiscal device and PinPad",
+                description: "Eroare PinPad: Nu s-a receptionat raspuns la tranzactie",
+                solution: [
+                    "Nu s-a primit răspuns de la pinpad",
+                    "Verificați starea tranzacției"
+                ]
+            },
+            {
+                code: "-111561",
+                model: "Datecs",
+                displayText: "Pinpad error: Pinpad type not configured",
+                description: "Eroare PinPad: Tipul PinPad nu e configurat",
+                solution: [
+                    "Tipul pinpad-ului nu este configurat",
+                    "Configurați tipul corect"
+                ]
+            },
+            {
+                code: "-111700",
+                model: "Datecs",
+                displayText: "Pinpad error: Invalid ammount",
+                description: "Eroare PinPad: Suma incorecta",
+                solution: [
+                    "Suma introdusă este incorectă",
+                    "Verificați suma"
+                ]
+            },
+            {
+                code: "-111701",
+                model: "Datecs",
+                displayText: "Pinpad error: Transaction not found",
+                description: "Eroare PinPad: Tranzactia nu exista",
+                solution: [
+                    "Tranzacția nu a fost găsită",
+                    "Verificați ID-ul tranzacției"
+                ]
+            },
+            {
+                code: "-111702",
+                model: "Datecs",
+                displayText: "Pinpad error: The file is empty",
+                description: "Eroare PinPad: Fisier gol",
+                solution: [
+                    "Fișierul este gol",
+                    "Verificați datele"
+                ]
+            },
+            {
+                code: "-111703",
+                model: "Datecs",
+                displayText: "Entered cashback is bigger than cashback limit",
+                description: "Eroare PinPad: Valoare Cashback este mai mare decat limita de cashback",
+                solution: [
+                    "Cashback-ul depășește limita",
+                    "Reduceți suma de cashback"
+                ]
+            },
+            
+            // ----- SCALE REMOTE CONTROL (111800 - 111899) -----
+            {
+                code: "-111800",
+                model: "Datecs",
+                displayText: "ERR_SCALE_NOT_RESPOND",
+                description: "ERR_CANTARUL_NU_RASPUNDE",
+                solution: [
+                    "Cântarul nu răspunde",
+                    "Verificați conexiunea cu cântarul"
+                ]
+            },
+            {
+                code: "-111801",
+                model: "Datecs",
+                displayText: "ERR_SCALE_NOT_CALCULATED",
+                description: "ERR_CANTARUL_NU_CALCULEAZA",
+                solution: [
+                    "Cântarul nu calculează",
+                    "Verificați starea cântarului"
+                ]
+            },
+            {
+                code: "-111802",
+                model: "Datecs",
+                displayText: "ERR_SCALE_WRONG_RESPONSE",
+                description: "ERR_CANTAR_RASPUNS_INCORECT",
+                solution: [
+                    "Răspuns incorect de la cântar",
+                    "Verificați protocolul de comunicare"
+                ]
+            },
+            {
+                code: "-111803",
+                model: "Datecs",
+                displayText: "ERR_SCALE_ZERO_WEIGHT",
+                description: "ERR_CANTAR_ZERO_GREUTATE",
+                solution: [
+                    "Greutate zero de la cântar",
+                    "Plasați produsul pe cântar"
+                ]
+            },
+            {
+                code: "-111804",
+                model: "Datecs",
+                displayText: "ERR_SCALE_NEGATIVE_WEIGHT",
+                description: "ERR_CANTAR_GREUTATE_NEGATIVA",
+                solution: [
+                    "Greutate negativă de la cântar",
+                    "Verificați cântarul"
+                ]
+            },
+            {
+                code: "-111805",
+                model: "Datecs",
+                displayText: "ERR_SCALE_T_WRONG_INTF",
+                description: "ERR_CANTAR_INTERFATA_INCORECTA",
+                solution: [
+                    "Interfață incorectă pentru cântar",
+                    "Verificați setările"
+                ]
+            },
+            {
+                code: "-111806",
+                model: "Datecs",
+                displayText: "ERR_SCALE_T_CONNECT",
+                description: "ERR_CANTAR_T_CONEXIUNE",
+                solution: [
+                    "Eroare de conexiune cu cântarul",
+                    "Verificați cablurile"
+                ]
+            },
+            {
+                code: "-111807",
+                model: "Datecs",
+                displayText: "ERR_SCALE_SEND",
+                description: "ERR_CANTAR_CERERE",
+                solution: [
+                    "Eroare la trimiterea cererii către cântar",
+                    "Verificați comunicarea"
+                ]
+            },
+            {
+                code: "-111808",
+                model: "Datecs",
+                displayText: "ERR_SCALE_RECEIVE",
+                description: "ERR_CANTAR_RASPUNS",
+                solution: [
+                    "Eroare la primirea răspunsului de la cântar",
+                    "Verificați comunicarea"
+                ]
+            },
+            {
+                code: "-111809",
+                model: "Datecs",
+                displayText: "ERR_SCALE_FILE_GENERATE",
+                description: "ERR_CANTAR_GENERARE_FISIER",
+                solution: [
+                    "Eroare la generarea fișierului pentru cântar",
+                    "Verificați spațiul disponibil"
+                ]
+            },
+            {
+                code: "-111810",
+                model: "Datecs",
+                displayText: "ERR_SCALE_NOT_CONFIG",
+                description: "ERR_CANTAR_NU_E_CONFIG",
+                solution: [
+                    "Cântarul nu este configurat",
+                    "Configurați cântarul"
+                ]
+            },
+            
+            // ----- FP_MODE ERRORS (112000 - 112899) -----
             {
                 code: "-112000",
                 model: "Datecs",
                 displayText: "Fiscal printer error: Fiscal printer invalid command",
                 description: "Eroare imprimanta fiscala: Comanda gresita imprimanta fiscala",
                 solution: [
-                    "Verificați comanda trimisă",
-                    "Consultați manualul de comandă"
+                    "Comandă invalidă pentru imprimanta fiscală",
+                    "Verificați comanda"
                 ]
             },
             {
@@ -2514,8 +6154,8 @@
                 displayText: "Fiscal printer error: Fiscal printer command invalid syntax",
                 description: "Eroare imprimanta fiscala: Sintaxa gresita in comanda imprimanta fiscala",
                 solution: [
-                    "Corectați sintaxa comenzii",
-                    "Verificați parametrii"
+                    "Sintaxă greșită în comanda pentru imprimantă",
+                    "Corectați sintaxa"
                 ]
             },
             {
@@ -2524,8 +6164,8 @@
                 displayText: "Fiscal printer error: Command is not permitted",
                 description: "Eroare imprimanta fiscala: Comanda nu e permisa",
                 solution: [
-                    "Verificați permisiunile",
-                    "Comanda nu este disponibilă în acest mod"
+                    "Comanda nu este permisă",
+                    "Verificați permisiunile"
                 ]
             },
             {
@@ -2534,8 +6174,8 @@
                 displayText: "Fiscal printer error: Register overflow",
                 description: "Eroare imprimanta fiscala: Depasire registri",
                 solution: [
-                    "Efectuați Raportul Z",
-                    "Registrele imprimantei sunt pline"
+                    "Depășire registri imprimantă",
+                    "Efectuați raportul Z"
                 ]
             },
             {
@@ -2544,8 +6184,8 @@
                 displayText: "Fiscal printer error: Wrong date/time",
                 description: "Eroare imprimanta fiscala: Data/ora gresita",
                 solution: [
-                    "Setați data și ora corectă",
-                    "Verificați setările de dată"
+                    "Data/ora greșită",
+                    "Setați data și ora corectă"
                 ]
             },
             {
@@ -2554,8 +6194,8 @@
                 displayText: "Fiscal printer error: PC mode is needed",
                 description: "Eroare imprimanta fiscala: Treceti in mod PC",
                 solution: [
-                    "Comutați în modul PC",
-                    "Configurați modul de operare"
+                    "Este necesar modul PC",
+                    "Comutați în modul PC"
                 ]
             },
             {
@@ -2564,8 +6204,8 @@
                 displayText: "Fiscal printer error: No paper",
                 description: "Eroare imprimanta fiscala: Lipsa hartie",
                 solution: [
-                    "Încărcați hârtie termică",
-                    "Verificați senzorul de hârtie"
+                    "Lipsă hârtie în imprimantă",
+                    "Încărcați hârtie"
                 ]
             },
             {
@@ -2574,8 +6214,8 @@
                 displayText: "Fiscal printer error: Cover is open",
                 description: "Eroare imprimanta fiscala: Capac deschis",
                 solution: [
-                    "Închideți capacul imprimantei",
-                    "Verificați dacă este fixat corect"
+                    "Capacul imprimantei este deschis",
+                    "Închideți capacul"
                 ]
             },
             {
@@ -2584,13 +6224,446 @@
                 displayText: "Fiscal printer error: Printing mechanism error",
                 description: "Eroare imprimanta fiscala: Eroare mecanism imprimare",
                 solution: [
-                    "Reporniți imprimanta",
+                    "Eroare mecanism imprimare",
                     "Contactați service-ul"
                 ],
                 urgent: true
             },
+            
+            // ----- FP_MODE ERRORS BY SYNTAX (112100 - 112199) -----
+            {
+                code: "-112101",
+                model: "Datecs",
+                displayText: "Invalid syntax of parameter 1",
+                description: "Sintaxa gresita a parametrului 1",
+                solution: [
+                    "Sintaxă greșită pentru parametrul 1",
+                    "Verificați formatul parametrului 1"
+                ]
+            },
+            {
+                code: "-112102",
+                model: "Datecs",
+                displayText: "Invalid syntax of parameter 2",
+                description: "Sintaxa gresita a parametrului 2",
+                solution: [
+                    "Sintaxă greșită pentru parametrul 2",
+                    "Verificați formatul parametrului 2"
+                ]
+            },
+            {
+                code: "-112103",
+                model: "Datecs",
+                displayText: "Invalid syntax of parameter 3",
+                description: "Sintaxa gresita a parametrului 3",
+                solution: [
+                    "Sintaxă greșită pentru parametrul 3",
+                    "Verificați formatul parametrului 3"
+                ]
+            },
+            {
+                code: "-112104",
+                model: "Datecs",
+                displayText: "Invalid syntax of parameter 4",
+                description: "Sintaxa gresita a parametrului 4",
+                solution: [
+                    "Sintaxă greșită pentru parametrul 4",
+                    "Verificați formatul parametrului 4"
+                ]
+            },
+            {
+                code: "-112105",
+                model: "Datecs",
+                displayText: "Invalid syntax of parameter 5",
+                description: "Sintaxa gresita a parametrului 5",
+                solution: [
+                    "Sintaxă greșită pentru parametrul 5",
+                    "Verificați formatul parametrului 5"
+                ]
+            },
+            {
+                code: "-112106",
+                model: "Datecs",
+                displayText: "Invalid syntax of parameter 6",
+                description: "Sintaxa gresita a parametrului 6",
+                solution: [
+                    "Sintaxă greșită pentru parametrul 6",
+                    "Verificați formatul parametrului 6"
+                ]
+            },
+            {
+                code: "-112107",
+                model: "Datecs",
+                displayText: "Invalid syntax of parameter 7",
+                description: "Sintaxa gresita a parametrului 7",
+                solution: [
+                    "Sintaxă greșită pentru parametrul 7",
+                    "Verificați formatul parametrului 7"
+                ]
+            },
+            {
+                code: "-112108",
+                model: "Datecs",
+                displayText: "Invalid syntax of parameter 8",
+                description: "Sintaxa gresita a parametrului 8",
+                solution: [
+                    "Sintaxă greșită pentru parametrul 8",
+                    "Verificați formatul parametrului 8"
+                ]
+            },
+            {
+                code: "-112109",
+                model: "Datecs",
+                displayText: "Invalid syntax of parameter 9",
+                description: "Sintaxa gresita a parametrului 9",
+                solution: [
+                    "Sintaxă greșită pentru parametrul 9",
+                    "Verificați formatul parametrului 9"
+                ]
+            },
+            {
+                code: "-112110",
+                model: "Datecs",
+                displayText: "Invalid syntax of parameter 10",
+                description: "Sintaxa gresita a parametrului 10",
+                solution: [
+                    "Sintaxă greșită pentru parametrul 10",
+                    "Verificați formatul parametrului 10"
+                ]
+            },
+            
+            // ----- FP_MODE ERRORS BY VALUE (112200 - 112299) -----
+            {
+                code: "-112201",
+                model: "Datecs",
+                displayText: "Bad value of parameter 1",
+                description: "Valoare incorecta a parametrului 1",
+                solution: [
+                    "Valoare incorectă pentru parametrul 1",
+                    "Introduceți o valoare validă"
+                ]
+            },
+            {
+                code: "-112202",
+                model: "Datecs",
+                displayText: "Bad value of parameter 2",
+                description: "Valoare incorecta a parametrului 2",
+                solution: [
+                    "Valoare incorectă pentru parametrul 2",
+                    "Introduceți o valoare validă"
+                ]
+            },
+            {
+                code: "-112203",
+                model: "Datecs",
+                displayText: "Bad value of parameter 3",
+                description: "Valoare incorecta a parametrului 3",
+                solution: [
+                    "Valoare incorectă pentru parametrul 3",
+                    "Introduceți o valoare validă"
+                ]
+            },
+            {
+                code: "-112204",
+                model: "Datecs",
+                displayText: "Bad value of parameter 4",
+                description: "Valoare incorecta a parametrului 4",
+                solution: [
+                    "Valoare incorectă pentru parametrul 4",
+                    "Introduceți o valoare validă"
+                ]
+            },
+            {
+                code: "-112205",
+                model: "Datecs",
+                displayText: "Bad value of parameter 5",
+                description: "Valoare incorecta a parametrului 5",
+                solution: [
+                    "Valoare incorectă pentru parametrul 5",
+                    "Introduceți o valoare validă"
+                ]
+            },
+            
+            // ----- FLASH_MEMORY ERRORS (113000 - 114000) -----
+            {
+                code: "-113000",
+                model: "Datecs",
+                displayText: "Flash memory error: Reading ID error",
+                description: "Eroare memorie flash: Eroare citire ID",
+                solution: [
+                    "Eroare la citirea ID-ului memoriei flash",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-113001",
+                model: "Datecs",
+                displayText: "Flash memory error: Sector size error",
+                description: "Eroare memorie flash: Eroare marime sector",
+                solution: [
+                    "Eroare de dimensiune sector în memoria flash",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            
+            // ----- POS TERMINAL ERRORS (114000 - 114998) -----
+            {
+                code: "-114000",
+                model: "Datecs",
+                displayText: "POS- terminal error: Communication channel is closed",
+                description: "Eroare terminal POS: Canal de comunicatie inchis",
+                solution: [
+                    "Canalul de comunicare cu POS-ul este închis",
+                    "Verificați conexiunea"
+                ]
+            },
+            
+            // ----- CRYPTO MODULE (114998 - 117999) -----
+            {
+                code: "-114998",
+                model: "Datecs",
+                displayText: "Crypto module error: Wrong ID numbers",
+                description: "Eroare modul criptografic: Numar ID gresit",
+                solution: [
+                    "Numerele ID sunt greșite în modulul criptografic",
+                    "Contactați service-ul"
+                ],
+                urgent: true
+            },
+            {
+                code: "-114999",
+                model: "Datecs",
+                displayText: "Crypto module error: Unexpected response",
+                description: "Eroare modul criptografic: Raspuns neconform",
+                solution: [
+                    "Răspuns neașteptat de la modulul criptografic",
+                    "Reporniți aparatul"
+                ]
+            },
+            {
+                code: "-115000",
+                model: "Datecs",
+                displayText: "Crypto module error: CM is disconnected",
+                description: "Eroare modul criptografic: Modul Cripto deconectat",
+                solution: [
+                    "Modulul criptografic este deconectat",
+                    "Verificați conexiunea"
+                ],
+                urgent: true
+            },
+            {
+                code: "-115001",
+                model: "Datecs",
+                displayText: "Crypto module error: Communication error",
+                description: "Eroare modul criptografic: Eroare comunicatie",
+                solution: [
+                    "Eroare de comunicare cu modulul criptografic",
+                    "Verificați conexiunea"
+                ]
+            },
+            {
+                code: "-115002",
+                model: "Datecs",
+                displayText: "Crypto module error: Timeout",
+                description: "Eroare modul criptografic: Timeout",
+                solution: [
+                    "Timeout în comunicarea cu modulul criptografic",
+                    "Încercați din nou"
+                ]
+            },
+            
+            // ----- ONLINE ERRORS (118000 - 119000) -----
+            {
+                code: "-118000",
+                model: "Datecs",
+                displayText: "ECR server error: The connection socket is not open",
+                description: "Eroare server AMEF: Conexiunea nu e deschisa",
+                solution: [
+                    "Socket-ul de conexiune nu este deschis",
+                    "Verificați conexiunea la server"
+                ]
+            },
+            {
+                code: "-118001",
+                model: "Datecs",
+                displayText: "ECR server error: The set for this command is not opened",
+                description: "Eroare server AMEF: Setul pentru aceasta comanda nu este deschis",
+                solution: [
+                    "Setul pentru comandă nu este deschis",
+                    "Verificați starea conexiunii"
+                ]
+            },
+            {
+                code: "-118002",
+                model: "Datecs",
+                displayText: "ECR server error: Wrong parameter",
+                description: "Eroare server AMEF: Parametru incorect",
+                solution: [
+                    "Parametru incorect pentru server",
+                    "Verificați parametrii"
+                ]
+            },
+            {
+                code: "-118003",
+                model: "Datecs",
+                displayText: "ECR server error: Socket send error. Could not send data to server",
+                description: "Eroare server AMEF: Eroare transmitere date. Nu se pot trimite date la server",
+                solution: [
+                    "Eroare la trimiterea datelor către server",
+                    "Verificați conexiunea"
+                ]
+            },
+            {
+                code: "-118004",
+                model: "Datecs",
+                displayText: "ECR server error: Receiving timeout. No data is receivec on time",
+                description: "Eroare server AMEF: Receptie date intarziata. Nu se primesc date de la server",
+                solution: [
+                    "Timeout la primirea datelor de la server",
+                    "Verificați conexiunea"
+                ]
+            },
+            {
+                code: "-118005",
+                model: "Datecs",
+                displayText: "ECR server error: Socket is closed",
+                description: "Eroare server AMEF: Conexiune inchisa",
+                solution: [
+                    "Conexiunea cu serverul a fost închisă",
+                    "Reconectați-vă"
+                ]
+            },
+            {
+                code: "-118006",
+                model: "Datecs",
+                displayText: "ECR server error: Unknown state",
+                description: "Eroare server AMEF: Status necunoscut",
+                solution: [
+                    "Stare necunoscută a serverului",
+                    "Reporniți aplicația"
+                ]
+            },
+            {
+                code: "-118007",
+                model: "Datecs",
+                displayText: "ECR server error: Forbidden operation",
+                description: "Eroare server AMEF: Operatiune interzisa",
+                solution: [
+                    "Operație interzisă pe server",
+                    "Verificați permisiunile"
+                ]
+            },
+            
+            // ----- PROGRAMMING ERROR (120000 - 120999) -----
+            {
+                code: "-120000",
+                model: "Datecs",
+                displayText: "Programming: Name is not unique",
+                description: "Programare: Denumirea nu este unica",
+                solution: [
+                    "Denumirea trebuie să fie unică",
+                    "Alegeți o altă denumire"
+                ]
+            },
+            {
+                code: "-120001",
+                model: "Datecs",
+                displayText: "Programming: Operator password is not unique",
+                description: "Programare: Parola Operator nu este unica",
+                solution: [
+                    "Parola operatorului trebuie să fie unică",
+                    "Alegeți o altă parolă"
+                ]
+            },
+            {
+                code: "-120002",
+                model: "Datecs",
+                displayText: "Programming: Date and time is under the range",
+                description: "Programare: Data si ora sunt in afara intervalului",
+                solution: [
+                    "Data și ora sunt în afara intervalului permis",
+                    "Setați o dată și oră validă"
+                ]
+            },
+            {
+                code: "-120003",
+                model: "Datecs",
+                displayText: "Programming: Date and time is under the range",
+                description: "Programare: Data si ora sunt in afara intervalului",
+                solution: [
+                    "Data și ora sunt în afara intervalului permis",
+                    "Setați o dată și oră validă"
+                ]
+            },
+            
+            // ----- PENDRIVE ERRORS (170000 - 171000) -----
+            {
+                code: "-170000",
+                model: "Datecs",
+                displayText: "USB error: Host init error",
+                description: "Eroare USB: Eroare initializare Host",
+                solution: [
+                    "Eroare la inițializarea host-ului USB",
+                    "Verificați stick-ul USB",
+                    "Reporniți aparatul"
+                ]
+            },
+            {
+                code: "-170001",
+                model: "Datecs",
+                displayText: "USB error: No device",
+                description: "Eroare USB: Lipsa aparat",
+                solution: [
+                    "Niciun dispozitiv USB detectat",
+                    "Introduceți stick-ul USB"
+                ]
+            },
+            {
+                code: "-170002",
+                model: "Datecs",
+                displayText: "USB error: No filesystem",
+                description: "Eroare USB: Lipsa fisier sistem",
+                solution: [
+                    "Sistem de fișiere lipsă pe USB",
+                    "Formatați USB-ul în FAT32"
+                ]
+            },
+            {
+                code: "-170003",
+                model: "Datecs",
+                displayText: "USB error: File open error",
+                description: "Eroare USB: Eroare la deschidere fisier",
+                solution: [
+                    "Eroare la deschiderea fișierului pe USB",
+                    "Verificați integritatea fișierului"
+                ]
+            },
+            {
+                code: "-170004",
+                model: "Datecs",
+                displayText: "USB error: File copy error",
+                description: "Eroare USB: Eroare la copiere fisier",
+                solution: [
+                    "Eroare la copierea fișierului pe USB",
+                    "Verificați spațiul disponibil"
+                ]
+            },
+            {
+                code: "-170005",
+                model: "Datecs",
+                displayText: "USB error: File unpack error",
+                description: "Eroare USB: Eroare la dezarhivare fisier",
+                solution: [
+                    "Eroare la dezarhivarea fișierului",
+                    "Fișierul ar putea fi corupt"
+                ]
+            },
 
-            // Erori Tremol
+            // ========================================
+            // MODEL: TREMOL
+            // ========================================
             {
                 code: "LIPSA HARTIE",
                 model: "Tremol",
@@ -2621,7 +6694,9 @@
                 urgent: true
             },
             
-            // Erori Incotex
+            // ========================================
+            // MODEL: INCOTEX
+            // ========================================
             {
                 code: "Er 1",
                 model: "Incotex",
@@ -3230,7 +7305,9 @@
                 urgent: true
             },
             
-            // Erori Zit
+            // ========================================
+            // MODEL: ZIT
+            // ========================================
             {
                 code: "2",
                 model: "Zit",
@@ -3597,6 +7674,7 @@
         const exampleItems = document.querySelectorAll('.example-item');
         const historySection = document.getElementById('historySection');
         const historyItems = document.getElementById('historyItems');
+        const clearHistoryBtn = document.getElementById('clearHistoryBtn');
 
         // Funcție pentru afișarea erorilor
         function displayErrors(errors) {
@@ -3639,6 +7717,12 @@
             });
             
             resultsContainer.innerHTML = html;
+        }
+
+        // Funcție pentru ștergerea istoricului
+        function clearHistory() {
+            searchHistory = [];
+            updateSearchHistory();
         }
 
         // Funcție pentru căutarea erorilor
@@ -3721,6 +7805,11 @@
             }
         });
 
+        // Eveniment pentru ștergerea istoricului
+        if (clearHistoryBtn) {
+            clearHistoryBtn.addEventListener('click', clearHistory);
+        }
+
         // Evenimente pentru filtrele de model
         modelBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -3741,8 +7830,8 @@
             displayErrors(errorsDatabase);
             resultsCount.textContent = `${errorsDatabase.length} erori în baza de date`;
             
-            // Adaugă câteva exemple în istoric
-            searchHistory = ['-100001', '-100114', '-100403', '-100500', '-111013', '-111024', '91', '30', 'Er 1', 'Er MF 1', '2', '35', 'LIPSA HARTIE', 'RAM RESET'];
+            // Istoricul începe gol
+            searchHistory = [];
             updateSearchHistory();
         });
     </script>
